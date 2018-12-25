@@ -10,12 +10,17 @@ export class InViewport extends React.Component {
     }
     onChange = () => {
         if (this.ref.current) {
-            const { top, bottom } = this.ref.current.getBoundingClientRect();
+            const {
+                top,
+                bottom,
+                width,
+                height
+            } = this.ref.current.getBoundingClientRect();
 
             const inViewport =
                 top <= window.innerHeight + offset && bottom >= -offset;
 
-            this.props.onChange({ inViewport });
+            this.props.onChange({ inViewport, width, height });
         }
     };
     attachListener = () => {
