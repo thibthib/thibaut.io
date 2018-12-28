@@ -17,33 +17,21 @@ export class Side extends React.Component {
         image.src = src;
     };
     componentDidMount() {
-        if (this.props.inViewport && this.props.src !== null) {
+        if (this.props.src) {
             this.loadImage();
         }
     }
     componentDidUpdate(prevProps) {
-        if (
-            this.props.inViewport &&
-            this.props.src !== null &&
-            (!prevProps.inViewport || this.props.src === null)
-        ) {
+        if (this.props.src !== prevProps.src) {
             this.loadImage();
         }
     }
     render() {
         const { loaded } = this.state;
-        const { src, placeholder, inViewport } = this.props;
+        const { src, placeholder } = this.props;
         return (
             <div className={'Side'}>
-                {inViewport && src ? (
-                    <img
-                        src={src}
-                        className={'Side-picture'}
-                        onLoad={() => {
-                            this.setState({ loaded: true });
-                        }}
-                    />
-                ) : null}
+                {src ? <img src={src} className={'Side-picture'} /> : null}
                 <img
                     src={placeholder}
                     className={`Side-placeholder${loaded ? '--hidden' : ''}`}

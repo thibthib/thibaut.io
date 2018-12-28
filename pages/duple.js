@@ -1,6 +1,17 @@
 import Head from 'next/head';
-import { Portrait } from '../components/duple/portrait';
+import { Portrait } from '../components/duple/Portrait';
 import portraits from '../static/portraits/portraits.json';
+
+const sizes = [480, 640, 800, 1080, 1280];
+
+const getSources = name =>
+    sizes.reduce((aggr, size) => ({
+        ...aggr,
+        [size]: {
+            back: `static/portraits/${name}-back-${size}w.jpg`,
+            front: `static/portraits/${name}-front-${size}w.jpg`
+        }
+    }));
 
 const Duple = () => (
     <div>
@@ -12,9 +23,28 @@ const Duple = () => (
                 content="width=device-width, initial-scale=1"
             />
         </Head>
+        <header>
+            <h1>
+                Duple<span> Valse à deux temps</span>
+            </h1>
+        </header>
+        <main>
+            {portraits.map(portrait => (
+                <Portrait
+                    key={portrait.id}
+                    id={portrait.id}
+                    name={portrait.name}
+                    placeholder={portrait.placeholder}
+                    sources={getSources(portrait.name)}
+                />
+            ))}
+        </main>
         <style global jsx>{`
             body {
                 margin: 0;
+                font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI',
+                    Roboto, Oxygen-Sans, Ubuntu, Cantarell, 'Helvetica Neue',
+                    sans-serif;
             }
         `}</style>
         <style jsx>{`
@@ -35,24 +65,6 @@ const Duple = () => (
                 display: block;
             }
         `}</style>
-        <header>
-            <h1>
-                Duple<span> Valse à deux temps</span>
-            </h1>
-        </header>
-        <main>
-            <div className="Tutorial">
-                <div className="Tooltip" />
-            </div>
-            {portraits.map(portrait => (
-                <Portrait
-                    key={portrait.id}
-                    id={portrait.id}
-                    name={portrait.name}
-                    placeholder={portrait.placeholder}
-                />
-            ))}
-        </main>
     </div>
 );
 

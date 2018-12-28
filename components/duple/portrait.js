@@ -1,35 +1,13 @@
 import * as React from 'react';
-import { Side } from './side.js';
-import { InViewport } from './InViewport';
+import { Side } from './Side.js';
+import { ClosestSource } from './ClosestSource';
 import Head from 'next/head';
-
-const sizes = [480, 640, 800, 1080, 1280];
-
-const getSource = (name, face, size) =>
-    `static/portraits/${name}-${face}-${size}w.jpg`;
-
-const getSrcset = (name, face) =>
-    sizes.map(size => `${getSource(name, face, size)} ${size}w`).join(',');
-
-const getMiddle = (min, max) => min + (max - min) / 2;
-
-const getImageSize = (height, width) =>
-    sizes.find((size, index) => {
-        const lowerBound = index === 0 ? 0 : getMiddle(sizes[index - 1], size);
-        const upperBound =
-            index === sizes.length
-                ? Infinity
-                : getMiddle(size, sizes[index + 1]);
-        const biggestDimension =
-            Math.max(height, width) * window.devicePixelRatio;
-        return biggestDimension >= lowerBound && biggestDimension <= upperBound;
-    });
 
 export class Portrait extends React.Component {
     constructor(props) {
         super(props);
+
         this.state = {
-            inViewport: false,
             side: 'back'
         };
     }
@@ -43,68 +21,61 @@ export class Portrait extends React.Component {
             side: 'back'
         });
     };
-    onViewportChange = ({ inViewport, height, width }) => {
-        this.setState({
-            inViewport,
-            height,
-            width
-        });
-    };
     render() {
-        const { name, id, placeholder } = this.props;
-        const { side, inViewport, height, width } = this.state;
-
-        const imageSize = height && width ? getImageSize(height, width) : null;
-        const backSrc =
-            imageSize === null ? null : getSource(name, 'back', imageSize);
-        const frontSrc =
-            imageSize === null ? null : getSource(name, 'front', imageSize);
+        const { sources, id, placeholder } = this.props;
+        const { side } = this.state;
 
         return (
             <div className="Portrait">
-                {imageSize ? (
-                    <Head>
-                        <link
-                            rel="preload"
-                            href={inViewport ? frontSrc : backSrc}
-                            as="image"
-                        />
-                    </Head>
-                ) : null}
-                <InViewport onChange={this.onViewportChange}>
-                    <div
-                        className="Portrait-mask"
-                        onMouseDown={this.showFront}
-                        onMouseUp={this.showBack}
-                        onMouseLeave={this.showBack}
-                        onTouchStart={() => {
-                            this.valseTimer = setTimeout(() => {
-                                this.showFront();
-                            }, 150);
-                        }}
-                        onTouchEnd={this.showBack}
-                        onTouchMove={() => {
-                            clearTimeout(this.valseTimer);
-                        }}
-                    >
-                        <div className="Portrait-id">
-                            {`#${`00${id}`.substr(-3)}`}
-                        </div>
+                <div
+                    className="Portrait-mask"
+                    onMouseDown={this.showFront}
+                    onMouseUp={this.showBack}
+                    onMouseLeave={this.showBack}
+                    onTouchStart={() => {
+                        this.valseTimer = setTimeout(() => {
+                            this.showFront();
+                        }, 150);
+                    }}
+                    onTouchEnd={this.showBack}
+                    onTouchMove={() => {
+                        clearTimeout(this.valseTimer);
+                    }}
+                >
+                    <div className="Portrait-id">
+                        {`#${`00${id}`.substr(-3)}`}
                     </div>
-                    {side === 'back' ? (
-                        <Side
-                            src={backSrc}
-                            placeholder={placeholder['back']}
-                            inViewport={inViewport}
-                        />
-                    ) : (
-                        <Side
-                            src={frontSrc}
-                            placeholder={placeholder['front']}
-                            inViewport={inViewport}
-                        />
+                </div>
+                <ClosestSource sources={sources}>
+                    {({ source, inViewport }) => (
+                        <React.Fragment>
+                            {source !== undefined ? (
+                                <Head>
+                                    <link
+                                        rel="preload"
+                                        href={
+                                            inViewport
+                                                ? source.front
+                                                : source.back
+                                        }
+                                        as="image"
+                                    />
+                                </Head>
+                            ) : null}
+                            {side === 'back' ? (
+                                <Side
+                                    src={inViewport ? source.back : null}
+                                    placeholder={placeholder.back}
+                                />
+                            ) : (
+                                <Side
+                                    src={inViewport ? source.front : null}
+                                    placeholder={placeholder.front}
+                                />
+                            )}
+                        </React.Fragment>
                     )}
-                </InViewport>
+                </ClosestSource>
                 <style jsx>{`
                     .Portrait {
                         position: relative;
