@@ -1,10 +1,13 @@
 {
   "version": 2,
+  "public": true,
+  "alias": "thibaut.io",
   "builds": [
     {
       "src": "package.json",
       "use": "@now/static-build",
       "config": { "distDir": "out" }
     }
-  ]
+  ],
+  "routes": [{ "src": "/duple", "dest": "/duple.html" }]
 }
