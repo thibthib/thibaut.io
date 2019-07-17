@@ -12,8 +12,6 @@ const components = {
       {...props}
       css={css`
         color: inherit;
-        text-decoration: none;
-        border-bottom: 1px solid;
       `}
     />
   ),

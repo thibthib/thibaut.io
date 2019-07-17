@@ -45,7 +45,7 @@ export const Code = ({ children, className }) => {
                   language === 'jsx' && token.types.includes('tag')
                     ? token.types.filter(type => type !== 'punctuation')
                     : token.types;
-                return token.empty ? null : (
+                return token.empty && i === tokens.length - 1 ? null : (
                   <span
                     {...getTokenProps({
                       token: {

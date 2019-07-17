@@ -1,92 +1,178 @@
 import { css, Global } from '@emotion/core';
 
-# 🎯 React Refs 🎯
+# 🎯 Evolution of Refs 🎯
 
-React is all about not having to interact with the DOM directly, like we could do with jQuery for example. But the abstraction does not cover all use cases, like handling the focus for example: you still need a DOM node to be able to give it focus. That's why refs were added.
+In React apps, for some use-cases we still need to handle DOM elements in an imperative manner. One example is focus management. For an input to have focus without the user clicking on it, we need to call `.focus()` on its DOM element. The way to achieve it is to use React Refs.
 
-At first, the API was quite simple. You just had to add a `ref` prop with a name for it to be available on your class component.
+## 🎈 Strings
 
-```jsx
-class MyComponent extends Component {
-  componentDidMount() {
-    this.refs.textInput.focus();
-  }
-  render() {
-    return <input ref={'textInput'} />;
-  }
-}
-```
-
-But this API design was not [without issues](https://github.com/facebook/react/pull/8333#issuecomment-271648615).
-
-The solution was to use callback refs, a new API:
+The first Refs API was quite simple. We had to add a `ref` prop with a string name on any element for it to be available on your class component:
 
 ```jsx
 class MyComponent extends Component {
   componentDidMount() {
-    this.textInput.focus();
+    this.refs.input.focus();
   }
   render() {
-    return (
-      <input
-        ref={node => {
-          this.textInput = node;
-        }}
-      />
-    );
+    return <input ref={'input'} />;
   }
 }
 ```
 
-But this API design also had some flaws. For example, the above example could lead to `undefined` node at some point, and this often ended up in errors in your console. In my example, this was due because the `ref` callback is an inline function, and so at every render it changes. And when the ref callback changed, React first calls the previous version with `undefined`, and then called the new one with the actual `node` value. To fix this issue, we just had to use a class function:
+But this API design was not without [some](https://github.com/facebook/react/issues/1373) [issues](https://github.com/facebook/react/pull/8333#issuecomment-271648615), like the inability to get several Refs on a single element. So the React team came up with a new solution.
+
+## 📞 Callbacks
+
+This time, we pass a function in the `ref` prop, that takes the DOM element as its argument. We can then store this element and use it later.
 
 ```jsx
 class MyComponent extends Component {
   componentDidMount() {
-    this.textInput.focus();
-  }
-  setRef(node) {
-    this.textInput = node;
+    if (this.input !== null) {
+      this.input.focus();
+    }
   }
   render() {
-    return <input ref={this.setRef} />;
+    return <input ref={element => (this.input = element)} />;
   }
 }
 ```
 
-This was an easy mistake to make, that bite us a couple times in the past !
+But this API design has some flaws. It's a bit more complex to handle that the string name API, and it has some subleties that can bite. For example, when the `ref` prop is an inline function, every render [will call it twice](https://reactjs.org/docs/refs-and-the-dom.html#caveats-with-callback-refs): first with `null`, then with the element. It's not the case with class methods, but it's easy to forget that we need to check if the element is not null before consuming it.
 
-And then in 16.3 a new `createRef` API was released.
+## 🐣 `createRef`
+
+With the version 16.3, a new `createRef` API was released:
 
 ```jsx
 class MyComponent extends Component {
   constructor(props) {
     super(props);
-    this.textInput = React.createRef();
+    this.inputRef = React.createRef();
   }
   componentDidMount() {
-    this.textInput.current.focus();
+    if (this.inputRef.current !== null) {
+      this.inputRef.current.focus();
+    }
   }
   render() {
-    return <input ref={this.textInput} />;
+    return <input ref={this.inputRef} />;
   }
 }
 ```
 
-(
+It aims to restore the convenience of using string Refs without their drawbacks. We don't have to handle the element assignment to a local variable in every render anymore ! We now get a `RefObject` to consume, with a `current` property that will hold the DOM element, as its TypeScript definition shows:
 
-  <Global
-    styles={css`
-      body {
-        background-color: #021c31;
-        color: #d6deeb;
-        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
-          "Oxygen-Sans", Ubuntu, Cantarell, "Helvetica Neue";
-        margin: 12vw auto;
-        font-size: 1.2em;
-        max-width: 900px;
-        line-height: 1.4;
+```ts
+interface RefObject<T> {
+  readonly current: T | null;
+}
+```
+
+But a big piece was still missing: function components support.
+
+## 🎣 `useRef`
+
+Along with many other things, React 16.8 brought the new `useRef` hook.
+
+```jsx
+const MyComponent = () => {
+  const inputRef = React.useRef(null);
+
+  React.useEffect(() => {
+    if (inputRef.current !== null) {
+      inputRef.current.focus();
+    }
+  }, []);
+
+  return <input ref={inputRef} />;
+};
+```
+
+But `useRef` can be used to do more that holding a DOM element. It has been designed to hold any value accross renders in a function component. It's a replacement of the simple `this.myVariable` we can use in class components. The TypeScript definition of the returned object is a bit different than the one from `createRef`: the `current` property is not `readonly` anymore:
+
+```ts
+interface MutableRefObject<T> {
+  current: T;
+}
+```
+
+For example, if we want to handle an interval in a component, and clear it when the component is unmounting:
+
+```jsx
+const MyComponent = () => {
+  const intervalRef = React.useRef(null);
+
+  React.useEffect(() => {
+    intervalRef.current = window.setInterval(() => {
+      // do something
+    }, 1000);
+
+    return () => {
+      if (intervalRef.current !== null) {
+        window.clearInterval(intervalRef.current);
       }
-    `}
-  />
-)````
+    };
+  }, []);
+
+  return <div />;
+};
+```
+
+## ⏩ `forwardRef`
+
+The last way of getting a DOM element is with `forwardRef`. It's an API to get DOM elements from a child element directly<sup>[[2]](#forwardref-api)</sup>:
+
+```jsx
+const MyInput = React.forwardRef((props, ref) => <input ref={ref} />);
+
+class MyComponent extends Component {
+  constructor(props) {
+    super(props);
+    this.childRef = React.createRef();
+  }
+  componentDidMount() {
+    this.childRef.current.focus();
+  }
+  render() {
+    return <MyInput ref={this.childRef} />;
+  }
+}
+```
+
+The parent component should be able use `createRef`, `useRef` or callback refs, so `forwardRef` is using a new type<sup>[[3]](#forwardref-definition)</sup> of `ref`:
+
+```ts
+type Ref<T> = (instance: T | null) => void | RefObject<T> | null;
+```
+
+## ☝️ Instances
+
+React Refs do not handle only DOM elements. We already saw they can now handle mutable values in function components via the `useRef` hook. But since the beginning, they were also designed to handle component instances. When adding a `ref` prop on a custom component – like `MyInput` – we get the instance of the component instead of a DOM element. We can then store it and use it, but handling instances is for extreme use-cases only. The `useImperativeHandle` hook exists to do this with with function components.
+
+## 🛠 `ref` usage
+
+Now that we've seen most ways of using Refs, the best one is still not to use them. As mentioned in the docs, please use Refs only for some [some specific use-cases](https://reactjs.org/docs/refs-and-the-dom.html#when-to-use-refs). Imperative APIs do not fit well in the classic flow of how React apps run, and most things can written in a declarative way
+
+---
+
+<a name="focus">[1]</a> As focus management [is really hard](https://github.com/reactjs/rfcs/issues/104) in React apps, we may see [new APIs](https://github.com/facebook/react/issues/16009) may in future version of React. Keep an eye on this issue ! 👀
+
+<a name="forwardref-api">[2]</a> The `forwardRef` API may be improved [in the future](https://github.com/reactjs/rfcs/pull/107), removing the need for using `React.forwardRef` altogether.
+
+<a name="forwardref-definition">[3]</a> The `forwardRef` definition does not match exaclty [the source](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/react/index.d.ts#L84), but the difference is not really relevant to our subject.
+
+<Global
+  styles={css`
+    body {
+      background-color: #021c31;
+      color: #d6deeb;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Oxygen-Sans', Ubuntu,
+        Cantarell, 'Helvetica Neue';
+      margin: 12vw auto;
+      font-size: 1.2em;
+      max-width: 900px;
+      line-height: 1.4;
+    }
+  `}
+/>
