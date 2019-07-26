@@ -36,7 +36,7 @@ export const theme /*: PrismTheme */ = {
     {
       types: ['comment'],
       style: {
-        color: 'rgb(99, 119, 119)',
+        color: 'rgb(109, 131, 131)',
       },
     },
     {

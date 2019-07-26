@@ -3,6 +3,7 @@ import App, { Container } from 'next/app';
 import { MDXProvider } from '@mdx-js/react';
 import { css } from '@emotion/core';
 import { Code, InlineCode } from '../components/Code';
+import { PostWrapper } from '../components/PostWrapper';
 
 const components = {
   inlineCode: props => <InlineCode {...props} />,
@@ -12,6 +13,15 @@ const components = {
       {...props}
       css={css`
         color: inherit;
+      `}
+    />
+  ),
+  wrapper: props => <PostWrapper {...props} />,
+  em: props => (
+    <em
+      {...props}
+      css={css`
+        color: hsl(217, 34%, 78%);
       `}
     />
   ),

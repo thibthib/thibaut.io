@@ -35,6 +35,11 @@ export const Code = ({ children, className }) => {
             padding: 1.2vw;
             font-size: 0.8em;
             border-radius: 4px;
+            overflow-x: scroll;
+
+            @media (max-width: 767px) {
+              margin: 0 -6vw;
+            }
           `}
           style={style}
         >
