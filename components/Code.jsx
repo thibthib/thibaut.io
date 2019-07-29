@@ -10,10 +10,10 @@ const monospaceFont = css`
 export const InlineCode = ({ children }) => {
   return (
     <code
-      css={css`
+      css={theme => css`
         ${monospaceFont}
-        background-color: ${theme.plain.backgroundColor};
-        color: #7fdbca;
+        background-color: ${theme.secondaryBackgound};
+        color: ${theme.highlightedText};
         border-radius: 2px;
         padding: 0.1em 0.2em;
       `}

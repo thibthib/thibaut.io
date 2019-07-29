@@ -1,12 +1,9 @@
-// @flow
-// Converted automatically using ./tools/themeFromVsCode
-
-/*:: import type { PrismTheme } from '../src/types' */
+import { theme as NightOwl } from './themes/NightOwl';
 
 export const theme /*: PrismTheme */ = {
   plain: {
-    color: '#d6deeb',
-    backgroundColor: '#011627',
+    color: NightOwl.text,
+    backgroundColor: NightOwl.secondaryBackgound,
   },
   styles: [
     {
