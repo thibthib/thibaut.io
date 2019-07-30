@@ -4,11 +4,12 @@ export const meta = {
   date: 'July 27, 2019',
 };
 
-In React apps, for some use-cases we still need to handle DOM elements directly. One example is focus management. To give an input element focus without the user clicking on it, we need to call [`input.focus()`](https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/focus). The way to achieve this is to use React Refs, but as their API evolved quite a bit, let's see the different ways to handle them.
+For React applications, the DOM elements need sometime to be handled directly. One example being: **Focus Management**: to give an *input element* focus without a user clicking on it, you need to call [`input.focus()`](https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/focus). React Refs would achieve this, but as their API evolved, there is now new ways to handle them. ```
+
 
 ## 🎈 Strings
 
-The first Refs API was quite simple. We had to add a `ref` prop with a string name on any element for it to be available on your class component:
+The first React Refs API was straightforward: *Strings Refs*. Adding a `ref` prop with a string name on any element made it  available on your class component:
 
 ```jsx
 class MyComponent extends Component {
@@ -21,11 +22,11 @@ class MyComponent extends Component {
 }
 ```
 
-But this API design was not without [some](https://github.com/facebook/react/issues/1373) [issues](https://github.com/facebook/react/pull/8333#issuecomment-271648615), like the inability to get several Refs on a single element. So the React team came up with a new solution.
+But this API design was not without some issues. For context, look at [React issue #1373](https://github.com/facebook/react/issues/1373) and more precisely [this comment from @gaearon](https://github.com/facebook/react/pull/8333#issuecomment-271648615) explaining the main issue: **the inability to get several Refs on a single element**. So the React team came up with a new API: **Callbacks**.
 
 ## 📞 Callbacks
 
-This time, we pass a function in the `ref` prop, that takes the DOM element as its argument. We can then store this element and use it later.
+This time, a function is passed in the `ref` prop, taking the DOM element as its argument, allowing storage and further usage.
 
 ```jsx
 class MyComponent extends Component {
@@ -40,13 +41,13 @@ class MyComponent extends Component {
 }
 ```
 
-With a much finer control over how to handle Refs, most issues with the string API are solved ! We can now have two components that have their own Ref on a single element. This is, to date, the most flexible way to handle Refs.
+With a much finer control over how to handle Refs, most issues from the Strings Refs API are now solved! Two components can have their own Ref in a single element. Which is, to date, the most flexible way to handle Refs.
 
-But this API design has some flaws. It's a bit more complex to handle that the string name API, and it has some subleties that can bite. For example, when the `ref` prop is an inline function, every render [will call it twice](https://reactjs.org/docs/refs-and-the-dom.html#caveats-with-callback-refs): first with `null`, then with the element. It's not the case with class methods, but it's easy to forget that we need to check if the element is not null before consuming it.
+But this API design has some flaws. It's a bit more complex than the String Refs API, and it has some watch-out-or-you-die-subtleties. For example, when the `ref` prop is an inline function, [every render calls it twice](https://reactjs.org/docs/refs-and-the-dom.html#caveats-with-callback-refs): first with `null`, then with the element. It's not the case with class methods, but it's easy to forget that we need to check if the element is not `null` before consuming it.
 
 ## 🐣 `createRef`
 
-With the version 16.3, a new `createRef` API was released:
+Version 16.3 of React introduced a new `createRef` API. Our previous example has now become:
 
 ```jsx
 class MyComponent extends Component {
@@ -65,7 +66,7 @@ class MyComponent extends Component {
 }
 ```
 
-It aims to restore the convenience of using string Refs without their drawbacks. We don't have to handle the element assignment to a local variable in every render anymore ! We now get a `RefObject` to consume, with a `current` property that will hold the DOM element, as its TypeScript definition shows:
+This new API aims to restore the convenience of using String Refs without their drawbacks: element assignment to a local variable doesn't have to be handled in every render anymore! We now get a `RefObject` to consume, with a `current` property that holds the DOM element as its TypeScript definition shows:
 
 ```ts
 interface RefObject<T> {
@@ -77,15 +78,15 @@ But a big piece was still missing: function components support.
 
 ## 🎣 `useRef`
 
-Along with many other things, React 16.8 brought the new `useRef` hook.
+Along with many other things, React 16.8 brought the new `useRef` hook:
 
 ```jsx
 const MyComponent = () => {
   const inputRef = React.useRef(null);
 
   // React.useEffect(fn, []) is the hook way of
-  // of calling a function when the component mounts
-  // https://reactjs.org/docs/hooks-effect.html
+  // calling a function when the component mounts
+  // See https://reactjs.org/docs/hooks-effect.html
   React.useEffect(() => {
     if (inputRef.current !== null) {
       inputRef.current.focus();
@@ -96,7 +97,7 @@ const MyComponent = () => {
 };
 ```
 
-And `useRef` can be used to do more that holding a DOM element. It has been designed to hold any value accross renders in a function component. It's a replacement of the simple `this.myVariable` we can use in class components. The TypeScript definition of the returned object is a bit different than the one from `createRef`: the `current` property is not `readonly` anymore:
+`useRef` can be used to do more that holding a DOM element. It has been designed to hold any value across renders in a function component. It's a replacement of the simple `this.myVariable` from class components. The TypeScript definition of the returned object is a bit different than the one from `createRef`: the `current` property is not `readonly` anymore:
 
 ```ts
 interface MutableRefObject<T> {
@@ -124,21 +125,21 @@ const MyComponent = () => {
 };
 ```
 
-When a component uses `forwardRef`, any parent component can pass it a `ref` prop and get access to an inner element. The parent component can use `createRef`, `useRef` or callback refs, so the `ref` parameter received from `forwardRef` is of a new type:
+When a component uses `forwardRef`, any parent component can pass to it a `ref` prop in order to get access to an inner element. The parent component can then use `createRef`, `useRef` or callback Refs, so the `ref` parameter received from `forwardRef` is of a new type:
 
 ```ts
 type Ref<T> = (instance: T | null) => void | RefObject<T> | null;
 ```
 
-_Note: The [actual definition](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/react/index.d.ts#L84) is a bit different, but the difference is not really relevant to our subject._
+_Note: The [actual TypeScript definition](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/react/index.d.ts#L84) is in fact slightly different, but [we don't really care here](https://media.giphy.com/media/otnXaUDqh1qta/giphy.gif)_
 
 _Second note: In the future this API [could be simplified](https://github.com/reactjs/rfcs/pull/107), removing the need for using `React.forwardRef` altogether._
 
 ## 🎁 `useImperativeHandle`
 
-React Refs can handle more than only DOM elements. We already saw we can store mutable values in function components with the `useRef` hook. They were also designed to handle component instances since the beginning. When adding a `ref` prop on a custom component that does not implement `forwardRef`, we get its instance instead of a DOM element.
+React Refs can handle more than only DOM elements. We already saw they can store mutable values in function components with the `useRef` hook. But they were also designed to handle component instances since the beginning. When adding a `ref` prop in a custom component that doesn't implement `forwardRef`, its instance is returned instead of a DOM element.
 
-With the `useImperativeHandle` hook, we can go even further and decide what our component will return via its `ref` prop. It can be pretty useful for some use-cases. For example, some components need a local Ref on an element, as well as forwarding one to its parent. Callback refs can also solve this use-case, but this API simplifies it a lot:
+With the `useImperativeHandle` hook, we can go even further and decide what our component returns via its `ref` prop. Which can be pretty useful for some use-cases. For example, some components need a local Ref on an element, as well as forwarding one to its parent. Callback Refs can also solve this use-case, but this API simplifies it a lot:
 
 ```jsx
 const MyInput = React.forwardRef((props, forwardedRef) => {
@@ -159,8 +160,8 @@ const MyInput = React.forwardRef((props, forwardedRef) => {
 
 ## ⚠️ With great power comes great responsability
 
-As we have seen, there is a lot of different ways to use Refs and get access to a DOM element. But their usage should be very limited to [some specific use-cases](https://reactjs.org/docs/refs-and-the-dom.html#when-to-use-refs). React Refs can be seen as an escape hatch, for when the framework fails to provide a declarative API for a use-case. As such, they should be used only when there is no other way.
+There are lots of different ways to use Refs and get access to a DOM element. But their usage should be very limited to [some specific use-cases](https://reactjs.org/docs/refs-and-the-dom.html#when-to-use-refs). React Refs can be seen as an escape hatch: for when the framework fails to provide a declarative API for a use-case. But as such, they should only be used when there is no other way.
 
-The React team knows that focus management [is hard](https://github.com/reactjs/rfcs/issues/104) to manage in React apps, and [new APIs](https://github.com/facebook/react/issues/16009) could fill this need in the future. Keep an eye on their repositories to see how this RFC evolves !
+Thankfully, the React team is aware that focus management [is hard to implement](https://github.com/reactjs/rfcs/issues/104) in React apps, and [new APIs](https://github.com/facebook/react/issues/16009) could make it easier in the future. Keep an eye (and contribute) on their repositories to see how this RFC evolves!
 
 👋
