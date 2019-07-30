@@ -4,7 +4,7 @@ export const meta = {
   date: 'July 27, 2019',
 };
 
-In React apps, for some use-cases we still need to handle DOM elements directly. One example is focus management. To give an input element focus without the user clicking on it, we need to call [`input.focus()`](https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/focus). The way to achieve it is to use React Refs.
+In React apps, for some use-cases we still need to handle DOM elements directly. One example is focus management. To give an input element focus without the user clicking on it, we need to call [`input.focus()`](https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/focus). The way to achieve this is to use React Refs, but as their API evolved quite a bit, let's see the different ways to handle them.
 
 ## 🎈 Strings
 
@@ -106,7 +106,7 @@ interface MutableRefObject<T> {
 
 ## ⏩ `forwardRef`
 
-The last way of getting access to a DOM element is with `forwardRef`. The particularity of this one is that you can get a Ref on a child component's element directly.
+Until now, we've seen how to get Refs on elements within a React component. The `forwardRef` API aims to solve another use-case: passing Refs between components.
 
 ```jsx
 const MyInput = React.forwardRef((props, ref) => <input ref={ref} />);
@@ -124,7 +124,7 @@ const MyComponent = () => {
 };
 ```
 
-The parent component can use `createRef`, `useRef` or callback refs, so the `ref` parameter received from `forwardRef` is of a new type:
+When a component uses `forwardRef`, any parent component can pass it a `ref` prop and get access to an inner element. The parent component can use `createRef`, `useRef` or callback refs, so the `ref` parameter received from `forwardRef` is of a new type:
 
 ```ts
 type Ref<T> = (instance: T | null) => void | RefObject<T> | null;
@@ -138,7 +138,7 @@ _Second note: In the future this API [could be simplified](https://github.com/re
 
 React Refs can handle more than only DOM elements. We already saw we can store mutable values in function components with the `useRef` hook. They were also designed to handle component instances since the beginning. When adding a `ref` prop on a custom component that does not implement `forwardRef`, we get its instance instead of a DOM element.
 
-With the `useImperativeHandle` hook, we can go even further and decide what our component will return via its `ref` prop. It can be pretty useful when we need to have both a local Ref and a forwarded one:
+With the `useImperativeHandle` hook, we can go even further and decide what our component will return via its `ref` prop. It can be pretty useful for some use-cases. For example, some components need a local Ref on an element, as well as forwarding one to its parent. Callback refs can also solve this use-case, but this API simplifies it a lot:
 
 ```jsx
 const MyInput = React.forwardRef((props, forwardedRef) => {
