@@ -22,7 +22,7 @@ const mainCss = css`
 
 const imageCss = css`
   object-fit: cover;
-  height: 91vh;
+  height: 90vh;
   width: 100vw;
 `;
 
