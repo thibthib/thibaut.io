@@ -21,6 +21,9 @@ export const PostWrapper = props => {
             max-width: 900px;
             line-height: 1.4;
           }
+          h1 {
+            font-size: 1.9em;
+          }
           h2 {
             margin-top: 1.2em;
             line-height: 1.1;
