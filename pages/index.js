@@ -8,7 +8,7 @@ import { EmailLogo } from '../components/icons/Email';
 
 const mainCss = css`
   position: absolute;
-  top: 46%;
+  top: 42%;
   left: 50%;
   width: 80%;
   transform: translate(-50%, -50%);
@@ -22,15 +22,18 @@ const mainCss = css`
 
 const imageCss = css`
   object-fit: cover;
-  height: 100vh;
+  height: 91vh;
   width: 100vw;
 `;
 
-const pagesCss = css`
-  text-align: center;
-  color: hsl(174, 96%, 22%);
-  font-size: 1.2em;
-  line-height: 1.7em;
+const nameCss = css`
+  color: #04d0bb;
+  font-size: 4em;
+  line-height: 1;
+
+  @media (min-width: 320px) {
+    font-size: 3em;
+  }
 `;
 
 const LogoLink = ({ link, label, logo }) => (
@@ -52,32 +55,20 @@ const LogoLink = ({ link, label, logo }) => (
   </a>
 );
 
-const PageLink = ({ emoji, page, label }) => (
+const PageLink = ({ page, label }) => (
   <Link href={page}>
-    <div
+    <a
       css={css`
         text-align: center;
-        color: hsl(174, 96%, 22%);
+        color: white;
         font-size: 1.2em;
-        line-height: 1.7em;
+        line-height: 2em;
+        text-decoration: underline;
+        cursor: pointer;
       `}
     >
-      <span
-        css={css`
-          margin-right: 1em;
-          text-decoration: none;
-        `}
-      >
-        {emoji}
-      </span>
-      <a
-        css={css`
-          text-decoration: underline;
-        `}
-      >
-        {label}
-      </a>
-    </div>
+      {label}
+    </a>
   </Link>
 );
 
@@ -94,7 +85,7 @@ export default () => (
       styles={css`
         body {
           margin: 0;
-          background: rgb(200, 200, 200);
+          background: hsl(174, 96%, 18%);
           font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, Courier, monospace;
         }
       `}
@@ -131,19 +122,13 @@ export default () => (
       />
     </picture>
     <main css={mainCss}>
+      <div css={nameCss}>thibaut</div>
+      <div css={nameCss}>dutartre</div>
       <div
         css={css`
-          color: #04d0bb;
-          font-size: 4em;
-          line-height: 1;
-        `}
-      >
-        thibaut dutartre
-      </div>
-      <div
-        css={css`
-          margin-top: 48px;
+          margin: 48px auto;
           display: flex;
+          max-width: 400px;
         `}
       >
         <LogoLink
@@ -167,22 +152,13 @@ export default () => (
     <div
       css={css`
         position: relative;
-        margin-top: -5vh;
-        height: 5vh;
-        background-image: linear-gradient(rgba(200, 200, 200, 0), rgba(200, 200, 200, 1));
-      `}
-    />
-    <div
-      css={css`
-        position: relative;
-        margin: -7vh 0 4vh;
-        padding: 0 8vw;
+        padding: 2vh 8vw;
         display: flex;
         flex-direction: column;
       `}
     >
-      <PageLink link={'/duple'} emoji={'📸'} label={'Duple'} />
-      <PageLink link={'/refs'} emoji={'🎯'} label={'Evolution of refs'} />
+      <PageLink page={'/duple'} label={'Duple'} />
+      <PageLink page={'/refs'} label={'Evolution of refs'} />
     </div>
   </>
 );
