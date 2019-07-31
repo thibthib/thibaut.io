@@ -9,5 +9,5 @@
       "config": { "distDir": "out" }
     }
   ],
-  "routes": [{ "src": "/duple", "dest": "/duple.html" }]
+  "routes": [{ "src": "/duple", "dest": "/duple.html" }, { "src": "/refs", "dest": "/refs.html" }]
 }

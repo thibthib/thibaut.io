@@ -6,6 +6,7 @@ module.exports = withMDX({
     return {
       '/': { page: '/' },
       '/duple': { page: '/duple' },
+      '/refs': { page: '/refs' },
     };
   },
 });
