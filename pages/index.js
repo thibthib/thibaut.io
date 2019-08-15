@@ -6,58 +6,58 @@ import { GithubLogo } from '../components/icons/Github';
 import { TwitterLogo } from '../components/icons/Twitter';
 import { ExposureLogo } from '../components/icons/Exposure';
 
-const PageLink = ({ href, label, description, logo }) => (
-  <Link href={href} passHref>
-    <a
+const PageLink = React.forwardRef(({ href, label, description, logo }, ref) => (
+  <a
+    href={href}
+    ref={ref}
+    css={css`
+      display: flex;
+      justify-content: flex-start;
+      align-items: center;
+      margin-bottom: ${description ? '2em' : '0.5em'};
+      text-decoration: none;
+    `}
+  >
+    <div
       css={css`
-        display: flex;
-        justify-content: flex-start;
-        align-items: center;
-        margin-bottom: ${description ? '2em' : '0.5em'};
-        text-decoration: none;
+        font-size: 2em;
+        margin-right: 0.6em;
+        width: 1em;
+        height: 1em;
+        line-height: 1em;
+        font-family: sans-serif;
       `}
     >
-      <div
+      {logo}
+    </div>
+    <div>
+      <p
         css={css`
-          font-size: 2em;
-          margin-right: 0.6em;
-          width: 1em;
-          height: 1em;
-          line-height: 1em;
-          font-family: sans-serif;
+          display: block;
+          color: white;
+          font-size: 1.2em;
+          line-height: 2em;
+          text-decoration: underline;
+          margin: 0;
         `}
       >
-        {logo}
-      </div>
-      <div>
+        {label}
+      </p>
+      {description ? (
         <p
           css={css`
-            display: block;
+            margin: 0 0 0.2em;
             color: white;
-            font-size: 1.2em;
-            line-height: 2em;
-            text-decoration: underline;
-            margin: 0;
+            font-style: italic;
+            mix-blend-mode: difference;
           `}
         >
-          {label}
+          {description}
         </p>
-        {description ? (
-          <p
-            css={css`
-              margin: 0 0 0.2em;
-              color: white;
-              font-style: italic;
-              mix-blend-mode: difference;
-            `}
-          >
-            {description}
-          </p>
-        ) : null}
-      </div>
-    </a>
-  </Link>
-);
+      ) : null}
+    </div>
+  </a>
+));
 
 export default () => (
   <>
@@ -82,6 +82,7 @@ export default () => (
       `}
     />
     <img
+      alt="Majorelle blue wall"
       src="static/background-900.jpg"
       srcSet="static/background-900.jpg 900w,
               static/background-1800.jpg 1800w,
@@ -186,18 +187,16 @@ export default () => (
         >
           projects
         </h2>
-        <PageLink
-          href={'/duple'}
-          label={'Duple'}
-          description={'Recto-verso photography'}
-          logo={'📷'}
-        />
-        <PageLink
-          href={'/refs'}
-          label={'Evolution of refs'}
-          description={'With great power comes great responsability'}
-          logo={'🎯'}
-        />
+        <Link href={'/duple'} passHref>
+          <PageLink label={'Duple'} description={'Recto-verso photography'} logo={'📷'} />
+        </Link>
+        <Link href={'/refs'} passHref>
+          <PageLink
+            label={'Evolution of refs'}
+            description={'With great power comes great responsability'}
+            logo={'🎯'}
+          />
+        </Link>
       </div>
     </div>
   </>
