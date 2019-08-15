@@ -4,70 +4,57 @@ import { Global, css } from '@emotion/core';
 import { InstagramLogo } from '../components/icons/Instagram';
 import { GithubLogo } from '../components/icons/Github';
 import { TwitterLogo } from '../components/icons/Twitter';
-import { EmailLogo } from '../components/icons/Email';
+import { ExposureLogo } from '../components/icons/Exposure';
 
-const mainCss = css`
-  position: absolute;
-  top: 42%;
-  left: 50%;
-  width: 80%;
-  transform: translate(-50%, -50%);
-  mix-blend-mode: hard-light;
-  text-align: center;
-
-  @media (min-width: 480px) {
-    width: 40%;
-  }
-`;
-
-const imageCss = css`
-  object-fit: cover;
-  height: 90vh;
-  width: 100vw;
-`;
-
-const nameCss = css`
-  color: #04d0bb;
-  font-size: 4em;
-  line-height: 1;
-
-  @media (min-width: 320px) {
-    font-size: 3em;
-  }
-`;
-
-const LogoLink = ({ link, label, logo }) => (
-  <a
-    href={link}
-    aria-label={label}
-    css={css`
-      flex: 1;
-      text-align: center;
-
-      & > svg {
-        fill: #04d0bb;
-        width: 36px;
-        height: 36px;
-      }
-    `}
-  >
-    {logo}
-  </a>
-);
-
-const PageLink = ({ page, label }) => (
-  <Link href={page}>
+const PageLink = ({ href, label, description, logo }) => (
+  <Link href={href} passHref>
     <a
       css={css`
-        text-align: center;
-        color: white;
-        font-size: 1.2em;
-        line-height: 2em;
-        text-decoration: underline;
-        cursor: pointer;
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+        margin-bottom: ${description ? '2em' : '0.5em'};
+        text-decoration: none;
       `}
     >
-      {label}
+      <div
+        css={css`
+          font-size: 2em;
+          margin-right: 0.6em;
+          width: 1em;
+          height: 1em;
+          line-height: 1em;
+          font-family: sans-serif;
+        `}
+      >
+        {logo}
+      </div>
+      <div>
+        <p
+          css={css`
+            display: block;
+            color: white;
+            font-size: 1.2em;
+            line-height: 2em;
+            text-decoration: underline;
+            margin: 0;
+          `}
+        >
+          {label}
+        </p>
+        {description ? (
+          <p
+            css={css`
+              margin: 0 0 0.2em;
+              color: white;
+              font-style: italic;
+              mix-blend-mode: difference;
+            `}
+          >
+            {description}
+          </p>
+        ) : null}
+      </div>
     </a>
   </Link>
 );
@@ -75,90 +62,143 @@ const PageLink = ({ page, label }) => (
 export default () => (
   <>
     <Head>
-      <title>thibaut dutartre</title>
+      <title>thibaut</title>
       <link rel="icon" type="image/png" href="static/favicon.png" />
       <meta name="viewport" content="width=device-width, initial-scale=1" />
-      <meta name="theme-color" content="#04d0bb" />
-      <meta name="Description" content="Thibaut Dutartre's personal website" />
+      <meta name="theme-color" content="#162BAA" />
+      <meta name="description" content="thibaut's personal website" />
     </Head>
     <Global
       styles={css`
         body {
           margin: 0;
-          background: hsl(174, 96%, 18%);
+          background-color: hsl(231, 77%, 38%);
           font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, Courier, monospace;
+        }
+
+        * {
+          box-sizing: border-box;
         }
       `}
     />
-    <picture>
-      <source
-        media="(max-width: 480px)"
-        srcSet="static/background-mobile.webp"
-        type="image/webp"
-        css={imageCss}
-      />
-      <source
-        media="(max-width: 480px)"
-        srcSet="static/background-mobile.jpg"
-        type="image/jpeg"
-        css={imageCss}
-      />
-      <source
-        media="(min-width: 480px)"
-        srcSet="static/background.webp"
-        type="image/webp"
-        css={imageCss}
-      />
-      <source
-        media="(min-width: 480px)"
-        srcSet="static/background.jpg"
-        type="image/jpeg"
-        css={imageCss}
-      />
-      <img
-        src="static/background.jpg"
-        alt="New yorkers staring at their phone screen"
-        css={imageCss}
-      />
-    </picture>
-    <main css={mainCss}>
-      <div css={nameCss}>thibaut</div>
-      <div css={nameCss}>dutartre</div>
-      <div
-        css={css`
-          margin: 48px auto;
-          display: flex;
-          max-width: 400px;
-        `}
-      >
-        <LogoLink
-          link={'https://www.instagram.com/thib_thib'}
-          label={'Instagram logo'}
-          logo={<InstagramLogo />}
-        />
-        <LogoLink
-          link={'https://github.com/thibthib'}
-          label={'Github logo'}
-          logo={<GithubLogo />}
-        />
-        <LogoLink
-          link={'https://twitter.com/thib_thib'}
-          label={'Twitter logo'}
-          logo={<TwitterLogo />}
-        />
-        <LogoLink link={'mailto:t.dutartre@gmail.com'} label={'Email logo'} logo={<EmailLogo />} />
-      </div>
-    </main>
+    <img
+      src="static/background-900.jpg"
+      srcSet="static/background-900.jpg 900w,
+              static/background-1800.jpg 1800w,
+              static/background-2700.jpg 2700w,
+              static/background-3600.jpg 3600w"
+      css={css`
+        object-fit: cover;
+        position: fixed;
+        top: 0;
+        left: 0;
+        height: 100%;
+        width: 100%;
+      `}
+    />
     <div
       css={css`
-        position: relative;
-        padding: 2vh 8vw;
         display: flex;
+        align-items: center;
         flex-direction: column;
+        margin-top: 14vh;
+
+        @media (min-width: 480px) {
+          flex-direction: row;
+          margin-top: 0;
+          height: 100vh;
+        }
       `}
     >
-      <PageLink page={'/duple'} label={'Duple'} />
-      <PageLink page={'/refs'} label={'Evolution of refs'} />
+      <main
+        css={css`
+          position: relative;
+          display: inline-flex;
+          flex-direction: column;
+          width: 100vw;
+          padding: 2em 0;
+
+          @media (min-width: 480px) {
+            width: 50vw;
+          }
+        `}
+      >
+        <h1
+          css={css`
+            color: white;
+            font-weight: normal;
+            text-align: center;
+            margin: 0 auto 1.5em;
+            font-size: 3em;
+          `}
+        >
+          thibaut
+        </h1>
+        <div
+          css={css`
+            margin: 0 auto;
+            display: inline-flex;
+            flex-direction: column;
+
+            svg {
+              mix-blend-mode: difference;
+              fill: white;
+            }
+          `}
+        >
+          <PageLink href={'https://github.com/thibthib'} label={'GitHub'} logo={<GithubLogo />} />
+          <PageLink
+            href={'https://www.instagram.com/thib_thib'}
+            label={'Instagram'}
+            logo={<InstagramLogo />}
+          />
+
+          <PageLink
+            href={'https://twitter.com/thib_thib'}
+            label={'Twitter'}
+            logo={<TwitterLogo />}
+          />
+          <PageLink href={'https://thib.exposure.co'} label={'Exposure'} logo={<ExposureLogo />} />
+        </div>
+      </main>
+      <div
+        css={css`
+          position: relative;
+          padding: 2vh 8vw;
+          display: inline-flex;
+          flex-direction: column;
+          width: 100vw;
+
+          @media (min-width: 480px) {
+            width: 50vw;
+            padding: 2vh 2vw;
+          }
+        `}
+      >
+        <h2
+          css={css`
+            color: white;
+            mix-blend-mode: difference;
+            font-weight: normal;
+            font-size: 1.5em;
+            margin: 1.3em 0;
+          `}
+        >
+          projects
+        </h2>
+        <PageLink
+          href={'/duple'}
+          label={'Duple'}
+          description={'Recto-verso photography'}
+          logo={'📷'}
+        />
+        <PageLink
+          href={'/refs'}
+          label={'Evolution of refs'}
+          description={'With great power comes great responsability'}
+          logo={'🎯'}
+        />
+      </div>
     </div>
   </>
 );
