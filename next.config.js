@@ -7,6 +7,7 @@ module.exports = withMDX({
       '/': { page: '/' },
       '/duple': { page: '/duple' },
       '/refs': { page: '/refs' },
+      '/hexagons': { page: '/hexagons' },
     };
   },
 });
