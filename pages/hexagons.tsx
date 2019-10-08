@@ -1,9 +1,9 @@
 import * as React from 'react';
 import { Global, css } from '@emotion/core';
 import random from 'lodash/random';
-import { Canvas } from './hexagons/Canvas';
-import { Hexagon } from './hexagons/Hexagon';
-import { getRandomHexagon } from './hexagons/random-helpers';
+import { Canvas } from '../components/hexagons/Canvas';
+import { Hexagon } from '../components/hexagons/Hexagon';
+import { getRandomHexagon } from '../components/hexagons/random-helpers';
 
 const baseHue = random(200, 300);
 
