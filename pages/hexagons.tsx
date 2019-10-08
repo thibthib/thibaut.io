@@ -17,16 +17,15 @@ const Page: React.FunctionComponent = () => {
 
   const hexagons = React.useMemo(() => {
     const smallerSize = Math.min(dimensions.width, dimensions.height);
-    const biggerSize = Math.max(dimensions.width, dimensions.height);
-    const horizontalSteps = 1 + Math.round(dimensions.width / smallerSize);
-    const verticalSteps = 1 + Math.round(dimensions.height / smallerSize);
 
+    /* putting big hexagons in the screen corners */
+    /* so that we have the whole screen covered */
     const cornerHexagons = [];
-    for (let i = 0; i < horizontalSteps; i++) {
-      for (let j = 0; j < verticalSteps; j++) {
+    for (let i = 0; i <= Math.round(dimensions.width / smallerSize); i++) {
+      for (let j = 0; j <= Math.round(dimensions.height / smallerSize); j++) {
         cornerHexagons.push(
           getRandomHexagon({
-            baseSize: biggerSize,
+            baseSize: Math.max(dimensions.width, dimensions.height),
             x: [i * dimensions.width, i * dimensions.width],
             y: [j * dimensions.height, j * dimensions.height],
             baseHue,
@@ -35,6 +34,7 @@ const Page: React.FunctionComponent = () => {
       }
     }
 
+    /* Then adding some more hexagons randomly on the screen */
     const extraHexagons = [...Array(random(2, 6))].map(() =>
       getRandomHexagon({
         baseSize: smallerSize,
