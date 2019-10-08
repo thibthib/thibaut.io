@@ -26,8 +26,8 @@ const Page: React.FunctionComponent = () => {
         cornerHexagons.push(
           getRandomHexagon({
             baseSize: Math.max(dimensions.width, dimensions.height),
-            x: [i * dimensions.width, i * dimensions.width],
-            y: [j * dimensions.height, j * dimensions.height],
+            x: i * dimensions.width,
+            y: j * dimensions.height,
             baseHue,
           })
         );
