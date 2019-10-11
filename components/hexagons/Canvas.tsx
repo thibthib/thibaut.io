@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { css } from '@emotion/core';
 
 interface CanvasContext {
   renderingContext: CanvasRenderingContext2D | null;
@@ -29,13 +30,16 @@ export const Canvas: React.FunctionComponent<CanvasProps> = ({ height, width, ch
   /* making the component and the context re-render at every frame */
   const [frameCount, setFrameCount] = React.useState(0);
   React.useEffect(() => {
+    let cancelLoop = false;
     let rafCallback = () => {
-      setFrameCount(frameCount + 1);
+      if (!cancelLoop) {
+        setFrameCount(frameCount + 1);
+      }
     };
     requestAnimationFrame(rafCallback);
 
     return () => {
-      rafCallback = () => {};
+      cancelLoop = true;
     };
   }, [frameCount, setFrameCount]);
 
@@ -46,7 +50,14 @@ export const Canvas: React.FunctionComponent<CanvasProps> = ({ height, width, ch
 
   return (
     <CanvasContext.Provider value={{ renderingContext: context, frame: frameCount }}>
-      <canvas ref={canvasRef} height={height} width={width} />
+      <canvas
+        ref={canvasRef}
+        height={height}
+        width={width}
+        css={css`
+          background-color: white;
+        `}
+      />
       {children}
     </CanvasContext.Provider>
   );

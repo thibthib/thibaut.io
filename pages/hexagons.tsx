@@ -53,6 +53,8 @@ const Page: React.FunctionComponent = () => {
         styles={css`
           body {
             margin: 0;
+            overflow: hidden;
+            background-color: hsl(250, 40%, 50%);
           }
         `}
       />
