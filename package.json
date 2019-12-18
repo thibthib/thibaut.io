@@ -11,17 +11,16 @@
     "@next/mdx": "8.1.0",
     "emotion-theming": "10.0.14",
     "lodash": "4.17.15",
-    "next": "9.0.0",
+    "next": "^9.1.6",
     "prism-react-renderer": "0.1.7",
     "react": "16.8.6",
     "react-dom": "16.8.6"
   },
   "scripts": {
     "dev": "next",
-    "build": "next build",
+    "build": "next build && next export",
     "start": "next start",
     "export": "next export",
-    "now-build": "next build && next export",
     "format": "yarn prettier --write '{{pages,components}/**/,}*.{js,jsx,json,md,mdx}'"
   },
   "devDependencies": {
