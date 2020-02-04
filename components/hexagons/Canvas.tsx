@@ -1,75 +1,93 @@
 import * as React from 'react';
 import { css } from '@emotion/core';
+import random from 'lodash/random';
 
-interface CanvasContext {
-  renderingContext: CanvasRenderingContext2D | null;
-  frame: number;
-}
-const CanvasContext = React.createContext<CanvasContext>({
-  renderingContext: null,
-  frame: 0,
-});
+const CanvasContext = React.createContext<CanvasRenderingContext2D | null>(null);
+const FrameContext = React.createContext<number>(0);
 
 interface CanvasProps {
   height: number;
   width: number;
+  dpr: number;
+  isAnimating?: boolean;
 }
 
-/* This canvas component will re-render at every frame, i.e. ~16ms */
-export const Canvas: React.FunctionComponent<CanvasProps> = ({ height, width, children }) => {
+export const Canvas: React.FunctionComponent<CanvasProps> = ({
+  height,
+  width,
+  dpr,
+  isAnimating,
+  children,
+}) => {
   const canvasRef = React.useRef<HTMLCanvasElement | null>(null);
+  const actualWidth = width * dpr;
+  const actualHeight = height * dpr;
 
-  /* the canvas' context is stored once it's created */
+  // the canvas' context is stored once it's created
   const [context, setContext] = React.useState<CanvasRenderingContext2D | null>(null);
   React.useEffect(() => {
     if (canvasRef.current !== null) {
-      setContext(canvasRef.current.getContext('2d'));
+      const canvasContext = canvasRef.current.getContext('2d');
+      if (canvasContext !== null) {
+        canvasContext.scale(dpr, dpr);
+        canvasContext.globalCompositeOperation = 'soft-light';
+        setContext(canvasContext);
+      }
     }
   }, []);
 
-  /* making the component and the context re-render at every frame */
+  // making the component and the context re-render at every frame
   const [frameCount, setFrameCount] = React.useState(0);
   React.useEffect(() => {
-    let cancelLoop = false;
-    let rafCallback = () => {
-      if (!cancelLoop) {
+    let frameId: number;
+    if (isAnimating) {
+      frameId = requestAnimationFrame(() => {
         setFrameCount(frameCount + 1);
-      }
-    };
-    requestAnimationFrame(rafCallback);
-
+      });
+    }
     return () => {
-      cancelLoop = true;
+      cancelAnimationFrame(frameId);
     };
-  }, [frameCount, setFrameCount]);
+  }, [isAnimating, frameCount, setFrameCount]);
 
-  /* we need to clear the whole canvas before drawing the children */
+  // whenever the canvas' dimensions change, it's automatically cleared
+  // we need to re-draw all its children in this case */
+  React.useLayoutEffect(() => {
+    setFrameCount(random(1, true));
+  }, [width, height]);
+
+  // we need to clear the whole canvas before drawing the children
   if (context !== null) {
-    context.clearRect(0, 0, width, height);
+    context.clearRect(0, 0, actualWidth, actualHeight);
   }
 
+  const styles = React.useMemo(
+    () => css`
+      background-color: white;
+      width: ${width}px;
+      height: ${height}px;
+    `,
+    [width, height]
+  );
+
   return (
-    <CanvasContext.Provider value={{ renderingContext: context, frame: frameCount }}>
-      <canvas
-        ref={canvasRef}
-        height={height}
-        width={width}
-        css={css`
-          background-color: white;
-        `}
-      />
-      {children}
+    <CanvasContext.Provider value={context}>
+      <FrameContext.Provider value={frameCount}>
+        <canvas ref={canvasRef} height={actualHeight} width={actualWidth} css={styles} />
+        {children}
+      </FrameContext.Provider>
     </CanvasContext.Provider>
   );
 };
 
 export const useCanvas = () => {
-  const { renderingContext } = React.useContext(CanvasContext);
+  React.useContext(FrameContext);
+  const renderingContext = React.useContext(CanvasContext);
   return renderingContext;
 };
 
 export const useAnimation = (initialValue: any, valueUpdater: (value: any) => any) => {
-  const animatedAngle = React.useRef(initialValue);
-  animatedAngle.current = valueUpdater(animatedAngle.current);
-  return animatedAngle.current;
+  const animatedValue = React.useRef(initialValue);
+  animatedValue.current = valueUpdater(animatedValue.current);
+  return animatedValue.current;
 };
