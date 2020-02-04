@@ -1,0 +1,260 @@
+import { RandomHexagons } from '../components/hexagons/RandomHexagons';
+import { css } from '@emotion/core';
+
+export const meta = {
+  title: 'Building canvas-based React components 🖌',
+  description: 'Canvas & React being best friends',
+  date: 'January 12, 2019',
+};
+
+Trying to draw on a canvas with React can look counter-intuitive, as the ways to interact with those two technologies are quite different. With React, we build components that each own their own node. With canvas, there is only one node, and you draw in it. Let's see how we can make a canvas visualization with React components !
+
+## 🧑‍🏫 Canvas 101
+
+The `canvas` element is like a sheet of paper. To draw on a real sheet of paper, you take a pen, you then move your hand to a certain position, a finaly draw a line by moving your hand to another position. The browser API to draw on a canvas is actually very similar:
+
+```js
+// taking a green pen
+canvasContext.fillStyle = 'green';
+// moving your hand to the stating position
+canvasContext.moveTo(x1, y1);
+// drawing a line to the finishing position
+canvasContext.lineTo(x2, y2);
+```
+
+Having imperative code like this in a component oriented codebase can be tricky ! Let's create a component that renders a `<canvas />` on the page. Then, we need to call the `moveTo` and `lineTo` methods on it to draw a line. In practice, it's a bit more complicated to bridge those two: we will need to use a React reference to access the canvas DOM node. We then need to get a 2D context out of it, and then finally we can call our drawing methods. The code looks like that:
+
+```jsx
+const Canvas = () => {
+  const canvasRef = React.useRef(null);
+
+  React.useEffect(() => {
+    const context = canvasRef.current.getContext('2d');
+    context.fillStyle = 'green';
+    context.moveTo();
+    context.lineTo();
+  }, [canvasRef]);
+
+  return <canvas ref={canvasRef} />;
+};
+```
+
+But if we want to draw something a bit more complex, the `Canvas` component can become quite large. Usually, big components are split into several child components, however this is not really possible here as there is only one `canvas` node !
+
+## 🎨 Hexagons
+
+To demonstrate how to make child components with canvas, let's draw something more fancy: big random colorful hexagons overlapping and slowly rotating.
+
+<div
+  style={{
+    height: '360px',
+    width: '100%',
+  }}
+>
+  <RandomHexagons isAnimating={true} />
+</div>
+
+A single hexagon can be defined with the folowing data:
+
+- a position on the screen, defined by two `x` and `y` number values
+- a `radius` that will define its size
+- a `rotation` so that all hexagons don't look aligned
+- and finally, a `color`
+
+We need a function that is able to generate some random hexagons to display. As the randomization code is not really relevant here, we can just assume to have a `getRandomHexagons` function, returning an array with some random hexagons data in it. As for how to draw an hexagon on a canvas, we need to draw the shape of it by going trough all its corners, and then filling it with a color:
+
+```jsx
+// This article explains all the math behind hexagons
+// https://www.redblobgames.com/grids/hexagons/
+const corners = getHexagonCorners(x, y, radius, rotation);
+
+context.beginPath();
+corners.forEach((corner, index) => {
+  if (index === 0) {
+    context.moveTo(corner.x, corner.y);
+  } else {
+    context.lineTo(corner.x, corner.y);
+  }
+});
+context.fillStyle = color;
+context.fill();
+```
+
+Now, how could we extract this logic into itw own `Hexagon` component ? We need the canvas' context to draw anything on it. We could pass it to all the child components via a prop, but this approach can be a bit tedious when children start to be nested. Another way of doing this is by using a [React context](https://reactjs.org/docs/context.html) to share "global" values between components.
+
+## 📦 A context in a context
+
+At this point the naming gets a bit tricky, as we are trying to share a canvas' _context_ via a React _context_. Once we create a React context, we need to use the context's `Provider` to share a value. In the case of our `Canvas` component, this would look like this:
+
+```jsx
+// we create a React context with a _null_ default value
+const SharingContext = React.createContext(null);
+
+const Canvas = props => {
+  const canvasRef = React.useRef(null);
+  const [renderingContext, setRenderingContext] = React.useState(null);
+
+  // the canvas rendering context is not immediately avalaible
+  // as the canvas node first needs to be added to the DOM by react
+  React.useEffect(() => {
+    const context2d = canvasRef.current.getContext('2d');
+    setRenderingContext(context2d);
+  }, []);
+
+  return (
+    <SharingContext.Provider value={renderingContext}>
+      <canvas ref={canvasRef} />
+      {/* the canvas now has children to render */}
+      {props.children}
+    </SharingContext.Provider>
+  );
+};
+```
+
+As for the `Hexagon` component, it needs to consume this React context to read its value (here with the `useContext` hook):
+
+```jsx
+const Hexagon = props => {
+  // we get the rendering context by comsuming the React context
+  const renderingContext = React.useContext(SharingContext);
+
+  if (renderingContext !== null) {
+    // hexagon drawing logic
+  }
+};
+```
+
+Now that both our `Canvas` and `Hexagon` components are ready, we can display multiple random hexagons on the screen:
+
+```jsx
+const RandomHexagons = () => (
+  <Canvas>
+    {getRandomHexagons().map(hexagon => (
+      <Hexagon {...hexagon} />
+    ))}
+  </Canvas>
+);
+```
+
+The last thing we need is to animate the hexagons so that they slowly rotate.
+
+## 🎬 Animations
+
+As we saw, the canvas is like a sheet of paper: once we've drawn on it, we can't change it! But, thankfully, we can clear the canvas and re-draw on it. Animating on a canvas is just like people used to animate cartoons: with lots of drawings shown quickly ones after the others! To make a shape move, we need to split the movement into small steps and draw them sequentially, while clearing the canvas between each step. Those steps are called frames, and browsers come with an API so that we can draw in each frame: `requestAnimationFrame`.
+
+### 🔄 Creating a frame loop
+
+First things first, the canvas should be cleared at each frame. The easiest way to do this is to have an internal state counting the frames, so that the component re-renders at each frame:
+
+```jsx
+const [frameCount, setFrameCount] = React.useState(0);
+// this effect will increment frameCount by one at the next frame
+// and is called every time frameCount changes, creating a recursive loop
+// this makes the Canvas component re-render at every frame
+React.useEffect(() => {
+  const frameId = requestAnimationFrame(() => {
+    setFrameCount(frameCount + 1);
+  });
+  return () => {
+    cancelAnimationFrame(frameId);
+  };
+}, [frameCount, setFrameCount]);
+
+// here's the clearing at every render — at every frame.
+if (context !== null) {
+  context.clearRect(0, 0, actualWidth, actualHeight);
+}
+```
+
+But... the canvas is now always white! It's because the hexagons are only rendered once (when `<RandomHexagons />` is first rendered) while the canvas is cleared every frame. Children components should also draw in the canvas at every frame. To force them to re-render, one solution is to share the `frameCount` from the canvas – via a React context, like we did with `SharingContext` – and consume it in the `Hexagon` component:
+
+```jsx
+const FrameContext = React.createContext(0);
+
+const Canvas = props => {
+  // [...]
+  return (
+    <SharingContext.Provider value={renderingContext}>
+      <FrameContext.Provider value={frameCount}>
+        <canvas />
+        {props.children}
+      </FrameContext.Provider>
+    </SharingContext.Provider>
+  );
+};
+```
+
+```jsx
+const Hexagon = props => {
+  const renderingContext = React.useContext(SharingContext);
+  const frameCount = React.useContext(FrameContext);
+  // drawing logic
+};
+```
+
+And now our hexagons are back on the screen! 🎉 While this works, the `FrameContext` has to be properly added in every child component. Two options are available to make sure those two contexts are being consumed together:
+
+- We can regroup them in a single context that would share both the `renderingContext` and the `frameCount` at the same time. But the `frameCount` variable is not used in the child components, so it does not really make sense to share its value.
+
+- or, we can create a `useCanvas` hook to hide this complexity away! The hook would consume both React contexts, while only returning the canvas rendering context to the child components:
+
+```jsx
+export const useCanvas = () => {
+  React.useContext(FrameContext);
+  const renderingContext = React.useContext(CanvasContext);
+  return renderingContext;
+};
+```
+
+The `Hexagon` component logic now needs a small update to use this new hook instead of the context consumer:
+
+```jsx
+const Hexagon = props => {
+  const renderingContext = useCanvas();
+  // drawing logic
+};
+```
+
+### Making the hexagons move
+
+We want the hexagons to slowly rotate. It means that each hexagon should have its rotation angle slightly change at every frame, by incrementing it by 1 for example. To do this, we need the hexagons to _remember_ the rotation from the previous render: we will need to use a [React ref](/react-refs-evolution) to handle this:
+
+```jsx
+const animatedRotation = React.useRef(props.rotation);
+animatedRotation.current = animatedRotation.current + 1;
+```
+
+As the `Hexagon` component re-renders at every frame, this code will make its rotation slightly change at every frame: it's making them slowly rotate! 😍
+
+Just like we did with `useCanvas`, we can also improve a bit the readability of this code by hiding its complexity – here, the use of a React ref – in a hook:
+
+```jsx
+const useAnimation = (initialValue, valueUpdater) => {
+  const animatedValue = React.useRef(initialValue);
+  animatedValue.current = valueUpdater(animatedValue.current);
+  return animatedValue.current;
+};
+```
+
+The `Hexagon` code now looks a bit better:
+
+```jsx
+const Hexagon = props => {
+  // [...]
+  const animatedRotation = useAnimation(props.rotation, angle => angle + 1);
+  // drawing logic
+};
+```
+
+👏 Congratulations 👏 We now have animated canvas-based React components! We even created a two custom hooks along the way to make our code nicer. Here's a couple links to see the end result put together:
+
+- [the page we built with big rotating hexagons](https://thibaut.io/hexagons)
+- [the `Canvas` component with its two hooks](https://github/camvas)
+- [the `Hexagon` component](https://github/camvas)
+- [the random hexagons generator that uses both those components](https://github/camvas)
+
+## Going further
+
+- Canvas is great, and for really complex scenes there's another way of drawing in it: WebGL. It's a _huge_ subject on its own, and I recommend to look at how [react-three-fiber](https://github.com/react-spring/react-three-fiber) enables to write WebGL based components _— spoiler alert, they made their own React reconciler_
+
+-
