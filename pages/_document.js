@@ -1,4 +1,5 @@
 import Document, { Main, NextScript, Head } from 'next/document';
+import { Global, css } from '@emotion/core';
 
 export default class MyDocument extends Document {
   render() {
@@ -17,6 +18,24 @@ export default class MyDocument extends Document {
               gtag('config', 'UA-144579302-1');
           `,
             }}
+          />
+          <link
+            rel="preload"
+            href="/static/cartograph/CartographCF-Regular.woff2"
+            as="font"
+            type="font/woff2"
+            crossorigin
+          />
+          <Global
+            styles={css`
+              @font-face {
+                font-family: Cartograph;
+                src: url('/static/cartograph/CartographCF-Regular.woff2') format('woff2'),
+                  url('/static/cartograph/CartographCF-Regular.woff') format('woff');
+                font-weight: 400;
+                font-display: swap;
+              }
+            `}
           />
         </Head>
         <body>

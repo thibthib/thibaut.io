@@ -42,7 +42,7 @@ export const MenuLink = () => (
             background-image: ${theme.gradientText};
             -webkit-text-fill-color: ${theme.background};
             position: absolute;
-            bottom: -1px;
+            bottom: 0;
             left: 0;
           `}
         >
