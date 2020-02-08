@@ -60,7 +60,11 @@ const PageLink = React.forwardRef(({ href, label, description, logo }, ref) => (
 ));
 
 export default () => (
-  <>
+  <div
+    css={css`
+      transform: translateZ(0);
+    `}
+  >
     <Head>
       <title>thibaut</title>
       <link rel="icon" type="image/png" href="static/favicon.png" />
@@ -69,11 +73,11 @@ export default () => (
       <meta name="description" content="thibaut's personal website" />
     </Head>
     <Global
-      styles={css`
+      styles={theme => css`
         body {
           margin: 0;
           background-color: hsl(231, 77%, 38%);
-          font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, Courier, monospace;
+          font-family: ${theme.monospaceFont};
         }
 
         * {
@@ -102,7 +106,7 @@ export default () => (
         display: flex;
         align-items: center;
         flex-direction: column;
-        margin-top: 14vh;
+        padding-top: 14vh;
 
         @media (min-width: 480px) {
           flex-direction: row;
@@ -199,5 +203,5 @@ export default () => (
         </Link>
       </div>
     </div>
-  </>
+  </div>
 );

@@ -3,15 +3,11 @@ import { css } from '@emotion/core';
 import Highlight, { defaultProps } from 'prism-react-renderer';
 import { theme } from './CodeTheme';
 
-const monospaceFont = css`
-  font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, Courier, monospace;
-`;
-
 export const InlineCode = ({ children }) => {
   return (
     <code
       css={theme => css`
-        ${monospaceFont}
+        font-family: ${theme.monospaceFont};
         background-color: ${theme.secondaryBackgound};
         color: ${theme.highlightedText};
         border-radius: 2px;
@@ -30,8 +26,8 @@ export const Code = ({ children, className }) => {
       {({ className, style, tokens, getLineProps, getTokenProps }) => (
         <pre
           className={className}
-          css={css`
-            ${monospaceFont}
+          css={theme => css`
+            font-family: ${theme.monospaceFont};
             padding: 1.2vw;
             font-size: 0.8em;
             border-radius: 4px;
