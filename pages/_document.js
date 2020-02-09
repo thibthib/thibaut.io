@@ -24,17 +24,18 @@ export default class MyDocument extends Document {
               }
             `}
           />
-          {/* Global Site Tag (gtag.js) - Google Analytics */}
-          <script async src="https://www.googletagmanager.com/gtag/js?id=UA-144579302-1"></script>
+          <script
+            src="https://www.datadoghq-browser-agent.com/datadog-rum-us.js"
+            type="text/javascript"
+          ></script>
           <script
             dangerouslySetInnerHTML={{
               __html: `
-              window.dataLayer = window.dataLayer || [];
-              function gtag(){dataLayer.push(arguments);}
-              gtag('js', new Date());
-            
-              gtag('config', 'UA-144579302-1');
-          `,
+               window.DD_RUM && window.DD_RUM.init({
+                clientToken: 'puba9fe9045f841f0404364249bbd53f08e',
+                applicationId: '9a14efdd-aeb9-4f66-ba0a-232b42032043',
+              });
+           `,
             }}
           />
         </Head>
