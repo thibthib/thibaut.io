@@ -1,6 +1,6 @@
 import Head from 'next/head';
 import { Portrait } from '../components/duple/Portrait';
-import portraits from '../static/portraits/portraits.json';
+import portraits from '../public/portraits/portraits.json';
 
 const sizes = [480, 640, 800, 1080, 1280];
 
@@ -8,8 +8,8 @@ const getSources = name =>
   sizes.reduce((aggr, size) => ({
     ...aggr,
     [size]: {
-      back: `static/portraits/${name}-back-${size}w.jpg`,
-      front: `static/portraits/${name}-front-${size}w.jpg`,
+      back: `portraits/${name}-back-${size}w.jpg`,
+      front: `portraits/${name}-front-${size}w.jpg`,
     },
   }));
 

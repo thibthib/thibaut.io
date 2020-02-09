@@ -8,7 +8,7 @@ export default class MyDocument extends Document {
         <Head>
           <link
             rel="preload"
-            href="/static/cartograph/CartographCF-Regular-latin.woff2"
+            href="cartograph/CartographCF-Regular-latin.woff2"
             as="font"
             type="font/woff2"
             crossOrigin="true"
@@ -17,8 +17,8 @@ export default class MyDocument extends Document {
             styles={css`
               @font-face {
                 font-family: Cartograph;
-                src: url('/static/cartograph/CartographCF-Regular-latin.woff2') format('woff2'),
-                  url('/static/cartograph/CartographCF-Regular-latin.woff') format('woff');
+                src: url('cartograph/CartographCF-Regular-latin.woff2') format('woff2'),
+                  url('cartograph/CartographCF-Regular-latin.woff') format('woff');
                 font-weight: 400;
                 font-display: swap;
               }
