@@ -1,7 +1,8 @@
 import { Global, css } from '@emotion/core';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
-import { Link } from '../components/Link';
+import { Link } from './Link';
+import { MenuLink } from './MenuLink';
 
 export const PostWrapper = props => {
   const router = useRouter();
@@ -40,6 +41,7 @@ export const PostWrapper = props => {
         <meta property="og:title" content={props.meta.title} />
         <meta property="og:description" content={props.meta.description} />
       </Head>
+      <MenuLink />
       <header>
         <h1
           css={css`
