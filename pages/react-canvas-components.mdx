@@ -142,7 +142,7 @@ The last thing we need is to animate the hexagons so that they slowly rotate.
 
 As we saw, the canvas is like a sheet of paper: once we've drawn on it, we can't change it! But, thankfully, we can clear the canvas and re-draw on it. Animating on a canvas is just like people used to animate cartoons: with lots of drawings shown quickly ones after the others! To make a shape move, we need to split the movement into small steps and draw them sequentially, while clearing the canvas between each step. Those steps are called frames, and browsers come with an API so that we can draw in each frame: `requestAnimationFrame`.
 
-### 🔄 Creating a frame loop
+### 🖼 Creating a frame loop
 
 First things first, the canvas should be cleared at each frame. The easiest way to do this is to have an internal state counting the frames, so that the component re-renders at each frame:
 
@@ -215,7 +215,7 @@ const Hexagon = props => {
 };
 ```
 
-### Making the hexagons move
+### 🔄 Making the hexagons move
 
 We want the hexagons to slowly rotate. It means that each hexagon should have its rotation angle slightly change at every frame, by incrementing it by 1 for example. To do this, we need the hexagons to _remember_ the rotation from the previous render: we will need to use a [React ref](/react-refs-evolution) to handle this:
 
@@ -248,12 +248,15 @@ const Hexagon = props => {
 
 👏 Congratulations 👏 We now have animated canvas-based React components! We even created a two custom hooks along the way to make our code nicer. Here's a couple links to see the end result put together:
 
-- [the page we built with big rotating hexagons](https://thibaut.io/hexagons)
-- [the `Canvas` component with its two hooks](https://github/camvas)
-- [the `Hexagon` component](https://github/camvas)
-- [the random hexagons generator that uses both those components](https://github/camvas)
+- [the `Canvas` component with its two hooks](https://github.com/thibthib/thibaut.io/blob/master/components/hexagons/Canvas.tsx)
 
-## Going further
+- [the `Hexagon` component](https://github.com/thibthib/thibaut.io/blob/master/components/hexagons/Hexagon.tsx)
+
+- [the random hexagons generator that uses both those components](https://github.com/thibthib/thibaut.io/blob/master/components/hexagons/RandomHexagons.tsx)
+
+- [the page we built with big rotating hexagons](https://thibaut.io/hexagons)
+
+## 👀 Going further
 
 - Canvas is great, and for really complex scenes there's another way of drawing in it: WebGL. It's a _huge_ subject on its own, and I recommend to look at how [react-three-fiber](https://github.com/react-spring/react-three-fiber) enables to write WebGL based components _— spoiler alert, they made their own React reconciler_
 
