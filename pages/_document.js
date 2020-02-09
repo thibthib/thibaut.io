@@ -1,21 +1,21 @@
 import Document, { Main, NextScript, Head } from 'next/document';
 import { Global, css } from '@emotion/core';
-import dynamic from 'next/dynamic';
+// import dynamic from 'next/dynamic';
 
-dynamic(
-  () =>
-    import('@datadog/browser-rum').then(({ datadogRum }) => {
-      datadogRum.init({
-        applicationId: '9a14efdd-aeb9-4f66-ba0a-232b42032043',
-        clientToken: 'puba9fe9045f841f0404364249bbd53f08e',
-        datacenter: 'us',
-        sampleRate: 100,
-      });
-    }),
-  {
-    ssr: false,
-  }
-);
+// dynamic(
+//   () =>
+//     import('@datadog/browser-rum').then(({ datadogRum }) => {
+//       datadogRum.init({
+//         applicationId: '9a14efdd-aeb9-4f66-ba0a-232b42032043',
+//         clientToken: 'puba9fe9045f841f0404364249bbd53f08e',
+//         datacenter: 'us',
+//         sampleRate: 100,
+//       });
+//     }),
+//   {
+//     ssr: false,
+//   }
+// );
 
 export default class MyDocument extends Document {
   render() {
@@ -39,6 +39,20 @@ export default class MyDocument extends Document {
                 font-display: swap;
               }
             `}
+          />
+          <script
+            src="https://www.datadoghq-browser-agent.com/datadog-rum-us.js"
+            type="text/javascript"
+          ></script>
+          <script
+            dangerouslySetInnerHTML={{
+              __html: `
+               window.DD_RUM && window.DD_RUM.init({
+                clientToken: 'puba9fe9045f841f0404364249bbd53f08e',
+                applicationId: '9a14efdd-aeb9-4f66-ba0a-232b42032043',
+              });
+           `,
+            }}
           />
         </Head>
         <body>
