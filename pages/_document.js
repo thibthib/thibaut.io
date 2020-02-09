@@ -11,7 +11,7 @@ export default class MyDocument extends Document {
             href="/static/cartograph/CartographCF-Regular-latin.woff2"
             as="font"
             type="font/woff2"
-            crossorigin="anonymous"
+            crossOrigin="true"
           />
           <Global
             styles={css`
