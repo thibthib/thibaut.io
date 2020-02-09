@@ -8,6 +8,7 @@ module.exports = withMDX({
         {
           source: '/refs',
           destination: '/react-refs-evolution',
+          permanent: true,
         },
       ];
     },
