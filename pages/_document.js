@@ -6,6 +6,8 @@ export default class MyDocument extends Document {
     return (
       <html lang="en">
         <Head>
+          <link rel="icon" href="favicon.svg" type="image/svg+xml" />
+          <link rel="alternate icon" href="/favicon.png" type="image/png" />
           <link
             rel="preload"
             href="cartograph/CartographCF-Regular-latin.woff2"
@@ -24,10 +26,7 @@ export default class MyDocument extends Document {
               }
             `}
           />
-          <script
-            src="https://www.datadoghq-browser-agent.com/datadog-rum-us.js"
-            type="text/javascript"
-          ></script>
+          <script src="https://www.datadoghq-browser-agent.com/datadog-rum-us.js"></script>
           <script
             dangerouslySetInnerHTML={{
               __html: `
