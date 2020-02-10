@@ -19,7 +19,8 @@ export const PostWrapper = props => {
             margin: 12vw auto;
             padding: 0 6vw;
             font-size: 1.2em;
-            max-width: 900px;
+            word-break: break-word;
+            max-width: 70ch;
             line-height: 1.4;
           }
           h1 {
