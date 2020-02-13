@@ -6,35 +6,35 @@ export default class MyDocument extends Document {
     return (
       <html lang="en">
         <Head>
+          <link rel="icon" href="favicon.svg" type="image/svg+xml" />
+          <link rel="alternate icon" href="/favicon.png" type="image/png" />
           <link
             rel="preload"
-            href="/static/cartograph/CartographCF-Regular-latin.woff2"
+            href="cartograph/CartographCF-Regular-latin.woff2"
             as="font"
             type="font/woff2"
-            crossorigin="anonymous"
+            crossOrigin="true"
           />
           <Global
             styles={css`
               @font-face {
                 font-family: Cartograph;
-                src: url('/static/cartograph/CartographCF-Regular-latin.woff2') format('woff2'),
-                  url('/static/cartograph/CartographCF-Regular-latin.woff') format('woff');
+                src: url('cartograph/CartographCF-Regular-latin.woff2') format('woff2'),
+                  url('cartograph/CartographCF-Regular-latin.woff') format('woff');
                 font-weight: 400;
                 font-display: swap;
               }
             `}
           />
-          {/* Global Site Tag (gtag.js) - Google Analytics */}
-          <script async src="https://www.googletagmanager.com/gtag/js?id=UA-144579302-1"></script>
+          <script src="https://www.datadoghq-browser-agent.com/datadog-rum-us.js"></script>
           <script
             dangerouslySetInnerHTML={{
               __html: `
-              window.dataLayer = window.dataLayer || [];
-              function gtag(){dataLayer.push(arguments);}
-              gtag('js', new Date());
-            
-              gtag('config', 'UA-144579302-1');
-          `,
+               window.DD_RUM && window.DD_RUM.init({
+                clientToken: 'puba9fe9045f841f0404364249bbd53f08e',
+                applicationId: '9a14efdd-aeb9-4f66-ba0a-232b42032043',
+              });
+           `,
             }}
           />
         </Head>
