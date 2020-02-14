@@ -9,6 +9,7 @@ export const MenuLink = () => (
         background-image: ${theme.gradientText};
         color: ${theme.background};
         position: relative;
+        display: inline-block;
         text-decoration: none;
         font-size: 1.2em;
         line-height: 1.2em;
