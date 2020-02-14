@@ -21,14 +21,19 @@ export const PostWrapper = props => {
             font-size: 1.2em;
             word-break: break-word;
             max-width: 70ch;
-            line-height: 1.4;
+            line-height: 1.4em;
           }
           h1 {
+            margin-top: 1em;
             font-size: 1.9em;
           }
           h2 {
-            margin-top: 1.2em;
-            line-height: 1.1;
+            margin-top: 2em;
+            line-height: 1.1em;
+          }
+          h3 {
+            margin-top: 1.5em;
+            line-height: 1.1em;
           }
         `}
       />

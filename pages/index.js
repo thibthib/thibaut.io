@@ -198,15 +198,11 @@ export default () => (
           <PageLink
             label={'Evolution of refs'}
             description={'With great power comes great responsability'}
-            logo={'🎯'}
+            logo={'🦖'}
           />
         </Link>
         <Link href={'/react-canvas-components'} passHref>
-          <PageLink
-            label={'Building canvas-based React components'}
-            description={'Canvas & React being best friends'}
-            logo={'🖌'}
-          />
+          <PageLink label={'React + Canvas = 💜'} description={'An untold love story'} logo={'🖌'} />
         </Link>
       </div>
     </div>

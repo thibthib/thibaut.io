@@ -35,7 +35,7 @@ export const EditOnCodeSandbox: React.FunctionComponent<{ info: string }> = ({ i
             <path
               d="M44.3710925 4.59331428L4 27.4331103v45.0867418l40.3544619 22.5293353 40.3790413-22.6089251V27.3276046L44.3710925 4.59331428z"
               stroke="hsl(208, 94%, 56%)"
-              stroke-width="8"
+              strokeWidth="8"
             />
           </g>
         </svg>
