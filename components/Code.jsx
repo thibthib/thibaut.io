@@ -2,6 +2,7 @@ import React from 'react';
 import { css } from '@emotion/core';
 import Highlight, { defaultProps } from 'prism-react-renderer';
 import { theme } from './CodeTheme';
+import { EditOnCodeSandbox } from './EditOnCodeSandbox';
 
 export const InlineCode = ({ children }) => {
   return (
@@ -19,7 +20,7 @@ export const InlineCode = ({ children }) => {
   );
 };
 
-export const Code = ({ children, className }) => {
+export const Code = ({ children, className, metastring }) => {
   const language = className.replace(/language-/, '');
   return (
     <Highlight code={children} language={language} {...defaultProps} theme={theme}>
@@ -29,9 +30,11 @@ export const Code = ({ children, className }) => {
           css={theme => css`
             font-family: ${theme.monospaceFont};
             padding: 1.2vw;
+            padding-bottom: ${metastring ? '0.6vw' : '1.2vw'};
             font-size: 0.8em;
             border-radius: 4px;
             overflow-x: auto;
+            word-break: keep-all;
 
             @media (max-width: 767px) {
               margin: 0 -6vw;
@@ -60,6 +63,17 @@ export const Code = ({ children, className }) => {
               })}
             </div>
           ))}
+          {metastring ? (
+            <span
+              css={css`
+                width: 100%;
+                text-align: right;
+                display: inline-block;
+              `}
+            >
+              <EditOnCodeSandbox info={metastring} />
+            </span>
+          ) : null}
         </pre>
       )}
     </Highlight>

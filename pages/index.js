@@ -36,9 +36,8 @@ const PageLink = React.forwardRef(({ href, label, description, logo }, ref) => (
           display: block;
           color: white;
           font-size: 1.2em;
-          line-height: 2em;
           text-decoration: underline;
-          margin: 0;
+          margin: 0.4em 0;
         `}
       >
         {label}
@@ -194,11 +193,11 @@ export default () => (
         <Link href={'/duple'} passHref>
           <PageLink label={'Duple'} description={'Recto-verso photography'} logo={'📷'} />
         </Link>
-        <Link href={'/refs'} passHref>
+        <Link href={'/react-refs-evolution'} passHref>
           <PageLink
             label={'Evolution of refs'}
             description={'With great power comes great responsability'}
-            logo={'🎯'}
+            logo={'🦖'}
           />
         </Link>
       </div>
