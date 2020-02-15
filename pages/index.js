@@ -36,7 +36,6 @@ const PageLink = React.forwardRef(({ href, label, description, logo }, ref) => (
           display: block;
           color: white;
           font-size: 1.2em;
-          /* line-height: 2em; */
           text-decoration: underline;
           margin: 0.4em 0;
         `}

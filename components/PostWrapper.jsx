@@ -24,16 +24,12 @@ export const PostWrapper = props => {
             line-height: 1.4em;
           }
           h1 {
-            margin-top: 1em;
-            font-size: 1.9em;
+            line-height: 1.2;
           }
-          h2 {
-            margin-top: 2em;
-            line-height: 1.1em;
-          }
+          h2,
           h3 {
-            margin-top: 1.5em;
-            line-height: 1.1em;
+            margin-top: 1.6em;
+            line-height: 1.2;
           }
         `}
       />
@@ -52,7 +48,6 @@ export const PostWrapper = props => {
         <h1
           css={css`
             margin-bottom: 0;
-            line-height: 1.1;
           `}
         >
           {props.meta.title}
