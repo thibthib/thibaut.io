@@ -21,7 +21,7 @@ export const PostWrapper = props => {
             font-size: 1.2em;
             word-break: break-word;
             max-width: 70ch;
-            line-height: 1.4em;
+            line-height: 1.4;
           }
           h1 {
             line-height: 1.2;
