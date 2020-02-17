@@ -6,7 +6,7 @@ import { MenuLink } from './MenuLink';
 
 export const PostWrapper = props => {
   const router = useRouter();
-  const url = encodeURIComponent(`https://thibaut.io${router.asPath}`);
+  const url = encodeURIComponent(`https://thibaut.io${router.pathname}`);
   return (
     <main>
       <Global
