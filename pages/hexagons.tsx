@@ -19,7 +19,7 @@ const Page: React.FunctionComponent = () => (
         width: 100vw;
       `}
     >
-      <RandomHexagons isAnimating={true} />
+      <RandomHexagons />
     </div>
   </>
 );

@@ -3,10 +3,11 @@ import Head from 'next/head';
 import { useRouter } from 'next/router';
 import { Link } from './Link';
 import { MenuLink } from './MenuLink';
+import { h1 as H1 } from './Title';
 
 export const PostWrapper = props => {
   const router = useRouter();
-  const url = encodeURIComponent(`https://thibaut.io${router.asPath}`);
+  const url = encodeURIComponent(`https://thibaut.io${router.pathname}`);
   return (
     <main>
       <Global
@@ -23,13 +24,9 @@ export const PostWrapper = props => {
             max-width: 70ch;
             line-height: 1.4;
           }
-          h1 {
-            line-height: 1.2;
-          }
-          h2,
-          h3 {
-            margin-top: 1.6em;
-            line-height: 1.2;
+
+          p {
+            margin-top: 0;
           }
         `}
       />
@@ -45,23 +42,20 @@ export const PostWrapper = props => {
       </Head>
       <MenuLink />
       <header>
-        <h1
-          css={css`
-            margin-bottom: 0;
-          `}
-        >
+        <H1>
           {props.meta.title}
-        </h1>
-        <p
-          css={theme => css`
-            margin-top: 0;
-            font-style: italic;
-            color: ${theme.secondaryText};
-            font-size: 0.9em;
-          `}
-        >
-          {props.meta.date}
-        </p>
+          <p
+            css={theme => css`
+              margin-top: 0;
+              font-style: italic;
+              color: ${theme.secondaryText};
+              font-size: 0.9rem;
+              font-weight: 400;
+            `}
+          >
+            {props.meta.date}
+          </p>
+        </H1>
       </header>
       <article
         css={css`

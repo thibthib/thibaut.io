@@ -59,7 +59,7 @@ export const getHexagonsToFillZone = ({ width, height }: { height: number; width
   }
 
   /* Then adding some more hexagons randomly on the screen */
-  const extraHexagons = [...Array(random(5, 10))].map(() =>
+  const extraHexagons = [...Array(random(6, 10))].map(() =>
     getRandomHexagon({
       baseSize: smallerSize,
       x: [0, width],
