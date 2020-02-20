@@ -200,6 +200,9 @@ export default () => (
             logo={'🦖'}
           />
         </Link>
+        <Link href={'/react-canvas-components'} passHref>
+          <PageLink label={'React + Canvas = 💜'} description={'An untold love story'} logo={'🖌'} />
+        </Link>
       </div>
     </div>
   </div>
