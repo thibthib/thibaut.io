@@ -10,26 +10,6 @@ export const PostWrapper = props => {
   const url = encodeURIComponent(`https://thibaut.io${router.pathname}`);
   return (
     <main>
-      <Global
-        styles={theme => css`
-          body {
-            background-color: ${theme.background};
-            color: ${theme.text};
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Oxygen-Sans',
-              Ubuntu, Cantarell, 'Helvetica Neue';
-            margin: 12vw auto;
-            padding: 0 6vw;
-            font-size: 1.2em;
-            word-break: break-word;
-            max-width: 70ch;
-            line-height: 1.4;
-          }
-
-          p {
-            margin-top: 0;
-          }
-        `}
-      />
       <Head>
         <title>{props.meta.title}</title>
         <meta name="description" content={props.meta.description} />
@@ -40,6 +20,53 @@ export const PostWrapper = props => {
         <meta property="og:title" content={props.meta.title} />
         <meta property="og:description" content={props.meta.description} />
       </Head>
+      <Global
+        styles={theme => css`
+          body {
+            background-color: ${theme.background};
+            color: ${theme.text};
+            font-family: Cartograph, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto,
+              'Oxygen-Sans', Ubuntu, Cantarell, 'Helvetica Neue';
+            margin: 12vw auto;
+            padding: 0 6vw;
+            word-break: break-word;
+            max-width: 66ch;
+            text-rendering: optimizeLegibility;
+            -webkit-font-smoothing: antialiased;
+          }
+
+          p,
+          pre,
+          code,
+          ul,
+          ol {
+            margin: 0;
+          }
+
+          html {
+            font-size: 16px;
+          }
+
+          @media (min-width: 767px) {
+            html {
+              font-size: 20px;
+            }
+          }
+
+          p {
+            font-size: ${theme.fontSizes.medium};
+            line-height: ${theme.spacing.medium};
+            margin-top: 0;
+            margin-bottom: ${theme.spacing.medium};
+            font-weight: 300;
+            font-feature-settings: 'ss05';
+          }
+
+          ul {
+            margin-bottom: ${theme.spacing.medium};
+          }
+        `}
+      />
       <MenuLink />
       <header>
         <H1>
@@ -49,8 +76,8 @@ export const PostWrapper = props => {
               margin-top: 0;
               font-style: italic;
               color: ${theme.secondaryText};
-              font-size: 0.9rem;
-              font-weight: 400;
+              font-size: ${theme.fontSizes.medium};
+              font-weight: 300;
             `}
           >
             {props.meta.date}
@@ -58,15 +85,15 @@ export const PostWrapper = props => {
         </H1>
       </header>
       <article
-        css={css`
-          margin-bottom: 2em;
+        css={theme => css`
+          margin-bottom: ${theme.spacing.medium};
         `}
       >
         {props.children}
       </article>
       <footer
         css={theme => css`
-          padding-top: 2em;
+          padding-top: ${theme.spacing.medium};
           border-top: 1px solid ${theme.border};
         `}
       >

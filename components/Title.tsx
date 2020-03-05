@@ -11,39 +11,39 @@ enum titleTags {
 }
 
 const styles = {
-  [titleTags.h1]: (_: any) => css`
-    margin-bottom: 3rem;
-    font-size: 3rem;
+  [titleTags.h1]: ({ fontSizes, spacing }: any) => css`
+    font-size: ${fontSizes.XXLarge};
+    line-height: ${spacing.large};
+    margin-top: ${spacing.medium};
+    margin-bottom: ${spacing.medium};
+    font-feature-settings: 'ss05';
   `,
-  [titleTags.h2]: (_: any) => css`
-    margin-top: 2rem;
-    margin-bottom: 1rem;
+  [titleTags.h2]: ({ fontSizes, spacing }: any) => css`
+    font-size: ${fontSizes.XLarge};
+    line-height: ${spacing.medium};
+    margin-top: ${spacing.medium};
+    margin-bottom: ${spacing.small};
     font-weight: normal;
-    font-size: 2rem;
+    font-feature-settings: 'ss05';
   `,
-  [titleTags.h3]: (_: any) => css`
-    margin-top: 1.5rem;
-    margin-bottom: 0.5rem;
-    font-variant: small-caps;
+  [titleTags.h3]: ({ fontSizes, spacing, secondaryText }: any) => css`
+    font-size: ${fontSizes.large};
+    line-height: ${spacing.medium};
+    margin-top: ${spacing.medium};
+    margin-bottom: ${spacing.small};
+    color: ${secondaryText};
+    font-feature-settings: 'ss05';
   `,
-  [titleTags.h4]: (theme: any) => css`
-    margin: 0;
-    font-weight: normal;
-    font-style: italic;
-    color: ${theme.secondaryText};
+  [titleTags.h4]: ({ fontSizes, spacing }: any) => css`
+    font-size: ${fontSizes.medium};
+    line-height: ${spacing.medium};
+    margin-top: ${spacing.medium};
+    margin-bottom: 0;
+    text-transform: uppercase;
+    font-feature-settings: 'ss05';
   `,
-  [titleTags.h5]: (theme: any) => css`
-    margin: 0;
-    font-weight: normal;
-    font-style: italic;
-    color: ${theme.secondaryText};
-  `,
-  [titleTags.h6]: (theme: any) => css`
-    margin: 0;
-    font-weight: normal;
-    font-style: italic;
-    color: ${theme.secondaryText};
-  `,
+  [titleTags.h5]: () => css``,
+  [titleTags.h6]: () => css``,
 };
 
 export const Title: React.FunctionComponent<{

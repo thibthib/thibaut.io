@@ -24,11 +24,13 @@ export const EditOnCodeSandbox: React.FunctionComponent<{ info: string }> = ({ i
       href={`https://codesandbox.io/s/${sandboxName}?fontsize=14&hidenavigation=1&module=${encodeURIComponent(
         fileName
       )}&theme=dark`}
-      css={css`
+      css={theme => css`
         display: inline-block;
         text-decoration: none;
+        height: ${theme.spacing.medium};
       `}
       target="_blank"
+      rel="noopener"
     >
       <span
         css={css`
@@ -36,14 +38,13 @@ export const EditOnCodeSandbox: React.FunctionComponent<{ info: string }> = ({ i
         `}
       >
         <span
-          css={css`
-            width: 1.3em;
-            margin-right: 0.5em;
+          css={theme => css`
+            width: ${theme.fontSizes.small};
           `}
         >
           <CodeSandboxLogo />
         </span>
-        <GradientText>Edit on CodeSandbox</GradientText>
+        <GradientText>{' Edit on CodeSandbox'}</GradientText>
       </span>
     </a>
   );
