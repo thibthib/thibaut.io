@@ -17,11 +17,13 @@ const getAsString = (node: React.ReactNode): string => {
 };
 
 export const useAnchor = (children: React.ReactNode): [string, React.ReactElement] => {
-  const anchor = kebabCase(getAsString(children));
+  const childString = getAsString(children);
+  const anchor = kebabCase(childString);
   return [
     anchor,
     <a
       href={`#${anchor}`}
+      aria-label={childString}
       css={theme => css`
         text-decoration: none;
         position: absolute;

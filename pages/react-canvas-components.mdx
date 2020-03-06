@@ -1,6 +1,25 @@
 import { RandomHexagons } from '../components/hexagons/RandomHexagons';
 import { EditOnCodeSandbox } from '../components/EditOnCodeSandbox';
-import { css } from '@emotion/core';
+import { ClassNames } from '@emotion/core';
+import { useTheme } from 'emotion-theming';
+
+export const InlineRandomHexagons = () => {
+  const { spacing } = useTheme();
+  return (
+    <ClassNames>
+      {({ css }) => (
+        <div
+          className={css`
+            height: 360px;
+            margin-bottom: ${spacing.medium};
+          `}
+        >
+          <RandomHexagons isAnimating={false} />
+        </div>
+      )}
+    </ClassNames>
+  );
+};
 
 export const meta = {
   title: 'React + Canvas = 💜',
@@ -46,13 +65,7 @@ But if we want to draw something a bit more complex, the `Canvas` component can 
 
 To show how to make child components with canvas, let's draw something more fancy ✨
 
-<p
-  style={{
-    height: '360px',
-  }}
->
-  <RandomHexagons isAnimating={true} />
-</p>
+<InlineRandomHexagons />
 
 A single hexagon is defined with the folowing data:
 
@@ -140,7 +153,7 @@ The last thing we need is to animate the hexagons so that they rotate.
 
 ## 🎬 Animations
 
-As we saw, the canvas is like a sheet of paper – once it's been drawn on, it can't be changed! However, a canvas can be cleared in order that something new can be draw on it. In that respect animating a canvas is somewhat like old-fashioned cartoon animation - we draw, clean, draw, clean and repeat until we achieve the desired effect. To make a shape move, you need to split the movement into small steps, draw them one by one, while clearing the canvas in-between. Those steps are called frames. Browsers come with an API `requestAnimationFrame` so that you can draw in each frame. 
+As we saw, the canvas is like a sheet of paper – once it's been drawn on, it can't be changed! However, a canvas can be cleared in order that something new can be draw on it. In that respect animating a canvas is somewhat like old-fashioned cartoon animation - we draw, clean, draw, clean and repeat until we achieve the desired effect. To make a shape move, you need to split the movement into small steps, draw them one by one, while clearing the canvas in-between. Those steps are called frames. Browsers come with an API `requestAnimationFrame` so that you can draw in each frame.
 
 ### 🖼 Creating a frame loop
 

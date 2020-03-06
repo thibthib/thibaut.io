@@ -12,7 +12,9 @@ export const InlineCode = ({ children }) => {
         background-color: ${theme.secondaryBackgound};
         color: ${theme.highlightedText};
         border-radius: 2px;
-        padding: 0.1em 0.2em;
+        padding: 0.1em 0.3em 0.3em;
+        font-feature-settings: initial;
+        font-weight: 400;
       `}
     >
       {children}
@@ -29,15 +31,18 @@ export const Code = ({ children, className, metastring }) => {
           className={className}
           css={theme => css`
             font-family: ${theme.monospaceFont};
-            padding: 1.2vw;
-            padding-bottom: ${metastring ? '0.6vw' : '1.2vw'};
-            font-size: 0.8em;
+            padding: ${theme.spacing.small};
+            padding-bottom: ${metastring ? 0 : theme.spacing.small};
             border-radius: 4px;
             overflow-x: auto;
             word-break: keep-all;
+            font-feature-settings: initial;
+            font-weight: 400;
+            margin: 0 -6vw ${theme.spacing.medium};
 
-            @media (max-width: 767px) {
-              margin: 0 -6vw;
+            @media (min-width: 767px) {
+              font-size: ${theme.fontSizes.small};
+              margin: 0 0 ${theme.spacing.medium};
             }
           `}
           style={style}
