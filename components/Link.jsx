@@ -12,7 +12,7 @@ export const Link = props => (
       -webkit-text-fill-color: transparent;
       -webkit-box-decoration-break: clone;
       box-decoration-break: clone;
-      background: linear-gradient(
+      background-image: linear-gradient(
         to right,
         ${theme.gradientStart},
         ${theme.gradientEnd} 50%,
