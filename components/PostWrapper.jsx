@@ -97,7 +97,7 @@ export const PostWrapper = props => {
           border-top: 1px solid ${theme.border};
         `}
       >
-        <Link href={`https://mobile.twitter.com/search?q=${url}`}>💬 Discuss on twitter</Link>
+        💬 <Link href={`https://mobile.twitter.com/search?q=${url}`}>Discuss on twitter</Link>
       </footer>
     </main>
   );

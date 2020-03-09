@@ -35,6 +35,7 @@ export const Code = ({ children, className, metastring }) => {
             padding-bottom: ${metastring ? 0 : theme.spacing.small};
             border-radius: 4px;
             overflow-x: auto;
+            overflow-y: hidden;
             word-break: keep-all;
             font-feature-settings: initial;
             font-weight: 400;

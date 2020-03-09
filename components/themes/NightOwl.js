@@ -16,6 +16,9 @@ const spacing = {
   large: `${spacingBase * 2}rem`,
 };
 
+const gradientStart = 'hsl(208, 94%, 56%)';
+const gradientEnd = 'hsl(169, 75%, 50%)';
+
 export const theme = {
   text: 'hsl(217, 34%, 88%)',
   secondaryText: 'hsl(217, 34%, 78%)',
@@ -24,9 +27,11 @@ export const theme = {
   background: 'hsl(207, 92%, 10%)',
   secondaryBackgound: 'hsl(207, 95%, 8%)',
   border: 'hsl(207, 95%, 16%)',
-  gradientText: 'linear-gradient(120deg, hsl(208, 94%, 56%), hsl(169, 75%, 50%));',
+  gradientStart,
+  gradientEnd,
+  gradientText: `linear-gradient(120deg, ${gradientStart}, ${gradientEnd});`,
   monospaceFont:
     'Cartograph, "SFMono-Regular", Consolas, "Liberation Mono", Menlo, Courier, monospace',
-  fontSizes: fontSizes,
-  spacing: spacing,
+  fontSizes,
+  spacing,
 };
