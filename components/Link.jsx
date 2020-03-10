@@ -16,14 +16,14 @@ export const Link = props => (
         to right,
         ${theme.gradientStart},
         ${theme.gradientEnd} 50%,
-        ${theme.text} 50%,
-        ${theme.text}
+        ${theme.secondaryText} 50%,
+        ${theme.secondaryText}
       );
       background-size: 200% 100%;
       background-position: 100%;
-      transition: background-position 250ms ease;
+      transition: background-position 250ms ease, text-decoration-color 250ms ease;
 
-      text-decoration-color: hsl(217, 34%, 43%);
+      text-decoration-color: hsl(217, 34%, 42%);
 
       &:hover {
         background-position: 0 100%;
