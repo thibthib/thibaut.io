@@ -1,7 +1,8 @@
 const withMDX = require('@next/mdx')();
 
 module.exports = withMDX({
-  pageExtensions: ['js', 'jsx', 'mdx', 'tsx'],
+  target: 'serverless',
+  pageExtensions: ['js', 'jsx', 'mdx', 'ts', 'tsx'],
   experimental: {
     redirects() {
       return [
@@ -12,5 +13,26 @@ module.exports = withMDX({
         },
       ];
     },
+  },
+  webpack: (config, { webpack }) => {
+    config.node = {
+      fs: 'empty',
+    };
+    config.module.rules.push({
+      test: /woff2\.wasm$/i,
+      type: 'javascript/auto',
+      use: [
+        {
+          loader: 'file-loader',
+          options: {
+            publicPath: `/_next/static/files`,
+            outputPath: 'static/files',
+          },
+        },
+      ],
+    });
+    config.module.exprContextCritical = false;
+
+    return config;
   },
 });

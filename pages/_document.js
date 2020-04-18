@@ -57,6 +57,10 @@ export default class MyDocument extends Document {
               }
             `}
           />
+          <link
+            href="https://fonts.googleapis.com/css?family=Noto+Sans+KR&display=swap&subset=korean"
+            rel="stylesheet"
+          ></link>
           <link rel="icon" href="favicon.svg" type="image/svg+xml" />
           <link rel="alternate icon" href="/favicon.png" type="image/png" />
           <script src="https://www.datadoghq-browser-agent.com/datadog-rum-us.js"></script>

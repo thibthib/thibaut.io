@@ -11,6 +11,8 @@ const fontSizes = {
 const spacingBase = 1.625;
 
 const spacing = {
+  xxsmall: `${spacingBase / 6}rem`,
+  xsmall: `${spacingBase / 4}rem`,
   small: `${spacingBase / 2}rem`,
   medium: `${spacingBase}rem`,
   large: `${spacingBase * 2}rem`,

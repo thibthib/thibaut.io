@@ -17,6 +17,7 @@ export const MenuLink = () => (
     >
       <GradientText>thibaut.io</GradientText>
       <div
+        aria-hidden={true}
         css={css`
           position: absolute;
           height: 2px;

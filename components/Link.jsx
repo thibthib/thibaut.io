@@ -24,6 +24,7 @@ export const Link = props => (
       transition: background-position 250ms ease, text-decoration-color 250ms ease;
 
       text-decoration-color: hsl(217, 34%, 42%);
+      text-decoration-style: wavy;
 
       &:hover {
         background-position: 0 100%;

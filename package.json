@@ -9,9 +9,17 @@
     "@mdx-js/loader": "1.5.5",
     "@mdx-js/react": "1.5.5",
     "@next/mdx": "9.2.1",
+    "blob-to-buffer": "1.2.8",
+    "brfs": "2.0.2",
+    "browserfs": "1.4.3",
     "emotion-theming": "10.0.27",
+    "file-saver": "2.0.2",
+    "fonteditor-core": "2.1.1",
+    "fontkit": "1.8.0",
     "lodash": "4.17.15",
     "next": "9.2.1",
+    "opentype.js": "1.1.0",
+    "pako": "1.0.11",
     "prism-react-renderer": "1.0.2",
     "react": "16.12.0",
     "react-dom": "16.12.0"
@@ -24,11 +32,19 @@
     "format": "yarn prettier --write '{{pages,components}/**/,}*.{js,jsx,ts,tsx,json,md,mdx}'"
   },
   "devDependencies": {
+    "@types/blob-to-buffer": "1.2.0",
+    "@types/file-saver": "2.0.1",
+    "@types/fontkit": "1.8.0",
     "@types/lodash": "4.14.149",
     "@types/mdx-js__react": "1.5.0",
     "@types/node": "13.7.0",
+    "@types/opentype.js": "0.7.2",
+    "@types/pako": "1.0.1",
     "@types/react": "16.9.19",
+    "file-loader": "5.1.0",
     "prettier": "1.19.1",
-    "typescript": "3.7.5"
+    "transform-loader": "0.2.4",
+    "typescript": "3.7.5",
+    "url-loader": "3.0.0"
   }
 }
