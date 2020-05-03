@@ -4,6 +4,7 @@
   "main": "index.js",
   "license": "MIT",
   "dependencies": {
+    "@datadog/browser-rum": "1.11.4",
     "@emotion/babel-preset-css-prop": "10.0.27",
     "@emotion/core": "10.0.27",
     "@mdx-js/loader": "1.5.7",
