@@ -69,7 +69,7 @@ class MyComponent extends Component {
 
 This new API aims to restore the convenience of using String refs without the drawbacks: element assignment to a local variable doesn't have to be handled in every render anymore! We now get a `RefObject` to consume, with a `current` property that holds the DOM element as its TypeScript definition shows:
 
-```ts
+```typescript
 interface RefObject<T> {
   readonly current: T | null;
 }
@@ -100,7 +100,7 @@ const MyComponent = () => {
 
 `useRef` can do more than hold a DOM element. It has been designed to hold any value across renders in a function component. It's a replacement of the simple `this.myVariable` from class components. The TypeScript definition of the returned object is a bit different than the one from `createRef`: the `current` property is not `readonly` anymore:
 
-```ts
+```typescript
 interface MutableRefObject<T> {
   current: T;
 }
@@ -128,7 +128,7 @@ const MyComponent = () => {
 
 When a component uses `forwardRef`, any parent component can pass to it a `ref` prop in order to get access to an inner element. As the parent component can use `createRef`, `useRef` or callback refs, the `ref` parameter received from `forwardRef` is of a new combined type:
 
-```ts
+```typescript
 type Ref<T> = (instance: T | null) => void | RefObject<T> | null;
 ```
 

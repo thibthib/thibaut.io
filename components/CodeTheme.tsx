@@ -1,24 +1,6 @@
 import { theme } from './themes/NightOwl';
 
 export const syntaxTheme = {
-  'pre[class*="language-"]': {
-    color: '#d6deeb',
-    background: '#011627',
-
-    fontFeatureSettings: 'initial',
-    fontWeight: 400,
-    textAlign: 'left',
-    whiteSpace: 'pre',
-    wordSpacing: 'normal',
-    wordBreak: 'keep-all',
-    wordWrap: 'normal',
-    overflowX: 'auto',
-    overflowY: 'hidden',
-    hyphens: 'none',
-    padding: theme.spacing.small,
-    margin: `0 -6vw ${theme.spacing.medium}`,
-    borderRadius: '4px',
-  },
   'code[class*="language-"]': {
     fontFamily: theme.monospaceFont,
   },
