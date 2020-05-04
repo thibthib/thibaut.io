@@ -23,9 +23,11 @@
     "build": "next build && next export",
     "start": "next start",
     "export": "next export",
-    "format": "yarn prettier --write '{{pages,components}/**/,}*.{js,jsx,ts,tsx,json,md,mdx}'"
+    "format": "yarn prettier --write '{{pages,components}/**/,}*.{js,jsx,ts,tsx,json,md,mdx}'",
+    "analyze": "ANALYZE=true yarn build"
   },
   "devDependencies": {
+    "@next/bundle-analyzer": "9.3.6",
     "@types/lodash": "4.14.149",
     "@types/mdx-js__react": "1.5.1",
     "@types/node": "13.9.2",
