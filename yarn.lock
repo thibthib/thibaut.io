@@ -944,6 +944,11 @@
     lodash "^4.17.13"
     to-fast-properties "^2.0.0"
 
+"@color-spaces/convert@1.0.1":
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/@color-spaces/convert/-/convert-1.0.1.tgz#58f14b9c1136eaf730d00e312783f5777c25fb88"
+  integrity sha512-u5459Uh15eeJMqqDQCwFADhjbfaxnok9IRnacewrkEUMK2zBrCxJwjUfbpixyiu94GN+B8hSAnJQlhOKir1BlQ==
+
 "@csstools/convert-colors@^1.4.0":
   version "1.4.0"
   resolved "https://registry.yarnpkg.com/@csstools/convert-colors/-/convert-colors-1.4.0.tgz#ad495dc41b12e75d588c6db8b9834f08fa131eb7"
