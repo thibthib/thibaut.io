@@ -7,7 +7,7 @@ import { Code, InlineCode, Pre } from '../components/Code';
 import { PostWrapper } from '../components/PostWrapper';
 import { Link } from '../components/Link';
 import { h1, h2, h3, h4, h5, h6 } from '../components/Title';
-import { ThemeProvider } from '../components/themes/NightOwl';
+import { ThemeProvider } from '../components/Theme';
 
 datadogRum.init({
   applicationId: '9a14efdd-aeb9-4f66-ba0a-232b42032043',

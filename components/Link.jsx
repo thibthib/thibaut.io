@@ -14,8 +14,8 @@ export const Link = props => (
       box-decoration-break: clone;
       background-image: linear-gradient(
         to right,
-        ${theme.gradientStart},
-        ${theme.gradientEnd} 50%,
+        ${theme.highlight},
+        ${theme.secondaryHighlight} 50%,
         ${theme.secondaryText} 50%,
         ${theme.secondaryText}
       );
@@ -23,11 +23,10 @@ export const Link = props => (
       background-position: 100%;
       transition: background-position 250ms ease, text-decoration-color 250ms ease;
 
-      text-decoration-color: hsl(217, 34%, 42%);
+      text-decoration-color: ${theme.border};
 
       &:hover {
         background-position: 0 100%;
-        text-decoration-color: hsl(208, 64%, 33%);
       }
 
       > * {

@@ -8,39 +8,41 @@ export default class MyDocument extends Document {
         <Head>
           <link
             rel="preload"
-            href="cartograph/CartographCF-Regular-latin.woff2"
+            href="cartograph/CartographCF-Light-web.woff2"
             as="font"
             type="font/woff2"
             crossOrigin="true"
           />
           <link
             rel="preload"
-            href="cartograph/CartographCF-Light-latin.woff2"
-            as="font"
-            type="font/woff2"
-            crossOrigin="true"
-          />
-          <link
-            rel="preload"
-            href="cartograph/CartographCF-LightItalic-latin.woff2"
+            href="cartograph/CartographCF-LightItalic-web.woff2"
             as="font"
             type="font/woff2"
             crossOrigin="true"
           />
           <Global
-            styles={theme => css`
+            styles={css`
               @font-face {
                 font-family: Cartograph;
-                src: url('cartograph/CartographCF-Regular-latin.woff2') format('woff2'),
-                  url('cartograph/CartographCF-Regular-latin.woff') format('woff');
+                src: url('cartograph/CartographCF-Regular-web.woff2') format('woff2'),
+                  url('cartograph/CartographCF-Regular-web.woff') format('woff');
                 font-weight: 400;
                 font-display: swap;
               }
 
               @font-face {
                 font-family: Cartograph;
-                src: url('cartograph/CartographCF-LightItalic-latin.woff2') format('woff2'),
-                  url('cartograph/CartographCF-LightItalic-latin.woff') format('woff');
+                src: url('cartograph/CartographCF-RegularItalic-web.woff2') format('woff2'),
+                  url('cartograph/CartographCF-RegularItalic-web.woff') format('woff');
+                font-weight: 400;
+                font-style: italic;
+                font-display: swap;
+              }
+
+              @font-face {
+                font-family: Cartograph;
+                src: url('cartograph/CartographCF-LightItalic-web.woff2') format('woff2'),
+                  url('cartograph/CartographCF-LightItalic-web.woff') format('woff');
                 font-weight: 300;
                 font-style: italic;
                 font-display: swap;
@@ -49,8 +51,8 @@ export default class MyDocument extends Document {
 
               @font-face {
                 font-family: Cartograph;
-                src: url('cartograph/CartographCF-Light-latin.woff2') format('woff2'),
-                  url('cartograph/CartographCF-Light-latin.woff') format('woff');
+                src: url('cartograph/CartographCF-Light-web.woff2') format('woff2'),
+                  url('cartograph/CartographCF-Light-web.woff') format('woff');
                 font-weight: 300;
                 font-display: swap;
                 font-feature-settings: 'ss05';
