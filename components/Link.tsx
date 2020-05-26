@@ -1,9 +1,9 @@
-import React from 'react';
+import * as React from 'react';
 import { css } from '@emotion/core';
 
-export const Link = props => (
+export const Link: React.FunctionComponent<{ href: string }> = ({ href, children }) => (
   <a
-    {...props}
+    href={href}
     css={theme => css`
       overflow: hidden;
 
@@ -36,6 +36,6 @@ export const Link = props => (
       }
     `}
   >
-    {props.children}
+    {children}
   </a>
 );
