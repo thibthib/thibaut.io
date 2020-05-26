@@ -4,7 +4,7 @@ import { ThemeProvider as EmotionThemeProvider } from 'emotion-theming';
 import { Global, css, SerializedStyles } from '@emotion/core';
 import { ColorSpace, convertCSSColor, CSSSpace } from '@color-spaces/convert';
 
-const fontSizeRatio = 1.25;
+const fontSizeRatio = 1.2;
 
 const fontSizes = {
   small: `${Math.pow(fontSizeRatio, -1)}rem`,
@@ -20,6 +20,7 @@ const spacing = {
   small: `${spacingBase / 2}rem`,
   medium: `${spacingBase}rem`,
   large: `${spacingBase * 2}rem`,
+  XLarge: `${spacingBase * 3}rem`,
 };
 
 type ColorMap = { [name: string]: string };
@@ -101,6 +102,7 @@ export type Theme = {
   monospaceFont: string;
   fontSizes: typeof fontSizes;
   spacing: typeof spacing;
+  lineLength: number;
 };
 
 export const theme: Theme = {
@@ -109,6 +111,7 @@ export const theme: Theme = {
     'Cartograph, "SFMono-Regular", Consolas, "Liberation Mono", Menlo, Courier, monospace',
   fontSizes,
   spacing,
+  lineLength: 68,
   ...variables,
 };
 

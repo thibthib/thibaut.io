@@ -2,6 +2,7 @@ import * as React from 'react';
 import isArray from 'lodash/isArray';
 import kebabCase from 'lodash/kebabCase';
 import { css } from '@emotion/core';
+import { theme } from './Theme';
 
 const getAsString = (node: React.ReactNode): string => {
   if (typeof node === 'string') {
@@ -41,8 +42,8 @@ export const useAnchor = (children: React.ReactNode): [string, React.ReactElemen
     >
       <svg
         viewBox="0 0 24 24"
-        width="0.6em"
-        height="0.6em"
+        width={theme.fontSizes.small}
+        height={theme.fontSizes.small}
         stroke="currentColor"
         strokeWidth="2"
         strokeLinecap="round"

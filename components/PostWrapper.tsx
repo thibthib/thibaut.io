@@ -5,6 +5,7 @@ import { useRouter } from 'next/router';
 import { Link } from './Link';
 import { MenuLink } from './MenuLink';
 import { h1 as H1 } from './Title';
+import { Theme } from './Theme';
 
 type MetaData = {
   title: string;
@@ -28,16 +29,16 @@ export const PostWrapper: React.FunctionComponent<{ meta: MetaData }> = ({ meta,
         <meta property="og:description" content={meta.description} />
       </Head>
       <Global
-        styles={theme => css`
+        styles={(theme: Theme) => css`
           body {
             background-color: ${theme.background};
             color: ${theme.text};
             font-family: Cartograph, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto,
               'Oxygen-Sans', Ubuntu, Cantarell, 'Helvetica Neue';
-            margin: 12vw auto;
-            padding: 0 6vw;
+            margin: 0 auto;
+            padding: calc(0.5rem + 3vh) calc(0.5rem + 4vw);
             word-break: break-word;
-            max-width: 66ch;
+            max-width: ${theme.lineLength}ch;
             text-rendering: optimizeLegibility;
             -webkit-font-smoothing: antialiased;
           }
@@ -52,12 +53,7 @@ export const PostWrapper: React.FunctionComponent<{ meta: MetaData }> = ({ meta,
 
           html {
             font-size: 16px;
-          }
-
-          @media (min-width: 767px) {
-            html {
-              font-size: 20px;
-            }
+            font-size: clamp(16px, 1.4vw, 19px);
           }
 
           p {
@@ -81,9 +77,8 @@ export const PostWrapper: React.FunctionComponent<{ meta: MetaData }> = ({ meta,
           <p
             css={theme => css`
               margin-top: 0;
-              font-style: italic;
               color: ${theme.secondaryText};
-              font-size: ${theme.fontSizes.medium};
+              font-size: ${theme.fontSizes.small};
               font-weight: 300;
             `}
           >

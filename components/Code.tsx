@@ -57,6 +57,9 @@ export const Code: React.FunctionComponent<{ className: string; metastring: stri
           font-feature-settings: initial;
           font-weight: 400;
           line-height: 1.5em;
+          /* code examples are 80 characters long */
+          /* whereas body length is 68 chars */
+          font-size: ${theme.lineLength / 80}rem;
 
           overflow-x: auto;
           overflow-y: hidden;
@@ -72,7 +75,7 @@ export const Code: React.FunctionComponent<{ className: string; metastring: stri
           margin: 0 -6vw ${theme.spacing.medium};
 
           @media (min-width: 767px) {
-            font-size: ${theme.fontSizes.small};
+            /* font-size: ${theme.fontSizes.small}; */
             margin: 0 0 ${theme.spacing.medium};
             border-radius: 4px;
           }

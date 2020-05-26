@@ -1,5 +1,6 @@
 import { css } from '@emotion/core';
 import { useAnchor } from './Anchor';
+import { Theme } from './Theme';
 
 enum titleTags {
   h1 = 'h1',
@@ -11,31 +12,32 @@ enum titleTags {
 }
 
 const styles = {
-  [titleTags.h1]: ({ fontSizes, spacing }: any) => css`
-    font-size: ${fontSizes.XXLarge};
-    line-height: ${spacing.large};
-    margin-top: ${spacing.medium};
-    margin-bottom: ${spacing.medium};
-    font-feature-settings: 'ss05';
-  `,
-  [titleTags.h2]: ({ fontSizes, spacing }: any) => css`
+  [titleTags.h1]: ({ fontSizes, spacing }: Theme) => css`
     font-size: ${fontSizes.XLarge};
     line-height: ${spacing.medium};
+    margin-top: ${spacing.XLarge};
+    margin-bottom: ${spacing.XLarge};
+    font-feature-settings: 'ss05';
+  `,
+  [titleTags.h2]: ({ fontSizes, spacing }: Theme) => css`
+    font-size: ${fontSizes.large};
+    line-height: ${spacing.medium};
     margin-top: ${spacing.medium};
-    margin-bottom: ${spacing.small};
+    margin-bottom: ${spacing.medium};
     font-weight: normal;
     font-feature-settings: 'ss05';
   `,
-  [titleTags.h3]: ({ fontSizes, spacing, secondaryText }: any) => css`
-    font-size: ${fontSizes.large};
+  [titleTags.h3]: ({ fontSizes, spacing, secondaryText }: Theme) => css`
+    font-size: ${fontSizes.medium};
     line-height: ${spacing.medium};
     margin-top: ${spacing.medium};
     margin-bottom: ${spacing.small};
     color: ${secondaryText};
+    font-weight: normal;
     font-feature-settings: 'ss05';
   `,
-  [titleTags.h4]: ({ fontSizes, spacing }: any) => css`
-    font-size: ${fontSizes.medium};
+  [titleTags.h4]: ({ fontSizes, spacing }: Theme) => css`
+    font-size: ${fontSizes.small};
     line-height: ${spacing.medium};
     margin-top: ${spacing.medium};
     margin-bottom: 0;

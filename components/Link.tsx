@@ -24,6 +24,7 @@ export const Link: React.FunctionComponent<{ href: string }> = ({ href, children
       transition: background-position 250ms ease, text-decoration-color 250ms ease;
 
       text-decoration-color: ${theme.border};
+      text-decoration-thickness: 2px;
 
       &:hover {
         background-position: 0 100%;
