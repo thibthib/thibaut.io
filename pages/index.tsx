@@ -1,12 +1,21 @@
+import * as React from 'react';
 import Head from 'next/head';
 import Link from 'next/link';
 import { Global, css } from '@emotion/core';
-import { InstagramLogo } from '../components/icons/Instagram';
-import { GithubLogo } from '../components/icons/Github';
-import { TwitterLogo } from '../components/icons/Twitter';
-import { ExposureLogo } from '../components/icons/Exposure';
+import { InstagramLogo } from 'components/icons/Instagram';
+import { GithubLogo } from 'components/icons/Github';
+import { TwitterLogo } from 'components/icons/Twitter';
+import { ExposureLogo } from 'components/icons/Exposure';
 
-const PageLink = React.forwardRef(({ href, label, description, logo }, ref) => (
+const PageLink = React.forwardRef<
+  HTMLAnchorElement,
+  {
+    href?: string;
+    label: string;
+    description?: string;
+    logo: React.ReactNode;
+  }
+>(({ href, label, description, logo }: any, ref) => (
   <a
     href={href}
     ref={ref}

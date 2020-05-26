@@ -1,4 +1,4 @@
-import { startP3, startRGB, endP3, endRGB, theme } from '../components/themes/NightOwl';
+import { startP3, startRGB, endP3, endRGB, theme } from 'components/themes/NightOwl';
 import { css, Global } from '@emotion/core';
 
 const Page = () => {

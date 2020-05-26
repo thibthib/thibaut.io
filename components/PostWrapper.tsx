@@ -1,3 +1,4 @@
+import * as React from 'react';
 import { Global, css } from '@emotion/core';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
@@ -5,20 +6,26 @@ import { Link } from './Link';
 import { MenuLink } from './MenuLink';
 import { h1 as H1 } from './Title';
 
-export const PostWrapper = props => {
+type MetaData = {
+  title: string;
+  description: string;
+  date: string;
+};
+
+export const PostWrapper: React.FunctionComponent<{ meta: MetaData }> = ({ meta, children }) => {
   const router = useRouter();
   const url = encodeURIComponent(`https://thibaut.io${router.pathname}`);
   return (
     <main>
       <Head>
-        <title>{props.meta.title}</title>
-        <meta name="description" content={props.meta.description} />
+        <title>{meta.title}</title>
+        <meta name="description" content={meta.description} />
         <meta name="theme-color" content="#021c31" />
         <meta name="twitter:creator" content="@thib_thib" />
-        <meta name="twitter:title" content={props.meta.title} />
-        <meta name="twitter:description" content={props.meta.description} />
-        <meta property="og:title" content={props.meta.title} />
-        <meta property="og:description" content={props.meta.description} />
+        <meta name="twitter:title" content={meta.title} />
+        <meta name="twitter:description" content={meta.description} />
+        <meta property="og:title" content={meta.title} />
+        <meta property="og:description" content={meta.description} />
       </Head>
       <Global
         styles={theme => css`
@@ -70,7 +77,7 @@ export const PostWrapper = props => {
       <MenuLink />
       <header>
         <H1>
-          {props.meta.title}
+          {meta.title}
           <p
             css={theme => css`
               margin-top: 0;
@@ -80,7 +87,7 @@ export const PostWrapper = props => {
               font-weight: 300;
             `}
           >
-            {props.meta.date}
+            {meta.date}
           </p>
         </H1>
       </header>
@@ -89,7 +96,7 @@ export const PostWrapper = props => {
           margin-bottom: ${theme.spacing.medium};
         `}
       >
-        {props.children}
+        {children}
       </article>
       <footer
         css={theme => css`
