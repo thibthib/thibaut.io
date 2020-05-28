@@ -17,15 +17,12 @@ const styles = {
     line-height: ${spacing.medium};
     margin-top: ${spacing.XLarge};
     margin-bottom: ${spacing.XLarge};
-    font-feature-settings: 'ss05';
   `,
   [titleTags.h2]: ({ fontSizes, spacing }: Theme) => css`
     font-size: ${fontSizes.large};
     line-height: ${spacing.medium};
     margin-top: ${spacing.medium};
     margin-bottom: ${spacing.medium};
-    font-weight: normal;
-    font-feature-settings: 'ss05';
   `,
   [titleTags.h3]: ({ fontSizes, spacing, secondaryText }: Theme) => css`
     font-size: ${fontSizes.medium};
@@ -34,7 +31,6 @@ const styles = {
     margin-bottom: ${spacing.small};
     color: ${secondaryText};
     font-weight: normal;
-    font-feature-settings: 'ss05';
   `,
   [titleTags.h4]: ({ fontSizes, spacing }: Theme) => css`
     font-size: ${fontSizes.small};
@@ -42,7 +38,6 @@ const styles = {
     margin-top: ${spacing.medium};
     margin-bottom: 0;
     text-transform: uppercase;
-    font-feature-settings: 'ss05';
   `,
   [titleTags.h5]: () => css``,
   [titleTags.h6]: () => css``,

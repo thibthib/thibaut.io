@@ -33,7 +33,7 @@ export const PostWrapper: React.FunctionComponent<{ meta: MetaData }> = ({ meta,
           body {
             background-color: ${theme.background};
             color: ${theme.text};
-            font-family: Cartograph, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto,
+            font-family: Archia, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto,
               'Oxygen-Sans', Ubuntu, Cantarell, 'Helvetica Neue';
             margin: 0 auto;
             padding: calc(0.5rem + 3vh) calc(0.5rem + 4vw);
@@ -52,8 +52,8 @@ export const PostWrapper: React.FunctionComponent<{ meta: MetaData }> = ({ meta,
           }
 
           html {
-            font-size: 16px;
-            font-size: clamp(16px, 1.4vw, 19px);
+            font-size: 18px;
+            font-size: clamp(18px, 1.4vw, 21px);
           }
 
           p {
@@ -61,8 +61,6 @@ export const PostWrapper: React.FunctionComponent<{ meta: MetaData }> = ({ meta,
             line-height: ${theme.spacing.medium};
             margin-top: 0;
             margin-bottom: ${theme.spacing.medium};
-            font-weight: 300;
-            font-feature-settings: 'ss05';
           }
 
           ul {

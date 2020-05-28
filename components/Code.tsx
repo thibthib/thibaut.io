@@ -13,9 +13,9 @@ export const InlineCode: React.FunctionComponent = ({ children }) => {
         font-family: ${theme.monospaceFont};
         background-color: ${theme.secondaryBackground};
         color: ${theme.highlight};
-        border-radius: 2px;
-        padding: 0.1em 0.3em 0.3em;
-        font-feature-settings: initial;
+        border-radius: 4px;
+        padding: 0.1em 0.25em 0.25em;
+        font-feature-settings: 'ss01';
         font-weight: 300;
       `}
     >
@@ -54,12 +54,10 @@ export const Code: React.FunctionComponent<{ className: string; metastring: stri
           background: ${theme.secondaryBackground};
 
           font-family: ${theme.monospaceFont};
-          font-feature-settings: initial;
+          font-feature-settings: 'ss01';
           font-weight: 400;
-          line-height: 1.5em;
-          /* code examples are 80 characters long */
-          /* whereas body length is 68 chars */
-          font-size: ${theme.lineLength / 80}rem;
+          line-height: 1.35em;
+          font-size: 0.9rem;
 
           overflow-x: auto;
           overflow-y: hidden;

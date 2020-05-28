@@ -24,38 +24,26 @@ export default class MyDocument extends Document {
             styles={css`
               @font-face {
                 font-family: Cartograph;
-                src: url('cartograph/CartographCF-Regular-web.woff2') format('woff2'),
-                  url('cartograph/CartographCF-Regular-web.woff') format('woff');
-                font-weight: 400;
+                src: url('cartograph-regular.woff2') format('woff2'),
+                  url('cartograph-regular.woff') format('woff');
                 font-display: swap;
+                font-feature-settings: 'ss01';
               }
 
               @font-face {
                 font-family: Cartograph;
-                src: url('cartograph/CartographCF-RegularItalic-web.woff2') format('woff2'),
-                  url('cartograph/CartographCF-RegularItalic-web.woff') format('woff');
-                font-weight: 400;
+                src: url('cartograph-regular-italic.woff2') format('woff2'),
+                  url('cartograph-regular-italic.woff') format('woff');
                 font-style: italic;
                 font-display: swap;
+                font-feature-settings: 'ss01';
               }
 
               @font-face {
-                font-family: Cartograph;
-                src: url('cartograph/CartographCF-LightItalic-web.woff2') format('woff2'),
-                  url('cartograph/CartographCF-LightItalic-web.woff') format('woff');
-                font-weight: 300;
-                font-style: italic;
+                font-family: Archia;
+                src: url('archia-regular.woff2') format('woff2'),
+                  url('archia-regular.woff') format('woff');
                 font-display: swap;
-                font-feature-settings: 'ss05';
-              }
-
-              @font-face {
-                font-family: Cartograph;
-                src: url('cartograph/CartographCF-Light-web.woff2') format('woff2'),
-                  url('cartograph/CartographCF-Light-web.woff') format('woff');
-                font-weight: 300;
-                font-display: swap;
-                font-feature-settings: 'ss05';
               }
             `}
           />

@@ -14,7 +14,7 @@ const fontSizes = {
   XXLarge: `${Math.pow(fontSizeRatio, 4)}rem`,
 };
 
-const spacingBase = 1.618;
+const spacingBase = 1.5;
 
 const spacing = {
   small: `${spacingBase / 2}rem`,
@@ -111,7 +111,7 @@ export const theme: Theme = {
     'Cartograph, "SFMono-Regular", Consolas, "Liberation Mono", Menlo, Courier, monospace',
   fontSizes,
   spacing,
-  lineLength: 68,
+  lineLength: 60,
   ...variables,
 };
 

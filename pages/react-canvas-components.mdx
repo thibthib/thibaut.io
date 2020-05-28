@@ -31,7 +31,7 @@ The `<canvas/>` HTML element can be used to draw graphics with a finer control t
 
 ## 🧑‍🏫 Canvas 101
 
-The `canvas` element is like a sheet of paper. To draw in real life you would take a pen, move your hand to a first position, and draw a line by moving your hand to another position. The browser API to draw on a canvas is actually very similar. We first need to make a blueprint of the shape we want to draw (like using a real pencil), that can later be colored in.
+The `canvas` element is like a sheet of paper. To draw in real life you would take a pen, move your hand to a first position, and draw a line by moving your hand to another position. The browser API to draw on a canvas is actually very similar. We first need to make a blueprint of the shape we want to draw – like using a real pencil – that can later be colored in.
 
 ```javascript
 // moving our hand to the starting position
@@ -105,10 +105,13 @@ const SharingContext = React.createContext(null);
 
 const Canvas = props => {
   const canvasRef = React.useRef(null);
-  const [renderingContext, setRenderingContext] = React.useState(null);
+  const [
+    renderingContext,
+    setRenderingContext,
+  ] = React.useState(null);
 
   // the canvas rendering context is not immediately avalaible
-  // as the canvas node first needs to be added to the DOM by react
+  // the canvas node first needs to be added to the DOM by react
   React.useEffect(() => {
     const context2d = canvasRef.current.getContext('2d');
     setRenderingContext(context2d);
@@ -117,7 +120,7 @@ const Canvas = props => {
   return (
     <SharingContext.Provider value={renderingContext}>
       <canvas ref={canvasRef} />
-      {/* the hexagons are passed through the `children` prop */}
+      {/* hexagons are passed through the `children` prop */}
       {props.children}
     </SharingContext.Provider>
   );
@@ -161,8 +164,8 @@ First things first - the canvas should be cleared at the beginning of each frame
 
 ```jsx animated-hexagons-v9j2q src/Canvas.js
 const [frameCount, setFrameCount] = React.useState(0);
-// this effect will increment frameCount by one at the next frame
-// and is called every time frameCount changes, creating a recursive loop
+// this effect increments frameCount by one at the next frame
+// as it's called every time frameCount changes
 // this makes the Canvas component re-render at every frame
 React.useEffect(() => {
   const frameId = requestAnimationFrame(() => {
@@ -244,7 +247,9 @@ Like we did with `useCanvas`, we can also improve the readability of this code b
 ```jsx animated-hexagons-v9j2q src/Canvas.js
 const useAnimation = (initialValue, valueUpdater) => {
   const animatedValue = React.useRef(initialValue);
-  animatedValue.current = valueUpdater(animatedValue.current);
+  animatedValue.current = valueUpdater(
+    animatedValue.current
+  );
   return animatedValue.current;
 };
 ```
@@ -254,7 +259,10 @@ The `Hexagon` code now looks a bit better:
 ```jsx animated-hexagons-v9j2q src/Hexagon.js
 const Hexagon = props => {
   // [...]
-  const animatedRotation = useAnimation(props.rotation, angle => angle + 1);
+  const animatedRotation = useAnimation(
+    props.rotation,
+    angle => angle + 1
+  );
   // drawing logic
 };
 ```

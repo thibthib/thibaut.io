@@ -1,16 +1,17 @@
 import Link from 'next/link';
 import { css } from '@emotion/core';
 import { GradientText } from './GradientText';
+import { Theme } from './Theme';
 
 export const MenuLink = () => (
   <Link href={`/`}>
     <a
-      css={theme => css`
+      css={(theme: Theme) => css`
         font-family: ${theme.monospaceFont};
         position: relative;
         display: inline-block;
         text-decoration: none;
-        font-size: 1.2em;
+        font-size: ${theme.fontSizes.medium};
         line-height: 1.2em;
         cursor: pointer;
       `}
