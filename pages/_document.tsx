@@ -27,7 +27,6 @@ export default class MyDocument extends Document {
                 src: url('cartograph-regular.woff2') format('woff2'),
                   url('cartograph-regular.woff') format('woff');
                 font-display: swap;
-                font-feature-settings: 'ss01';
               }
 
               @font-face {
@@ -36,7 +35,6 @@ export default class MyDocument extends Document {
                   url('cartograph-regular-italic.woff') format('woff');
                 font-style: italic;
                 font-display: swap;
-                font-feature-settings: 'ss01';
               }
 
               @font-face {

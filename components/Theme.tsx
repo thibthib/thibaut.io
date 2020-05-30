@@ -99,7 +99,7 @@ export type Theme = {
   secondaryHighlight: string;
   border: string;
   gradientText: string;
-  monospaceFont: string;
+  monospaceFont: SerializedStyles;
   fontSizes: typeof fontSizes;
   spacing: typeof spacing;
   lineLength: number;
@@ -107,8 +107,11 @@ export type Theme = {
 
 export const theme: Theme = {
   gradientText: `linear-gradient(120deg, ${variables.highlight}, ${variables.secondaryHighlight});`,
-  monospaceFont:
-    'Cartograph, "SFMono-Regular", Consolas, "Liberation Mono", Menlo, Courier, monospace',
+  monospaceFont: css`
+    font-family: Cartograph, 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, Courier,
+      monospace;
+    font-feature-settings: 'ss01';
+  `,
   fontSizes,
   spacing,
   lineLength: 60,

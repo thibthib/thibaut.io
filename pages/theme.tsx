@@ -5,11 +5,7 @@ import { ColorSpace, convertCSSColor } from '@color-spaces/convert';
 const Page = () => {
   return (
     <>
-      <div
-        css={theme => css`
-          font-family: ${theme.monospaceFont};
-        `}
-      >
+      <div css={theme => theme.monospaceFont}>
         {Object.entries(Colors).map(([name, value]) => (
           <div
             key={name}

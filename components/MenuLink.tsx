@@ -7,7 +7,7 @@ export const MenuLink = () => (
   <Link href={`/`}>
     <a
       css={(theme: Theme) => css`
-        font-family: ${theme.monospaceFont};
+        ${theme.monospaceFont};
         position: relative;
         display: inline-block;
         text-decoration: none;

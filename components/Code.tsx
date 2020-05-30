@@ -10,7 +10,7 @@ export const InlineCode: React.FunctionComponent = ({ children }) => {
   return (
     <code
       css={(theme: Theme) => css`
-        font-family: ${theme.monospaceFont};
+        ${theme.monospaceFont};
         background-color: ${theme.secondaryBackground};
         color: ${theme.highlight};
         border-radius: 4px;
@@ -53,8 +53,7 @@ export const Code: React.FunctionComponent<{ className: string; metastring: stri
           color: ${theme.text};
           background: ${theme.secondaryBackground};
 
-          font-family: ${theme.monospaceFont};
-          font-feature-settings: 'ss01';
+          ${theme.monospaceFont};
           font-weight: 400;
           line-height: 1.35em;
           font-size: 0.9rem;
@@ -101,7 +100,7 @@ export const Code: React.FunctionComponent<{ className: string; metastring: stri
         styles={(theme: Theme) => css`
           ${themeDefinition};
           code {
-            font-family: ${theme.monospaceFont};
+            ${theme.monospaceFont};
             color: ${themeVariables.text};
           }
           .script {

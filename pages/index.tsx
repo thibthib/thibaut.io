@@ -85,7 +85,7 @@ export default () => (
         body {
           margin: 0;
           background-color: hsl(231, 77%, 38%);
-          font-family: ${theme.monospaceFont};
+          ${theme.monospaceFont};
         }
 
         * {
