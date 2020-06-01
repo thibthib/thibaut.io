@@ -33,8 +33,7 @@ export const PostWrapper: React.FunctionComponent<{ meta: MetaData }> = ({ meta,
           body {
             background-color: ${theme.background};
             color: ${theme.text};
-            font-family: Archia, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto,
-              'Oxygen-Sans', Ubuntu, Cantarell, 'Helvetica Neue';
+            ${theme.sansSerifFont}
             margin: 0 auto;
             padding: calc(0.5rem + 3vh) calc(0.5rem + 4vw);
             word-break: break-word;

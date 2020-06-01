@@ -11,12 +11,14 @@ const fontSizes = {
   medium: `1rem`,
   large: `${Math.pow(fontSizeRatio, 1)}rem`,
   XLarge: `${Math.pow(fontSizeRatio, 2)}rem`,
-  XXLarge: `${Math.pow(fontSizeRatio, 4)}rem`,
+  XXLarge: `${Math.pow(fontSizeRatio, 3)}rem`,
+  XXXLarge: `${Math.pow(fontSizeRatio, 6)}rem`,
 };
 
 const spacingBase = 1.5;
 
 const spacing = {
+  XSmall: `${spacingBase / 4}rem`,
   small: `${spacingBase / 2}rem`,
   medium: `${spacingBase}rem`,
   large: `${spacingBase * 2}rem`,
@@ -52,6 +54,7 @@ const ColorTheme = {
   highlight: Colors.accent1,
   secondaryHighlight: Colors.accent2,
   border: Colors.shade3,
+  ...Colors,
 };
 
 const getCSSVariableName = (colorName: string) => `var(--${kebabCase(colorName)})`;
@@ -90,16 +93,10 @@ export const getTheme = <T extends ColorMap>(colors: T): [T, SerializedStyles] =
 
 const [variables, definition] = getTheme(ColorTheme);
 
-export type Theme = {
-  background: string;
-  secondaryBackground: string;
-  text: string;
-  secondaryText: string;
-  highlight: string;
-  secondaryHighlight: string;
-  border: string;
+export type Theme = typeof ColorTheme & {
   gradientText: string;
   monospaceFont: SerializedStyles;
+  sansSerifFont: SerializedStyles;
   fontSizes: typeof fontSizes;
   spacing: typeof spacing;
   lineLength: number;
@@ -111,6 +108,10 @@ export const theme: Theme = {
     font-family: Cartograph, 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, Courier,
       monospace;
     font-feature-settings: 'ss01';
+  `,
+  sansSerifFont: css`
+    font-family: Archia, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Oxygen-Sans',
+      Ubuntu, Cantarell, 'Helvetica Neue';
   `,
   fontSizes,
   spacing,

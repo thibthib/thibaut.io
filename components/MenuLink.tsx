@@ -7,7 +7,7 @@ export const MenuLink = () => (
   <Link href={`/`}>
     <a
       css={(theme: Theme) => css`
-        ${theme.monospaceFont};
+        font-weight: 600;
         position: relative;
         display: inline-block;
         text-decoration: none;
@@ -16,7 +16,7 @@ export const MenuLink = () => (
         cursor: pointer;
       `}
     >
-      <GradientText>thibaut.io</GradientText>
+      <GradientText>thibaut</GradientText>
       <div
         css={css`
           position: absolute;
@@ -41,7 +41,7 @@ export const MenuLink = () => (
             left: 0;
           `}
         >
-          thibaut.io
+          thibaut
         </div>
       </div>
     </a>

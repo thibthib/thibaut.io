@@ -8,14 +8,7 @@ export default class MyDocument extends Document {
         <Head>
           <link
             rel="preload"
-            href="cartograph/CartographCF-Light-web.woff2"
-            as="font"
-            type="font/woff2"
-            crossOrigin="true"
-          />
-          <link
-            rel="preload"
-            href="cartograph/CartographCF-LightItalic-web.woff2"
+            href="archia-regular.woff2"
             as="font"
             type="font/woff2"
             crossOrigin="true"
