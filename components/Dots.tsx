@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { useSprings, animated } from 'react-spring';
+import { useSpring, useSprings, animated } from 'react-spring';
 import random from 'lodash/random';
 import clamp from 'lodash/clamp';
 import { useTheme } from 'emotion-theming';
@@ -48,22 +48,21 @@ export const Dots: React.FunctionComponent = () => {
     let xShift = 0;
     let yShift = 0;
 
-    if (mouseX)
-      if (mouseX && mouseY) {
-        const xDiff = mouseX - dots[index].x;
-        const yDiff = mouseY - dots[index].y;
+    if (mouseX && mouseY) {
+      const xDiff = mouseX - dots[index].x;
+      const yDiff = mouseY - dots[index].y;
 
-        const distance = Math.sqrt(Math.pow(xDiff, 2) + Math.pow(yDiff, 2));
-        const pullStrength = clamp(-0.004 * distance + 1, 0, 1);
+      const distance = Math.sqrt(Math.pow(xDiff, 2) + Math.pow(yDiff, 2));
+      const pullStrength = clamp(-0.004 * distance + 1, 0, 1);
 
-        xShift = random(0, 20 * pullStrength);
-        yShift = random(0, 20 * pullStrength);
+      xShift = random(-15 * pullStrength, 15 * pullStrength);
+      yShift = random(-15 * pullStrength, 15 * pullStrength);
 
-        return {
-          transform: `translate3d(${xShift}px, ${yShift}px, 0px) rotate(45deg)`,
-          config: { tension: 170 * pullStrength, friction: 26 * pullStrength },
-        };
-      }
+      return {
+        transform: `translate3d(${xShift}px, ${yShift}px, 0px) rotate(45deg)`,
+        config: { tension: 170 * pullStrength, friction: 26 * pullStrength },
+      };
+    }
 
     return {
       transform: `translate3d(0px, 0px, 0px) rotate(45deg)`,
