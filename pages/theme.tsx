@@ -1,11 +1,11 @@
-import { Colors } from '../components/Theme';
+import { Colors, Theme } from '../components/Theme';
 import { css } from '@emotion/core';
 import { ColorSpace, convertCSSColor } from '@color-spaces/convert';
 
 const Page = () => {
   return (
     <>
-      <div css={theme => theme.monospaceFont}>
+      <div css={(theme: Theme) => theme.monospaceFont}>
         {Object.entries(Colors).map(([name, value]) => (
           <div
             key={name}

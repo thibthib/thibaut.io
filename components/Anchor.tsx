@@ -2,7 +2,8 @@ import * as React from 'react';
 import isArray from 'lodash/isArray';
 import kebabCase from 'lodash/kebabCase';
 import { css } from '@emotion/core';
-import { theme } from './Theme';
+import { Theme } from './Theme';
+import { useTheme } from 'emotion-theming';
 
 const getAsString = (node: React.ReactNode): string => {
   if (typeof node === 'string') {
@@ -20,12 +21,13 @@ const getAsString = (node: React.ReactNode): string => {
 export const useAnchor = (children: React.ReactNode): [string, React.ReactElement] => {
   const childString = getAsString(children);
   const anchor = kebabCase(childString);
+  const theme = useTheme<Theme>();
   return [
     anchor,
     <a
       href={`#${anchor}`}
       aria-label={childString}
-      css={theme => css`
+      css={css`
         text-decoration: none;
         position: absolute;
         right: 100%;

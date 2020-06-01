@@ -72,7 +72,7 @@ export const PostWrapper: React.FunctionComponent<{ meta: MetaData }> = ({ meta,
         <H1>
           {meta.title}
           <p
-            css={theme => css`
+            css={(theme: Theme) => css`
               margin-top: 0;
               color: ${theme.secondaryText};
               font-size: ${theme.fontSizes.small};
@@ -84,14 +84,14 @@ export const PostWrapper: React.FunctionComponent<{ meta: MetaData }> = ({ meta,
         </H1>
       </header>
       <article
-        css={theme => css`
+        css={(theme: Theme) => css`
           margin-bottom: ${theme.spacing.medium};
         `}
       >
         {children}
       </article>
       <footer
-        css={theme => css`
+        css={(theme: Theme) => css`
           padding-top: ${theme.spacing.medium};
           border-top: 1px solid ${theme.border};
         `}

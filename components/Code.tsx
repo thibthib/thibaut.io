@@ -15,8 +15,6 @@ export const InlineCode: React.FunctionComponent = ({ children }) => {
         color: ${theme.highlight};
         border-radius: 4px;
         padding: 0.1em 0.25em 0.25em;
-        font-feature-settings: 'ss01';
-        font-weight: 300;
       `}
     >
       {children}
@@ -54,7 +52,6 @@ export const Code: React.FunctionComponent<{ className: string; metastring: stri
           background: ${theme.secondaryBackground};
 
           ${theme.monospaceFont};
-          font-weight: 400;
           line-height: 1.35em;
           font-size: 0.9rem;
 
@@ -72,7 +69,6 @@ export const Code: React.FunctionComponent<{ className: string; metastring: stri
           margin: 0 -6vw ${theme.spacing.medium};
 
           @media (min-width: 767px) {
-            /* font-size: ${theme.fontSizes.small}; */
             margin: 0 0 ${theme.spacing.medium};
             border-radius: 4px;
           }

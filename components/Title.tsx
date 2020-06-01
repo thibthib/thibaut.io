@@ -50,9 +50,8 @@ export const Title: React.FunctionComponent<{
   return (
     <Tag
       id={anchorId}
-      css={theme => css`
+      css={(theme: Theme) => css`
         position: relative;
-        line-height: 1.2;
         ${styles[Tag](theme)}
       `}
     >
