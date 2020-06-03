@@ -26,7 +26,7 @@ const PageLink = React.forwardRef<
       href={href}
       ref={ref}
       css={css`
-        display: flex;
+        display: inline-flex;
         justify-content: flex-start;
         align-items: center;
         margin-top: ${spacing.medium};
@@ -55,6 +55,7 @@ const PageLink = React.forwardRef<
             text-decoration: underline;
             text-decoration-color: ${secondaryText};
             font-size: ${fontSizes.large};
+            white-space: nowrap;
           `}
         >
           {label}
@@ -77,19 +78,6 @@ const PageLink = React.forwardRef<
 
 export default () => {
   const { spacing, background, sansSerifFont, text, fontSizes } = useTheme<Theme>();
-
-  const column = css`
-    position: relative;
-    display: inline-flex;
-    flex-direction: column;
-    width: 100vw;
-    padding: ${spacing.medium};
-
-    @media (min-width: 480px) {
-      width: 50vw;
-      padding: ${spacing.small};
-    }
-  `;
 
   return (
     <>
@@ -135,31 +123,53 @@ export default () => {
         css={css`
           display: flex;
           align-items: center;
+          justify-content: center;
           flex-direction: column;
-          padding: calc(0.5rem + 10vh) calc(0.5rem + 4vw);
+          padding: 10vh 0;
+          margin: 0 auto;
 
-          @media (min-width: 480px) {
+          @media (min-width: 660px) {
             flex-direction: row;
             margin-top: 0;
             height: 100vh;
+            padding: 0;
           }
         `}
       >
-        <div css={column}>
+        <div
+          css={css`
+            position: relative;
+            display: inline-flex;
+            flex-direction: column;
+            width: 100vw;
+            padding: ${spacing.medium};
+
+            @media (min-width: 660px) {
+              width: 43vw;
+              padding: 0 ${spacing.large} 0 ${spacing.medium};
+              align-items: flex-end;
+            }
+          `}
+        >
           <h1
             css={css`
-              text-align: center;
-              margin: 0 auto ${spacing.large};
+              margin-bottom: ${spacing.large};
               font-size: ${fontSizes.XXXLarge};
+              white-space: nowrap;
             `}
           >
             <GradientText>thibaut</GradientText>
           </h1>
           <div
             css={css`
-              margin: 0 auto ${spacing.medium};
-              display: inline-flex;
+              margin-bottom: ${spacing.medium};
+              display: flex;
               flex-direction: column;
+              align-items: flex-start;
+
+              @media (min-width: 660px) {
+                align-items: flex-end;
+              }
             `}
           >
             <PageLink href={'https://github.com/thibthib'} label={'GitHub'} logo={<GithubLogo />} />
@@ -181,11 +191,30 @@ export default () => {
             />
           </div>
         </div>
-        <div css={column}>
+        <div
+          css={css`
+            position: relative;
+            display: inline-flex;
+            flex-direction: column;
+            width: 100vw;
+            padding: ${spacing.medium};
+
+            @media (min-width: 660px) {
+              width: 57vw;
+              padding: 0 ${spacing.medium} 0 ${spacing.large};
+            }
+          `}
+        >
           <h2
             css={css`
               font-size: ${fontSizes.XLarge};
-              margin: 0 0 ${spacing.medium};
+              margin: ${spacing.small} 0;
+              padding-left: 0;
+
+              @media (min-width: 660px) {
+                margin: ${spacing.large} 0 ${spacing.small} ${spacing.medium};
+                padding-left: ${spacing.small};
+              }
             `}
           >
             projects

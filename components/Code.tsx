@@ -52,7 +52,7 @@ export const Code: React.FunctionComponent<{ className: string; metastring: stri
           background: ${theme.secondaryBackground};
 
           ${theme.monospaceFont};
-          line-height: 1.35em;
+          line-height: 1.5em;
           font-size: 0.9rem;
 
           overflow-x: auto;

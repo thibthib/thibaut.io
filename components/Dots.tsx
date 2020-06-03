@@ -8,6 +8,22 @@ import { Theme } from 'components/Theme';
 
 const stepDimension = 60;
 
+const getDots = (colors: string[]) => {
+  const dots = [];
+
+  for (let x = 0; x < window.innerWidth; x += stepDimension) {
+    for (let y = 0; y < window.innerHeight; y += stepDimension) {
+      dots.push({
+        x: random(x - stepDimension * 0.5, x + stepDimension * 0.5),
+        y: random(y - stepDimension * 0.5, y + stepDimension * 0.5),
+        color: colors[random(0, colors.length)],
+      });
+    }
+  }
+
+  return dots;
+};
+
 export const Dots: React.FunctionComponent = () => {
   const theme = useTheme<Theme>();
 
@@ -28,29 +44,26 @@ export const Dots: React.FunctionComponent = () => {
     return null;
   }
 
-  const dots = React.useMemo(() => {
-    const dots = [];
+  const [dots, setDots] = React.useState(getDots(dotColors));
 
-    for (let x = 0; x < window.innerWidth; x += stepDimension) {
-      for (let y = 0; y < window.innerHeight; y += stepDimension) {
-        dots.push({
-          x: random(x - stepDimension * 0.5, x + stepDimension * 0.5),
-          y: random(y - stepDimension * 0.5, y + stepDimension * 0.5),
-          color: dotColors[random(0, dotColors.length)],
-        });
-      }
-    }
-
-    return dots;
+  React.useEffect(() => {
+    const onResize = () => {
+      setDots(getDots(dotColors));
+    };
+    window.addEventListener('resize', onResize);
+    return () => {
+      window.removeEventListener('resize', onResize);
+    };
   }, []);
 
   const getTransform = (mouseX?: number, mouseY?: number) => (index: number) => {
     let xShift = 0;
     let yShift = 0;
+    const dot = dots[index];
 
-    if (mouseX && mouseY) {
-      const xDiff = mouseX - dots[index].x;
-      const yDiff = mouseY - dots[index].y;
+    if (mouseX && mouseY && dot) {
+      const xDiff = mouseX - dot.x;
+      const yDiff = mouseY - dot.y;
 
       const distance = Math.sqrt(Math.pow(xDiff, 2) + Math.pow(yDiff, 2));
       const pullStrength = clamp(-0.004 * distance + 1, 0, 1);

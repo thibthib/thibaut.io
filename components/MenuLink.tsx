@@ -11,7 +11,7 @@ export const MenuLink = () => (
         position: relative;
         display: inline-block;
         text-decoration: none;
-        font-size: ${theme.fontSizes.medium};
+        font-size: ${theme.fontSizes.large};
         line-height: 1.2em;
         cursor: pointer;
       `}
