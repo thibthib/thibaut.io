@@ -1043,23 +1043,19 @@
   resolved "https://registry.yarnpkg.com/@color-spaces/convert/-/convert-1.0.1.tgz#58f14b9c1136eaf730d00e312783f5777c25fb88"
   integrity sha512-u5459Uh15eeJMqqDQCwFADhjbfaxnok9IRnacewrkEUMK2zBrCxJwjUfbpixyiu94GN+B8hSAnJQlhOKir1BlQ==
 
-"@datadog/browser-core@1.11.4":
-  version "1.11.4"
-  resolved "https://registry.yarnpkg.com/@datadog/browser-core/-/browser-core-1.11.4.tgz#3a304498b2019aecfd262040f30db5127dd24ed4"
-  integrity sha512-yHrEhMzwWsHxgAodSlB3Rjnlxk4yrlJnKbpwUU/40SGHPtehmHw0N2fsIpRKIuCZYSshL3IjW0ZLO+odGzt0Cg==
+"@datadog/browser-core@1.12.1":
+  version "1.12.1"
+  resolved "https://registry.yarnpkg.com/@datadog/browser-core/-/browser-core-1.12.1.tgz#588b9c11743bce68434da29b25743123868afa67"
+  integrity sha512-bC+fC2GNRCTNxNJDM9+RJLT6dHfC0fb4LB7gAtUitKyJ1qCo1TXTXw/TOBN7MbOHb7jd0CqXIyofAM7VhVC3Eg==
   dependencies:
-    lodash.assign "4.2.0"
-    lodash.merge "4.6.2"
     tslib "1.10.0"
 
-"@datadog/browser-rum@1.11.4":
-  version "1.11.4"
-  resolved "https://registry.yarnpkg.com/@datadog/browser-rum/-/browser-rum-1.11.4.tgz#cb7200f7a56cda8411cfef3985a59406f8613689"
-  integrity sha512-HyN8wutk/pFexEiKtGW2GCn0psPXy8Rqu5HKv7gj0GsE0idHgxVwC5IX9H8MnXd9DOq4+e2rsEE3miWxS75vXQ==
+"@datadog/browser-rum@1.12.1":
+  version "1.12.1"
+  resolved "https://registry.yarnpkg.com/@datadog/browser-rum/-/browser-rum-1.12.1.tgz#046424d91449eb390c8675fb99738ee5cfd3cb31"
+  integrity sha512-OPM/ne5V3MVMeX2W11thLVYIEsXmi3eqCoNCNc6hQSpzFECPvCIHQvCG6MzXfxyR4igpprXpbeMbnhXkcagGbQ==
   dependencies:
-    "@datadog/browser-core" "1.11.4"
-    lodash.assign "4.2.0"
-    lodash.merge "4.6.2"
+    "@datadog/browser-core" "1.12.1"
     tslib "1.10.0"
 
 "@emotion/babel-plugin-jsx-pragmatic@^0.1.5":
@@ -4171,20 +4167,10 @@ locate-path@^5.0.0:
   dependencies:
     p-locate "^4.1.0"
 
-lodash.assign@4.2.0:
-  version "4.2.0"
-  resolved "https://registry.yarnpkg.com/lodash.assign/-/lodash.assign-4.2.0.tgz#0d99f3ccd7a6d261d19bdaeb9245005d285808e7"
-  integrity sha1-DZnzzNem0mHRm9rrkkUAXShYCOc=
-
 lodash.memoize@^4.1.2:
   version "4.1.2"
   resolved "https://registry.yarnpkg.com/lodash.memoize/-/lodash.memoize-4.1.2.tgz#bcc6c49a42a2840ed997f323eada5ecd182e0bfe"
   integrity sha1-vMbEmkKihA7Zl/Mj6tpezRguC/4=
-
-lodash.merge@4.6.2:
-  version "4.6.2"
-  resolved "https://registry.yarnpkg.com/lodash.merge/-/lodash.merge-4.6.2.tgz#558aa53b43b661e1925a0afdfa36a9a1085fe57a"
-  integrity sha512-0KpjqXRVvrYyCsX1swR/XTK0va6VQkQM6MNo7PqW77ByjAhoARA8EfrP1N4+KlKj8YS0ZUCtRT/YUuhyYDujIQ==
 
 lodash.sortby@^4.7.0:
   version "4.7.0"
