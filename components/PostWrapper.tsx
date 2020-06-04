@@ -11,6 +11,7 @@ type MetaData = {
   title: string;
   description: string;
   date: string;
+  image?: string;
 };
 
 export const PostWrapper: React.FunctionComponent<{ meta: MetaData }> = ({ meta, children }) => {
@@ -21,10 +22,11 @@ export const PostWrapper: React.FunctionComponent<{ meta: MetaData }> = ({ meta,
       <Head>
         <title>{meta.title}</title>
         <meta name="description" content={meta.description} />
-        <meta name="theme-color" content="#021c31" />
-        <meta name="twitter:creator" content="@thib_thib" />
+        <meta name="twitter:card" content={meta.image ? 'summary_large_image' : 'summary'} />
+        <meta name="twitter:site" content="@thib_thib" />
         <meta name="twitter:title" content={meta.title} />
         <meta name="twitter:description" content={meta.description} />
+        {meta.image ? <meta name="twitter:image" content={meta.image} /> : null}
         <meta property="og:title" content={meta.title} />
         <meta property="og:description" content={meta.description} />
       </Head>

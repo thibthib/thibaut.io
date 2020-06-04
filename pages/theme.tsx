@@ -25,6 +25,8 @@ const Page = () => {
               {name}
               <br />
               {value}
+              <br />
+              {convertCSSColor(value, ColorSpace.HSL)}
             </span>
             <div
               css={css`
