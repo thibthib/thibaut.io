@@ -1,8 +1,8 @@
 export const meta = {
-  title: 'Evolution of refs 🦖',
+  title: "Evolution of refs 🦖",
   description:
-    'With great power comes great responsability',
-  date: 'July 27, 2019',
+    "With great power comes great responsability",
+  date: "July 27, 2019",
 };
 
 For React applications, DOM elements sometimes need to be handled directly. One example is focus management: to give an input element focus without a user clicking on it, you need to call [`input.focus()`](https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/focus). Getting a DOM element in a React app is possible with refs. But new ways to handle refs were released over time, and it became trickier to understand the differences between the various APIs. A couple of weeks ago, while trying to respond to a PR comment, I realized that some of my assumptions about refs were wrong. So let's stop a minute and analyze their evolution !
@@ -17,7 +17,7 @@ class MyComponent extends Component {
     this.refs.input.focus();
   }
   render() {
-    return <input ref={'input'} />;
+    return <input ref={"input"} />;
   }
 }
 ```
@@ -39,7 +39,7 @@ class MyComponent extends Component {
   }
   render() {
     return (
-      <input ref={element => (this.input = element)} />
+      <input ref={(element) => (this.input = element)} />
     );
   }
 }

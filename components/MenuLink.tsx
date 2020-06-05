@@ -1,7 +1,7 @@
-import Link from 'next/link';
-import { css } from '@emotion/core';
-import { GradientText } from './GradientText';
-import { Theme } from './Theme';
+import Link from "next/link";
+import { css } from "@emotion/core";
+import { GradientText } from "./GradientText";
+import { Theme } from "./Theme";
 
 export const MenuLink = () => (
   <Link href={`/`}>

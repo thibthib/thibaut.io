@@ -1,5 +1,5 @@
-import { useState, useEffect, useCallback } from 'react';
-import debounce from 'lodash/debounce';
+import { useState, useEffect, useCallback } from "react";
+import debounce from "lodash/debounce";
 
 export function useDimensions<RefType extends HTMLElement>(): [
   (node: RefType) => void,
@@ -7,7 +7,7 @@ export function useDimensions<RefType extends HTMLElement>(): [
 ] {
   const [dimensions, setDimensions] = useState({});
   const [node, setNode] = useState<RefType>();
-  const ref = useCallback(node => {
+  const ref = useCallback((node) => {
     setNode(node);
   }, []);
 
@@ -27,10 +27,10 @@ export function useDimensions<RefType extends HTMLElement>(): [
       measure();
 
       const resizeListener = debounce(measure, 100);
-      window.addEventListener('resize', resizeListener);
+      window.addEventListener("resize", resizeListener);
 
       return () => {
-        window.removeEventListener('resize', resizeListener);
+        window.removeEventListener("resize", resizeListener);
         window.cancelAnimationFrame(request);
       };
     }

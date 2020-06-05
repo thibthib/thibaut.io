@@ -1,24 +1,24 @@
-import * as React from 'react';
-import { Side } from './Side.js';
-import { ClosestSource } from './ClosestSource';
-import Head from 'next/head';
+import * as React from "react";
+import { Side } from "./Side.js";
+import { ClosestSource } from "./ClosestSource";
+import Head from "next/head";
 
 export class Portrait extends React.Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      side: 'back',
+      side: "back",
     };
   }
   showFront = () => {
     this.setState({
-      side: 'front',
+      side: "front",
     });
   };
   showBack = () => {
     this.setState({
-      side: 'back',
+      side: "back",
     });
   };
   render() {
@@ -52,7 +52,7 @@ export class Portrait extends React.Component {
                   <link rel="preload" href={inViewport ? source.front : source.back} as="image" />
                 </Head>
               ) : null}
-              {side === 'back' ? (
+              {side === "back" ? (
                 <Side src={inViewport ? source.back : null} placeholder={placeholder.back} />
               ) : (
                 <Side src={inViewport ? source.front : null} placeholder={placeholder.front} />

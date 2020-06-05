@@ -1,8 +1,8 @@
-import * as React from 'react';
-import { css, Global } from '@emotion/core';
-import { Colors, getTheme, Theme } from './Theme';
-import { EditOnCodeSandbox } from './EditOnCodeSandbox';
-import { PrismAsyncLight as SyntaxHighlighter } from 'react-syntax-highlighter';
+import * as React from "react";
+import { css, Global } from "@emotion/core";
+import { Colors, getTheme, Theme } from "./Theme";
+import { EditOnCodeSandbox } from "./EditOnCodeSandbox";
+import { PrismAsyncLight as SyntaxHighlighter } from "react-syntax-highlighter";
 
 export const Pre: React.FunctionComponent = ({ children }) => <>{children}</>;
 
@@ -38,12 +38,11 @@ const CodeColorTheme = {
 
 const [themeVariables, themeDefinition] = getTheme(CodeColorTheme);
 
-export const Code: React.FunctionComponent<{ className: string; metastring: string }> = ({
-  children,
-  className,
-  metastring,
-}) => {
-  const language = className.replace(/language-/, '');
+export const Code: React.FunctionComponent<{
+  className: string;
+  metastring: string;
+}> = ({ children, className, metastring }) => {
+  const language = className.replace(/language-/, "");
   const PreTag: React.FunctionComponent = React.useMemo(
     () => ({ children }) => (
       <pre

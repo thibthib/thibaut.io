@@ -1,4 +1,4 @@
-import * as React from 'react';
+import * as React from "react";
 
 const offset = 200;
 
@@ -30,12 +30,12 @@ export class ClosestSource extends React.Component {
     }
   };
   attachListener = () => {
-    window.addEventListener('scroll', this.onChange);
-    window.addEventListener('resize', this.onChange);
+    window.addEventListener("scroll", this.onChange);
+    window.addEventListener("resize", this.onChange);
   };
   removeListener = () => {
-    window.removeEventListener('scroll', this.onChange);
-    window.removeEventListener('resize', this.onChange);
+    window.removeEventListener("scroll", this.onChange);
+    window.removeEventListener("resize", this.onChange);
   };
   componentDidMount() {
     this.attachListener();

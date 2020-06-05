@@ -1,7 +1,7 @@
-import { RandomHexagons } from 'components/hexagons/RandomHexagons';
-import { EditOnCodeSandbox } from 'components/EditOnCodeSandbox';
-import { ClassNames } from '@emotion/core';
-import { useTheme } from 'emotion-theming';
+import { RandomHexagons } from "components/hexagons/RandomHexagons";
+import { EditOnCodeSandbox } from "components/EditOnCodeSandbox";
+import { ClassNames } from "@emotion/core";
+import { useTheme } from "emotion-theming";
 
 export const InlineRandomHexagons = () => {
   const { spacing } = useTheme();
@@ -22,10 +22,10 @@ export const InlineRandomHexagons = () => {
 };
 
 export const meta = {
-  title: 'React + Canvas = 💜',
-  description: 'An untold love story',
-  date: 'February 20, 2020',
-  image: 'https://files-idye8b3wm.now.sh/canvas.jpg',
+  title: "React + Canvas = 💜",
+  description: "An untold love story",
+  date: "February 20, 2020",
+  image: "https://files-idye8b3wm.now.sh/canvas.jpg",
 };
 
 The `<canvas/>` HTML element can be used to draw graphics with a finer control than the usual DOM or SVG. But with React, trying to draw on a canvas is not intuitive as their interfaces are quite different. With React, each component owns their node, as opposed to canvas where there is only one shared node that we can use for drawing. Let's see how we can make a canvas visualization with React components !
@@ -40,7 +40,7 @@ canvasContext.moveTo(x1, y1);
 // drawing a blueprint line to the finishing position
 canvasContext.lineTo(x2, y2);
 // taking a purple pen and coloring the line
-canvasContext.strokeStyle = 'purple';
+canvasContext.strokeStyle = "purple";
 canvasContext.stroke();
 ```
 
@@ -52,7 +52,7 @@ const Canvas = () => {
   const canvasRef = React.useRef(null);
 
   React.useEffect(() => {
-    const context = canvasRef.current.getContext('2d');
+    const context = canvasRef.current.getContext("2d");
     // ...drawing using the context
   }, [canvasRef]);
 
@@ -104,7 +104,7 @@ At this point the naming gets a bit tricky as we are trying to share a canvas' _
 // we create a React context with a _null_ default value
 const SharingContext = React.createContext(null);
 
-const Canvas = props => {
+const Canvas = (props) => {
   const canvasRef = React.useRef(null);
   const [
     renderingContext,
@@ -114,7 +114,7 @@ const Canvas = props => {
   // the canvas rendering context is not immediately avalaible
   // the canvas node first needs to be added to the DOM by react
   React.useEffect(() => {
-    const context2d = canvasRef.current.getContext('2d');
+    const context2d = canvasRef.current.getContext("2d");
     setRenderingContext(context2d);
   }, []);
 
@@ -131,7 +131,7 @@ const Canvas = props => {
 The `Hexagon` component needs to consume this React context to read its value – here with the `useContext` hook.
 
 ```jsx hexagons-30dkf src/Hexagon.js
-const Hexagon = props => {
+const Hexagon = (props) => {
   // we get the rendering context by comsuming the React context
   const renderingContext = React.useContext(SharingContext);
 
@@ -146,7 +146,7 @@ Now that both our `Canvas` and `Hexagon` components are ready we are able to dis
 ```jsx hexagons-30dkf src/App.js
 const App = () => (
   <Canvas>
-    {getRandomHexagons().map(hexagon => (
+    {getRandomHexagons().map((hexagon) => (
       <Hexagon {...hexagon} />
     ))}
   </Canvas>
@@ -188,7 +188,7 @@ But... the canvas is now white! This is because the hexagons are only rendered o
 ```jsx
 const FrameContext = React.createContext(0);
 
-const Canvas = props => {
+const Canvas = (props) => {
   // [...]
   return (
     <SharingContext.Provider value={renderingContext}>
@@ -202,7 +202,7 @@ const Canvas = props => {
 ```
 
 ```jsx
-const Hexagon = props => {
+const Hexagon = (props) => {
   const renderingContext = React.useContext(SharingContext);
   const frameCount = React.useContext(FrameContext);
   // drawing logic
@@ -226,7 +226,7 @@ export const useCanvas = () => {
 The `Hexagon` component logic now needs a small update to use this new hook:
 
 ```jsx
-const Hexagon = props => {
+const Hexagon = (props) => {
   const renderingContext = useCanvas();
   // drawing logic
 };
@@ -258,11 +258,11 @@ const useAnimation = (initialValue, valueUpdater) => {
 The `Hexagon` code now looks a bit better:
 
 ```jsx animated-hexagons-v9j2q src/Hexagon.js
-const Hexagon = props => {
+const Hexagon = (props) => {
   // [...]
   const animatedRotation = useAnimation(
     props.rotation,
-    angle => angle + 1
+    (angle) => angle + 1
   );
   // drawing logic
 };

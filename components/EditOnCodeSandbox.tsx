@@ -1,9 +1,9 @@
-import { css } from '@emotion/core';
-import { GradientText } from './GradientText';
-import { Theme } from './Theme';
+import { css } from "@emotion/core";
+import { GradientText } from "./GradientText";
+import { Theme } from "./Theme";
 
 export const EditOnCodeSandbox: React.FunctionComponent<{ info: string }> = ({ info }) => {
-  const [sandboxName, fileName] = info.split(' ');
+  const [sandboxName, fileName] = info.split(" ");
   return (
     <a
       href={`https://codesandbox.io/s/${sandboxName}?fontsize=14&hidenavigation=1&module=${encodeURIComponent(
@@ -52,7 +52,7 @@ export const EditOnCodeSandbox: React.FunctionComponent<{ info: string }> = ({ i
             />
           </g>
         </svg>
-        <GradientText>{' Edit on CodeSandbox'}</GradientText>
+        <GradientText>{" Edit on CodeSandbox"}</GradientText>
       </span>
     </a>
   );

@@ -1,21 +1,21 @@
-import * as React from 'react';
-import isArray from 'lodash/isArray';
-import kebabCase from 'lodash/kebabCase';
-import { css } from '@emotion/core';
-import { Theme } from './Theme';
-import { useTheme } from 'emotion-theming';
+import * as React from "react";
+import isArray from "lodash/isArray";
+import kebabCase from "lodash/kebabCase";
+import { css } from "@emotion/core";
+import { Theme } from "./Theme";
+import { useTheme } from "emotion-theming";
 
 const getAsString = (node: React.ReactNode): string => {
-  if (typeof node === 'string') {
+  if (typeof node === "string") {
     return node;
-  } else if (typeof node === 'number') {
+  } else if (typeof node === "number") {
     return `${node}`;
   } else if (React.isValidElement(node)) {
     return getAsString(node.props.children);
   } else if (isArray(node)) {
-    return node.map(child => getAsString(child)).join('');
+    return node.map((child) => getAsString(child)).join("");
   }
-  return '';
+  return "";
 };
 
 export const useAnchor = (children: React.ReactNode): [string, React.ReactElement] => {

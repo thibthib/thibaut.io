@@ -1,4 +1,4 @@
-import * as React from 'react';
+import * as React from "react";
 
 export class Side extends React.Component {
   constructor(props) {
@@ -30,9 +30,9 @@ export class Side extends React.Component {
     const { loaded } = this.state;
     const { src, placeholder } = this.props;
     return (
-      <div className={'Side'}>
-        {src ? <img src={src} className={'Side-picture'} /> : null}
-        <img src={placeholder} className={`Side-placeholder${loaded ? '--hidden' : ''}`} />
+      <div className={"Side"}>
+        {src ? <img src={src} className={"Side-picture"} /> : null}
+        <img src={placeholder} className={`Side-placeholder${loaded ? "--hidden" : ""}`} />
         <style jsx>{`
           .Side {
             overflow: hidden;

@@ -1,6 +1,6 @@
-import Head from 'next/head';
-import { Portrait } from 'components/duple/Portrait';
-import portraits from '../public/portraits/portraits.json';
+import Head from "next/head";
+import { Portrait } from "components/duple/Portrait";
+import portraits from "../public/portraits/portraits.json";
 
 const sizes = [480, 640, 800, 1080, 1280];
 
@@ -29,7 +29,7 @@ const Duple = () => (
       </h1>
     </header>
     <main>
-      {portraits.map(portrait => (
+      {portraits.map((portrait) => (
         <Portrait
           key={portrait.id}
           id={portrait.id}
@@ -42,8 +42,8 @@ const Duple = () => (
     <style global jsx>{`
       body {
         margin: 0;
-        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen-Sans, Ubuntu,
-          Cantarell, 'Helvetica Neue', sans-serif;
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu,
+          Cantarell, "Helvetica Neue", sans-serif;
       }
     `}</style>
     <style jsx>{`

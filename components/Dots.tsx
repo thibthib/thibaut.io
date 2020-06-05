@@ -1,10 +1,10 @@
-import * as React from 'react';
-import { useSpring, useSprings, animated } from 'react-spring';
-import random from 'lodash/random';
-import clamp from 'lodash/clamp';
-import { useTheme } from 'emotion-theming';
+import * as React from "react";
+import { useSpring, useSprings, animated } from "react-spring";
+import random from "lodash/random";
+import clamp from "lodash/clamp";
+import { useTheme } from "emotion-theming";
 
-import { Theme } from 'components/Theme';
+import { Theme } from "components/Theme";
 
 const stepDimension = 60;
 
@@ -40,7 +40,7 @@ export const Dots: React.FunctionComponent = () => {
     theme.accent6,
   ];
 
-  if (typeof window === 'undefined') {
+  if (typeof window === "undefined") {
     return null;
   }
 
@@ -50,9 +50,9 @@ export const Dots: React.FunctionComponent = () => {
     const onResize = () => {
       setDots(getDots(dotColors));
     };
-    window.addEventListener('resize', onResize);
+    window.addEventListener("resize", onResize);
     return () => {
-      window.removeEventListener('resize', onResize);
+      window.removeEventListener("resize", onResize);
     };
   }, []);
 
@@ -88,15 +88,23 @@ export const Dots: React.FunctionComponent = () => {
     const callback = (event: MouseEvent) => {
       setSprings(getTransform(event.clientX, event.clientY));
     };
-    document.addEventListener('mousemove', callback);
+    document.addEventListener("mousemove", callback);
 
     return () => {
-      document.removeEventListener('mousemove', callback);
+      document.removeEventListener("mousemove", callback);
     };
   }, []);
 
   return (
-    <div style={{ position: 'fixed', top: 0, left: 0, width: '100vw', height: '100vh' }}>
+    <div
+      style={{
+        position: "fixed",
+        top: 0,
+        left: 0,
+        width: "100vw",
+        height: "100vh",
+      }}
+    >
       {springs.map(({ transform }, index) => {
         const dot = dots[index];
         return (
@@ -104,7 +112,7 @@ export const Dots: React.FunctionComponent = () => {
             key={index}
             style={{
               transform,
-              position: 'absolute',
+              position: "absolute",
               top: `${dot.y}px`,
               left: `${dot.x}px`,
               background: dot.color,

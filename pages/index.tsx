@@ -1,15 +1,15 @@
-import * as React from 'react';
-import Head from 'next/head';
-import Link from 'next/link';
-import { Global, css } from '@emotion/core';
-import { InstagramLogo } from 'components/icons/Instagram';
-import { GithubLogo } from 'components/icons/Github';
-import { TwitterLogo } from 'components/icons/Twitter';
-import { ExposureLogo } from 'components/icons/Exposure';
-import { useTheme } from 'emotion-theming';
-import { Theme } from 'components/Theme';
-import { GradientText } from 'components/GradientText';
-import { Dots } from 'components/Dots';
+import * as React from "react";
+import Head from "next/head";
+import Link from "next/link";
+import { Global, css } from "@emotion/core";
+import { InstagramLogo } from "components/icons/Instagram";
+import { GithubLogo } from "components/icons/Github";
+import { TwitterLogo } from "components/icons/Twitter";
+import { ExposureLogo } from "components/icons/Exposure";
+import { useTheme } from "emotion-theming";
+import { Theme } from "components/Theme";
+import { GradientText } from "components/GradientText";
+import { Dots } from "components/Dots";
 
 const PageLink = React.forwardRef<
   HTMLAnchorElement,
@@ -172,21 +172,21 @@ export default () => {
               }
             `}
           >
-            <PageLink href={'https://github.com/thibthib'} label={'GitHub'} logo={<GithubLogo />} />
+            <PageLink href={"https://github.com/thibthib"} label={"GitHub"} logo={<GithubLogo />} />
             <PageLink
-              href={'https://www.instagram.com/thib_thib'}
-              label={'Instagram'}
+              href={"https://www.instagram.com/thib_thib"}
+              label={"Instagram"}
               logo={<InstagramLogo />}
             />
 
             <PageLink
-              href={'https://twitter.com/thib_thib'}
-              label={'Twitter'}
+              href={"https://twitter.com/thib_thib"}
+              label={"Twitter"}
               logo={<TwitterLogo />}
             />
             <PageLink
-              href={'https://thib.exposure.co'}
-              label={'Exposure'}
+              href={"https://thib.exposure.co"}
+              label={"Exposure"}
               logo={<ExposureLogo />}
             />
           </div>
@@ -219,21 +219,21 @@ export default () => {
           >
             projects
           </h2>
-          <Link href={'/duple'} passHref>
-            <PageLink label={'Duple'} description={'Recto-verso photography'} logo={'📷'} />
+          <Link href={"/duple"} passHref>
+            <PageLink label={"Duple"} description={"Recto-verso photography"} logo={"📷"} />
           </Link>
-          <Link href={'/react-refs-evolution'} passHref>
+          <Link href={"/react-refs-evolution"} passHref>
             <PageLink
-              label={'Evolution of refs'}
-              description={'With great power comes great responsability'}
-              logo={'🦖'}
+              label={"Evolution of refs"}
+              description={"With great power comes great responsability"}
+              logo={"🦖"}
             />
           </Link>
-          <Link href={'/react-canvas-components'} passHref>
+          <Link href={"/react-canvas-components"} passHref>
             <PageLink
-              label={'React + Canvas = 💜'}
-              description={'An untold love story'}
-              logo={'🖌'}
+              label={"React + Canvas = 💜"}
+              description={"An untold love story"}
+              logo={"🖌"}
             />
           </Link>
         </div>

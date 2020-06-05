@@ -1,6 +1,6 @@
-import { Colors, Theme } from '../components/Theme';
-import { css } from '@emotion/core';
-import { ColorSpace, convertCSSColor } from '@color-spaces/convert';
+import { Colors, Theme } from "../components/Theme";
+import { css } from "@emotion/core";
+import { ColorSpace, convertCSSColor } from "@color-spaces/convert";
 
 const Page = () => {
   return (

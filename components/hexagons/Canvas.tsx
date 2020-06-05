@@ -1,6 +1,6 @@
-import * as React from 'react';
-import { css } from '@emotion/core';
-import random from 'lodash/random';
+import * as React from "react";
+import { css } from "@emotion/core";
+import random from "lodash/random";
 
 const CanvasContext = React.createContext<CanvasRenderingContext2D | null>(null);
 const FrameContext = React.createContext<number>(0);
@@ -27,10 +27,10 @@ export const Canvas: React.FunctionComponent<CanvasProps> = ({
   const [context, setContext] = React.useState<CanvasRenderingContext2D | null>(null);
   React.useEffect(() => {
     if (canvasRef.current !== null) {
-      const canvasContext = canvasRef.current.getContext('2d');
+      const canvasContext = canvasRef.current.getContext("2d");
       if (canvasContext !== null) {
         canvasContext.scale(dpr, dpr);
-        canvasContext.globalCompositeOperation = 'soft-light';
+        canvasContext.globalCompositeOperation = "soft-light";
         setContext(canvasContext);
       }
     }

@@ -1,5 +1,5 @@
-import random from 'lodash/random';
-import isArray from 'lodash/isArray';
+import random from "lodash/random";
+import isArray from "lodash/isArray";
 
 const getPositionBetween = (min: number, max: number, variance: number) =>
   random(min - variance, max + variance);

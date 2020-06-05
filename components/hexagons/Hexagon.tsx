@@ -1,5 +1,5 @@
-import * as React from 'react';
-import { useCanvas, useAnimation } from './Canvas';
+import * as React from "react";
+import { useCanvas, useAnimation } from "./Canvas";
 
 interface HexagonProps {
   x: number;

@@ -1,14 +1,14 @@
-import { css } from '@emotion/core';
-import { useAnchor } from './Anchor';
-import { Theme } from './Theme';
+import { css } from "@emotion/core";
+import { useAnchor } from "./Anchor";
+import { Theme } from "./Theme";
 
 enum titleTags {
-  h1 = 'h1',
-  h2 = 'h2',
-  h3 = 'h3',
-  h4 = 'h4',
-  h5 = 'h5',
-  h6 = 'h6',
+  h1 = "h1",
+  h2 = "h2",
+  h3 = "h3",
+  h4 = "h4",
+  h5 = "h5",
+  h6 = "h6",
 }
 
 const styles = {
@@ -55,15 +55,15 @@ export const Title: React.FunctionComponent<{
         ${styles[Tag](theme)}
       `}
     >
-      {Tag === 'h1' ? null : anchor}
+      {Tag === "h1" ? null : anchor}
       {children}
     </Tag>
   );
 };
 
-export const h1: React.FunctionComponent = props => <Title Tag={titleTags.h1} {...props} />;
-export const h2: React.FunctionComponent = props => <Title Tag={titleTags.h2} {...props} />;
-export const h3: React.FunctionComponent = props => <Title Tag={titleTags.h3} {...props} />;
-export const h4: React.FunctionComponent = props => <Title Tag={titleTags.h4} {...props} />;
-export const h5: React.FunctionComponent = props => <Title Tag={titleTags.h5} {...props} />;
-export const h6: React.FunctionComponent = props => <Title Tag={titleTags.h6} {...props} />;
+export const h1: React.FunctionComponent = (props) => <Title Tag={titleTags.h1} {...props} />;
+export const h2: React.FunctionComponent = (props) => <Title Tag={titleTags.h2} {...props} />;
+export const h3: React.FunctionComponent = (props) => <Title Tag={titleTags.h3} {...props} />;
+export const h4: React.FunctionComponent = (props) => <Title Tag={titleTags.h4} {...props} />;
+export const h5: React.FunctionComponent = (props) => <Title Tag={titleTags.h5} {...props} />;
+export const h6: React.FunctionComponent = (props) => <Title Tag={titleTags.h6} {...props} />;

@@ -1,11 +1,11 @@
-import * as React from 'react';
-import { Global, css } from '@emotion/core';
-import Head from 'next/head';
-import { useRouter } from 'next/router';
-import { Link } from './Link';
-import { MenuLink } from './MenuLink';
-import { h1 as H1 } from './Title';
-import { Theme } from './Theme';
+import * as React from "react";
+import { Global, css } from "@emotion/core";
+import Head from "next/head";
+import { useRouter } from "next/router";
+import { Link } from "./Link";
+import { MenuLink } from "./MenuLink";
+import { h1 as H1 } from "./Title";
+import { Theme } from "./Theme";
 
 type MetaData = {
   title: string;
@@ -22,7 +22,7 @@ export const PostWrapper: React.FunctionComponent<{ meta: MetaData }> = ({ meta,
       <Head>
         <title>{meta.title}</title>
         <meta name="description" content={meta.description} />
-        <meta name="twitter:card" content={meta.image ? 'summary_large_image' : 'summary'} />
+        <meta name="twitter:card" content={meta.image ? "summary_large_image" : "summary"} />
         <meta name="twitter:site" content="@thib_thib" />
         <meta name="twitter:title" content={meta.title} />
         <meta name="twitter:description" content={meta.description} />
