@@ -37,8 +37,10 @@ export const getRandomHexagon = ({ baseSize, baseHue, x, y }: hexagonInput) => {
   };
 };
 
+const hues = [22, 174, 192, 226, 264, 347];
+
 export const getHexagonsToFillZone = ({ width, height }: { height: number; width: number }) => {
-  const baseHue = random(200, 300);
+  const baseHue = hues[random(0, hues.length)];
 
   const smallerSize = Math.min(width, height);
 

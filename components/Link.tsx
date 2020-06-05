@@ -1,10 +1,11 @@
 import * as React from 'react';
 import { css } from '@emotion/core';
+import { Theme } from './Theme';
 
 export const Link: React.FunctionComponent<{ href: string }> = ({ href, children }) => (
   <a
     href={href}
-    css={theme => css`
+    css={(theme: Theme) => css`
       overflow: hidden;
 
       -webkit-background-clip: text;
@@ -14,8 +15,8 @@ export const Link: React.FunctionComponent<{ href: string }> = ({ href, children
       box-decoration-break: clone;
       background-image: linear-gradient(
         to right,
-        ${theme.gradientStart},
-        ${theme.gradientEnd} 50%,
+        ${theme.highlight},
+        ${theme.secondaryHighlight} 50%,
         ${theme.secondaryText} 50%,
         ${theme.secondaryText}
       );
@@ -23,11 +24,15 @@ export const Link: React.FunctionComponent<{ href: string }> = ({ href, children
       background-position: 100%;
       transition: background-position 250ms ease, text-decoration-color 250ms ease;
 
-      text-decoration-color: hsl(217, 34%, 42%);
+      text-decoration-color: ${theme.secondaryText};
+
+      @supports (text-decoration-thickness: 2px) {
+        text-decoration-color: ${theme.border};
+        text-decoration-thickness: 2px;
+      }
 
       &:hover {
         background-position: 0 100%;
-        text-decoration-color: hsl(208, 64%, 33%);
       }
 
       > * {

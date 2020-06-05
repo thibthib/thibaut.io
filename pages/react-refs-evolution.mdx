@@ -1,6 +1,7 @@
 export const meta = {
   title: 'Evolution of refs 🦖',
-  description: 'With great power comes great responsability',
+  description:
+    'With great power comes great responsability',
   date: 'July 27, 2019',
 };
 
@@ -37,7 +38,9 @@ class MyComponent extends Component {
     }
   }
   render() {
-    return <input ref={element => (this.input = element)} />;
+    return (
+      <input ref={element => (this.input = element)} />
+    );
   }
 }
 ```
@@ -111,7 +114,9 @@ interface MutableRefObject<T> {
 Until now, we've seen how to get refs on elements within a React component. The `forwardRef` API aims to solve another use-case: passing refs between components.
 
 ```jsx
-const MyInput = React.forwardRef((props, ref) => <input ref={ref} />);
+const MyInput = React.forwardRef((props, ref) => (
+  <input ref={ref} />
+));
 
 const MyComponent = () => {
   const childRef = React.useRef(null);
@@ -129,7 +134,9 @@ const MyComponent = () => {
 When a component uses `forwardRef`, any parent component can pass to it a `ref` prop in order to get access to an inner element. As the parent component can use `createRef`, `useRef` or callback refs, the `ref` parameter received from `forwardRef` is of a new combined type:
 
 ```typescript
-type Ref<T> = (instance: T | null) => void | RefObject<T> | null;
+type Ref<T> = (
+  instance: T | null
+) => void | RefObject<T> | null;
 ```
 
 _Note: The [actual TypeScript definition](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/react/index.d.ts#L84) is in fact slightly different, but [we don't really care here](https://media.giphy.com/media/otnXaUDqh1qta/giphy.gif)_
@@ -153,7 +160,10 @@ const MyInput = React.forwardRef((props, forwardedRef) => {
   }, []);
 
   // this way, the local Ref is also exposed as a forwarded one
-  React.useImperativeHandle(forwardedRef, () => localRef.current);
+  React.useImperativeHandle(
+    forwardedRef,
+    () => localRef.current
+  );
 
   return <input ref={localRef} />;
 });

@@ -1,21 +1,22 @@
 import Link from 'next/link';
 import { css } from '@emotion/core';
 import { GradientText } from './GradientText';
+import { Theme } from './Theme';
 
 export const MenuLink = () => (
   <Link href={`/`}>
     <a
-      css={theme => css`
-        font-family: ${theme.monospaceFont};
+      css={(theme: Theme) => css`
+        font-weight: 600;
         position: relative;
         display: inline-block;
         text-decoration: none;
-        font-size: 1.2em;
+        font-size: ${theme.fontSizes.large};
         line-height: 1.2em;
         cursor: pointer;
       `}
     >
-      <GradientText>thibaut.io</GradientText>
+      <GradientText>thibaut</GradientText>
       <div
         css={css`
           position: absolute;
@@ -32,7 +33,7 @@ export const MenuLink = () => (
         `}
       >
         <div
-          css={theme => css`
+          css={(theme: Theme) => css`
             background-image: ${theme.gradientText};
             color: ${theme.background};
             position: absolute;
@@ -40,7 +41,7 @@ export const MenuLink = () => (
             left: 0;
           `}
         >
-          thibaut.io
+          thibaut
         </div>
       </div>
     </a>

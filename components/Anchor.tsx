@@ -2,6 +2,8 @@ import * as React from 'react';
 import isArray from 'lodash/isArray';
 import kebabCase from 'lodash/kebabCase';
 import { css } from '@emotion/core';
+import { Theme } from './Theme';
+import { useTheme } from 'emotion-theming';
 
 const getAsString = (node: React.ReactNode): string => {
   if (typeof node === 'string') {
@@ -19,12 +21,13 @@ const getAsString = (node: React.ReactNode): string => {
 export const useAnchor = (children: React.ReactNode): [string, React.ReactElement] => {
   const childString = getAsString(children);
   const anchor = kebabCase(childString);
+  const theme = useTheme<Theme>();
   return [
     anchor,
     <a
       href={`#${anchor}`}
       aria-label={childString}
-      css={theme => css`
+      css={css`
         text-decoration: none;
         position: absolute;
         right: 100%;
@@ -32,7 +35,7 @@ export const useAnchor = (children: React.ReactNode): [string, React.ReactElemen
         transform: translate(-8px, -50%);
         opacity: 0;
         transition: opacity 150ms;
-        color: ${theme.secondaryHighlight};
+        color: ${theme.secondaryText};
 
         *:hover > & {
           opacity: 1;
@@ -41,15 +44,17 @@ export const useAnchor = (children: React.ReactNode): [string, React.ReactElemen
     >
       <svg
         viewBox="0 0 24 24"
-        width="0.6em"
-        height="0.6em"
+        width={theme.fontSizes.small}
+        height={theme.fontSizes.small}
         stroke="currentColor"
         strokeWidth="2"
         strokeLinecap="round"
         strokeLinejoin="round"
         fill="none"
         shapeRendering="geometricPrecision"
+        role="img"
       >
+        <title>Link icon</title>
         <path d="M10 13a5 5 0 007.54.54l3-3a5 5 0 00-7.07-7.07l-1.72 1.71"></path>
         <path d="M14 11a5 5 0 00-7.54-.54l-3 3a5 5 0 007.07 7.07l1.71-1.71"></path>
       </svg>

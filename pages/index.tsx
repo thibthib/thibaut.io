@@ -6,6 +6,10 @@ import { InstagramLogo } from 'components/icons/Instagram';
 import { GithubLogo } from 'components/icons/Github';
 import { TwitterLogo } from 'components/icons/Twitter';
 import { ExposureLogo } from 'components/icons/Exposure';
+import { useTheme } from 'emotion-theming';
+import { Theme } from 'components/Theme';
+import { GradientText } from 'components/GradientText';
+import { Dots } from 'components/Dots';
 
 const PageLink = React.forwardRef<
   HTMLAnchorElement,
@@ -15,204 +19,225 @@ const PageLink = React.forwardRef<
     description?: string;
     logo: React.ReactNode;
   }
->(({ href, label, description, logo }: any, ref) => (
-  <a
-    href={href}
-    ref={ref}
-    css={css`
-      display: flex;
-      justify-content: flex-start;
-      align-items: center;
-      margin-bottom: ${description ? '2em' : '0.5em'};
-      text-decoration: none;
-    `}
-  >
-    <div
+>(({ href, label, description, logo }: any, ref) => {
+  const { spacing, fontSizes, text, secondaryText } = useTheme<Theme>();
+  return (
+    <a
+      href={href}
+      ref={ref}
       css={css`
-        font-size: 2em;
-        margin-right: 0.6em;
-        width: 1em;
-        height: 1em;
-        line-height: 1em;
-        font-family: sans-serif;
-      `}
-    >
-      {logo}
-    </div>
-    <div>
-      <p
-        css={css`
-          display: block;
-          color: white;
-          font-size: 1.2em;
-          text-decoration: underline;
-          margin: 0.4em 0;
-        `}
-      >
-        {label}
-      </p>
-      {description ? (
-        <p
-          css={css`
-            margin: 0 0 0.2em;
-            color: white;
-            font-style: italic;
-            mix-blend-mode: difference;
-          `}
-        >
-          {description}
-        </p>
-      ) : null}
-    </div>
-  </a>
-));
-
-export default () => (
-  <div
-    css={css`
-      transform: translateZ(0);
-    `}
-  >
-    <Head>
-      <title>thibaut</title>
-      <link rel="icon" type="image/png" href="favicon.png" />
-      <meta name="viewport" content="width=device-width, initial-scale=1" />
-      <meta name="theme-color" content="#162BAA" />
-      <meta name="description" content="thibaut's personal website" />
-    </Head>
-    <Global
-      styles={theme => css`
-        body {
-          margin: 0;
-          background-color: hsl(231, 77%, 38%);
-          font-family: ${theme.monospaceFont};
-        }
-
-        * {
-          box-sizing: border-box;
-        }
-      `}
-    />
-    <img
-      alt="Majorelle blue wall"
-      src="background-900.jpg"
-      srcSet="background-900.jpg 900w,
-              background-1800.jpg 1800w,
-              background-2700.jpg 2700w,
-              background-3600.jpg 3600w"
-      css={css`
-        object-fit: cover;
-        position: fixed;
-        top: 0;
-        left: 0;
-        height: 100%;
-        width: 100%;
-      `}
-    />
-    <div
-      css={css`
-        display: flex;
+        display: inline-flex;
+        justify-content: flex-start;
         align-items: center;
-        flex-direction: column;
-        padding-top: 14vh;
-
-        @media (min-width: 480px) {
-          flex-direction: row;
-          margin-top: 0;
-          height: 100vh;
-        }
+        margin-top: ${spacing.medium};
+        text-decoration: none;
+        color: ${text};
       `}
     >
-      <main
+      <div
         css={css`
-          position: relative;
-          display: inline-flex;
-          flex-direction: column;
-          width: 100vw;
-          padding: 2em 0;
-
-          @media (min-width: 480px) {
-            width: 50vw;
+          margin-right: ${spacing.small};
+          width: ${spacing.medium};
+          height: ${spacing.medium};
+          font-size: ${fontSizes.XLarge};
+          > * {
+            fill: ${secondaryText};
           }
         `}
       >
-        <h1
+        {logo}
+      </div>
+      <div>
+        <p
           css={css`
-            color: white;
-            font-weight: normal;
-            text-align: center;
-            margin: 0 auto 1.5em;
-            font-size: 3em;
+            display: block;
+            margin: 0;
+            text-decoration: underline;
+            text-decoration-color: ${secondaryText};
+            font-size: ${fontSizes.large};
+            white-space: nowrap;
           `}
         >
-          thibaut
-        </h1>
+          {label}
+        </p>
+        {description ? (
+          <p
+            css={css`
+              margin-top: ${spacing.XSmall};
+              font-size: ${fontSizes.medium};
+              font-style: italic;
+            `}
+          >
+            {description}
+          </p>
+        ) : null}
+      </div>
+    </a>
+  );
+});
+
+export default () => {
+  const { spacing, background, sansSerifFont, text, fontSizes } = useTheme<Theme>();
+
+  return (
+    <>
+      <Head>
+        <title>thibaut</title>
+        <link rel="icon" type="image/png" href="favicon.png" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <meta name="theme-color" content={background} />
+        <meta name="description" content="thibaut's personal website" />
+      </Head>
+      <Global
+        styles={css`
+          body {
+            background-color: ${background};
+            color: ${text};
+            ${sansSerifFont}
+            margin: 0 auto;
+            word-break: break-word;
+            text-rendering: optimizeLegibility;
+            -webkit-font-smoothing: antialiased;
+          }
+
+          p,
+          pre,
+          code,
+          ul,
+          ol {
+            margin: 0;
+          }
+
+          html {
+            font-size: 18px;
+            font-size: clamp(18px, 1.4vw, 21px);
+          }
+
+          * {
+            box-sizing: border-box;
+          }
+        `}
+      />
+      <Dots />
+      <main
+        css={css`
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          flex-direction: column;
+          padding: 10vh 0;
+          margin: 0 auto;
+
+          @media (min-width: 660px) {
+            flex-direction: row;
+            margin-top: 0;
+            height: 100vh;
+            padding: 0;
+          }
+        `}
+      >
         <div
           css={css`
-            margin: 0 auto;
+            position: relative;
             display: inline-flex;
             flex-direction: column;
+            width: 100vw;
+            padding: ${spacing.medium};
 
-            svg {
-              mix-blend-mode: difference;
-              fill: white;
+            @media (min-width: 660px) {
+              width: 43vw;
+              padding: 0 ${spacing.large} 0 ${spacing.medium};
+              align-items: flex-end;
             }
           `}
         >
-          <PageLink href={'https://github.com/thibthib'} label={'GitHub'} logo={<GithubLogo />} />
-          <PageLink
-            href={'https://www.instagram.com/thib_thib'}
-            label={'Instagram'}
-            logo={<InstagramLogo />}
-          />
+          <h1
+            css={css`
+              margin-bottom: ${spacing.large};
+              font-size: ${fontSizes.XXXLarge};
+              white-space: nowrap;
+            `}
+          >
+            <GradientText>thibaut</GradientText>
+          </h1>
+          <div
+            css={css`
+              margin-bottom: ${spacing.medium};
+              display: flex;
+              flex-direction: column;
+              align-items: flex-start;
 
-          <PageLink
-            href={'https://twitter.com/thib_thib'}
-            label={'Twitter'}
-            logo={<TwitterLogo />}
-          />
-          <PageLink href={'https://thib.exposure.co'} label={'Exposure'} logo={<ExposureLogo />} />
+              @media (min-width: 660px) {
+                align-items: flex-end;
+              }
+            `}
+          >
+            <PageLink href={'https://github.com/thibthib'} label={'GitHub'} logo={<GithubLogo />} />
+            <PageLink
+              href={'https://www.instagram.com/thib_thib'}
+              label={'Instagram'}
+              logo={<InstagramLogo />}
+            />
+
+            <PageLink
+              href={'https://twitter.com/thib_thib'}
+              label={'Twitter'}
+              logo={<TwitterLogo />}
+            />
+            <PageLink
+              href={'https://thib.exposure.co'}
+              label={'Exposure'}
+              logo={<ExposureLogo />}
+            />
+          </div>
         </div>
-      </main>
-      <div
-        css={css`
-          position: relative;
-          padding: 2vh 8vw;
-          display: inline-flex;
-          flex-direction: column;
-          width: 100vw;
-
-          @media (min-width: 480px) {
-            width: 50vw;
-            padding: 2vh 2vw;
-          }
-        `}
-      >
-        <h2
+        <div
           css={css`
-            color: white;
-            mix-blend-mode: difference;
-            font-weight: normal;
-            font-size: 1.5em;
-            margin: 1.3em 0;
+            position: relative;
+            display: inline-flex;
+            flex-direction: column;
+            width: 100vw;
+            padding: ${spacing.medium};
+
+            @media (min-width: 660px) {
+              width: 57vw;
+              padding: 0 ${spacing.medium} 0 ${spacing.large};
+            }
           `}
         >
-          projects
-        </h2>
-        <Link href={'/duple'} passHref>
-          <PageLink label={'Duple'} description={'Recto-verso photography'} logo={'📷'} />
-        </Link>
-        <Link href={'/react-refs-evolution'} passHref>
-          <PageLink
-            label={'Evolution of refs'}
-            description={'With great power comes great responsability'}
-            logo={'🦖'}
-          />
-        </Link>
-        <Link href={'/react-canvas-components'} passHref>
-          <PageLink label={'React + Canvas = 💜'} description={'An untold love story'} logo={'🖌'} />
-        </Link>
-      </div>
-    </div>
-  </div>
-);
+          <h2
+            css={css`
+              font-size: ${fontSizes.XLarge};
+              margin: ${spacing.small} 0;
+              padding-left: 0;
+
+              @media (min-width: 660px) {
+                margin: ${spacing.large} 0 ${spacing.small} ${spacing.medium};
+                padding-left: ${spacing.small};
+              }
+            `}
+          >
+            projects
+          </h2>
+          <Link href={'/duple'} passHref>
+            <PageLink label={'Duple'} description={'Recto-verso photography'} logo={'📷'} />
+          </Link>
+          <Link href={'/react-refs-evolution'} passHref>
+            <PageLink
+              label={'Evolution of refs'}
+              description={'With great power comes great responsability'}
+              logo={'🦖'}
+            />
+          </Link>
+          <Link href={'/react-canvas-components'} passHref>
+            <PageLink
+              label={'React + Canvas = 💜'}
+              description={'An untold love story'}
+              logo={'🖌'}
+            />
+          </Link>
+        </div>
+      </main>
+    </>
+  );
+};

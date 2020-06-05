@@ -1,5 +1,6 @@
 import { css } from '@emotion/core';
 import { useAnchor } from './Anchor';
+import { Theme } from './Theme';
 
 enum titleTags {
   h1 = 'h1',
@@ -11,36 +12,32 @@ enum titleTags {
 }
 
 const styles = {
-  [titleTags.h1]: ({ fontSizes, spacing }: any) => css`
-    font-size: ${fontSizes.XXLarge};
-    line-height: ${spacing.large};
-    margin-top: ${spacing.medium};
-    margin-bottom: ${spacing.medium};
-    font-feature-settings: 'ss05';
-  `,
-  [titleTags.h2]: ({ fontSizes, spacing }: any) => css`
+  [titleTags.h1]: ({ fontSizes, spacing }: Theme) => css`
     font-size: ${fontSizes.XLarge};
     line-height: ${spacing.medium};
-    margin-top: ${spacing.medium};
-    margin-bottom: ${spacing.small};
-    font-weight: normal;
-    font-feature-settings: 'ss05';
+    margin-top: ${spacing.XLarge};
+    margin-bottom: ${spacing.XLarge};
   `,
-  [titleTags.h3]: ({ fontSizes, spacing, secondaryText }: any) => css`
+  [titleTags.h2]: ({ fontSizes, spacing }: Theme) => css`
     font-size: ${fontSizes.large};
+    line-height: ${spacing.medium};
+    margin-top: ${spacing.medium};
+    margin-bottom: ${spacing.medium};
+  `,
+  [titleTags.h3]: ({ fontSizes, spacing, secondaryText }: Theme) => css`
+    font-size: ${fontSizes.medium};
     line-height: ${spacing.medium};
     margin-top: ${spacing.medium};
     margin-bottom: ${spacing.small};
     color: ${secondaryText};
-    font-feature-settings: 'ss05';
+    font-weight: normal;
   `,
-  [titleTags.h4]: ({ fontSizes, spacing }: any) => css`
-    font-size: ${fontSizes.medium};
+  [titleTags.h4]: ({ fontSizes, spacing }: Theme) => css`
+    font-size: ${fontSizes.small};
     line-height: ${spacing.medium};
     margin-top: ${spacing.medium};
     margin-bottom: 0;
     text-transform: uppercase;
-    font-feature-settings: 'ss05';
   `,
   [titleTags.h5]: () => css``,
   [titleTags.h6]: () => css``,
@@ -53,9 +50,8 @@ export const Title: React.FunctionComponent<{
   return (
     <Tag
       id={anchorId}
-      css={theme => css`
+      css={(theme: Theme) => css`
         position: relative;
-        line-height: 1.2;
         ${styles[Tag](theme)}
       `}
     >
