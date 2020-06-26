@@ -6,7 +6,9 @@ import { EditOnCodeSandbox } from "./EditOnCodeSandbox";
 
 const SyntaxHighlighter = dynamic<any>(() =>
   Promise.all([
-    import("react-syntax-highlighter/dist/esm/prism-light"),
+    import(
+      /* webpackChunkName: "react-syntax-highlighter" */ "react-syntax-highlighter/dist/esm/prism-light"
+    ),
     import("react-syntax-highlighter/dist/esm/languages/prism/jsx"),
     import("react-syntax-highlighter/dist/esm/languages/prism/typescript"),
   ]).then(([PrismLight, jsx, typescript]) => {

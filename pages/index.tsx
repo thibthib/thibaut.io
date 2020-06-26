@@ -11,9 +11,12 @@ import { useTheme } from "emotion-theming";
 import { Theme } from "components/Theme";
 import { GradientText } from "components/GradientText";
 
-const Dots = dynamic<any>(() => import("components/Dots").then(({ Dots }) => Dots), {
-  ssr: false,
-});
+const Dots = dynamic<any>(
+  () => import(/* webpackChunkName: "dots" */ "components/Dots").then(({ Dots }) => Dots),
+  {
+    ssr: false,
+  }
+);
 
 const PageLink = React.forwardRef<
   HTMLAnchorElement,

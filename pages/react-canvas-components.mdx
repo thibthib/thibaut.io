@@ -5,9 +5,9 @@ import { useTheme } from "emotion-theming";
 
 export const RandomHexagons = dynamic(
   () =>
-    import("components/hexagons/RandomHexagons").then(
-      ({ RandomHexagons }) => RandomHexagons
-    ),
+    import(
+      /* webpackChunkName: "RandomHexagons" */ "components/hexagons/RandomHexagons"
+    ).then(({ RandomHexagons }) => RandomHexagons),
   {
     ssr: false,
   }
