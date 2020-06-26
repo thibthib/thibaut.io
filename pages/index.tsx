@@ -1,6 +1,7 @@
 import * as React from "react";
 import Head from "next/head";
 import Link from "next/link";
+import dynamic from "next/dynamic";
 import { Global, css } from "@emotion/core";
 import { InstagramLogo } from "components/icons/Instagram";
 import { GithubLogo } from "components/icons/Github";
@@ -9,7 +10,13 @@ import { ExposureLogo } from "components/icons/Exposure";
 import { useTheme } from "emotion-theming";
 import { Theme } from "components/Theme";
 import { GradientText } from "components/GradientText";
-import { Dots } from "components/Dots";
+
+const Dots = dynamic<any>(
+  () => import(/* webpackChunkName: "dots" */ "components/Dots").then(({ Dots }) => Dots),
+  {
+    ssr: false,
+  }
+);
 
 const PageLink = React.forwardRef<
   HTMLAnchorElement,

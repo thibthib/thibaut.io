@@ -5,9 +5,13 @@ import { Canvas } from "./Canvas";
 import { Hexagon } from "./Hexagon";
 import { getHexagonsToFillZone } from "./random-helpers";
 
-export const RandomHexagons: React.FunctionComponent<{
+export type RandomHexagonsProps = {
   isAnimating?: boolean;
-}> = ({ isAnimating = false }) => {
+};
+
+export const RandomHexagons: React.FunctionComponent<RandomHexagonsProps> = ({
+  isAnimating = false,
+}) => {
   const [ref, { width, height, dpr }] = useDimensions<HTMLDivElement>();
 
   return (
