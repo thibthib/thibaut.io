@@ -40,10 +40,6 @@ export const Dots: React.FunctionComponent = () => {
     theme.accent6,
   ];
 
-  if (typeof window === "undefined") {
-    return null;
-  }
-
   const [dots, setDots] = React.useState(getDots(dotColors));
 
   React.useEffect(() => {

@@ -1,8 +1,20 @@
 import * as React from "react";
+import dynamic from "next/dynamic";
 import { css, Global } from "@emotion/core";
 import { Colors, getTheme, Theme } from "./Theme";
 import { EditOnCodeSandbox } from "./EditOnCodeSandbox";
-import { PrismAsyncLight as SyntaxHighlighter } from "react-syntax-highlighter";
+
+const SyntaxHighlighter = dynamic<any>(() =>
+  Promise.all([
+    import("react-syntax-highlighter/dist/esm/prism-light"),
+    import("react-syntax-highlighter/dist/esm/languages/prism/jsx"),
+    import("react-syntax-highlighter/dist/esm/languages/prism/typescript"),
+  ]).then(([PrismLight, jsx, typescript]) => {
+    PrismLight.default.registerLanguage("jsx", jsx.default);
+    PrismLight.default.registerLanguage("typescript", typescript.default);
+    return PrismLight.default;
+  })
+);
 
 export const Pre: React.FunctionComponent = ({ children }) => <>{children}</>;
 
