@@ -2,7 +2,7 @@ import { css } from "@emotion/core";
 import { useAnchor } from "./Anchor";
 import { Theme } from "./Theme";
 
-enum titleTags {
+export enum titleTags {
   h1 = "h1",
   h2 = "h2",
   h3 = "h3",
