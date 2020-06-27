@@ -1,24 +1,38 @@
 import * as React from "react";
-import dynamic from "next/dynamic";
 import { css, Global } from "@emotion/core";
 import { Colors, getTheme, Theme } from "./Theme";
 import { EditOnCodeSandbox } from "./EditOnCodeSandbox";
 
-const SyntaxHighlighter = dynamic<any>(() =>
-  Promise.all([
-    import(
-      /* webpackChunkName: "react-syntax-highlighter" */ "react-syntax-highlighter/dist/esm/prism-light"
-    ),
-    import("react-syntax-highlighter/dist/esm/languages/prism/jsx"),
-    import("react-syntax-highlighter/dist/esm/languages/prism/typescript"),
-  ]).then(([PrismLight, jsx, typescript]) => {
-    PrismLight.default.registerLanguage("jsx", jsx.default);
-    PrismLight.default.registerLanguage("typescript", typescript.default);
-    return PrismLight.default;
-  })
-);
+export const Pre: React.FunctionComponent = ({ children }) => (
+  <pre
+    css={(theme: Theme) => css`
+      color: ${theme.text};
+      background: ${theme.secondaryBackground};
 
-export const Pre: React.FunctionComponent = ({ children }) => <>{children}</>;
+      ${theme.monospaceFont};
+      line-height: 1.5em;
+      font-size: 0.9rem;
+
+      overflow-x: auto;
+      overflow-y: hidden;
+      text-align: left;
+      word-break: keep-all;
+      white-space: pre;
+      word-spacing: normal;
+      word-wrap: normal;
+      hyphens: none;
+
+      margin: 0 -6vw ${theme.spacing.medium};
+
+      @media (min-width: 767px) {
+        margin: 0 0 ${theme.spacing.medium};
+        border-radius: 4px;
+      }
+    `}
+  >
+    {children}
+  </pre>
+);
 
 export const InlineCode: React.FunctionComponent = ({ children }) => {
   return (
@@ -57,54 +71,15 @@ export const Code: React.FunctionComponent<{
   metastring: string;
 }> = ({ children, className, metastring }) => {
   const language = className.replace(/language-/, "");
-  const PreTag: React.FunctionComponent = React.useMemo(
-    () => ({ children }) => (
-      <pre
-        css={(theme: Theme) => css`
-          color: ${theme.text};
-          background: ${theme.secondaryBackground};
 
-          ${theme.monospaceFont};
-          line-height: 1.5em;
-          font-size: 0.9rem;
-
-          overflow-x: auto;
-          overflow-y: hidden;
-          text-align: left;
-          word-break: keep-all;
-          white-space: pre;
-          word-spacing: normal;
-          word-wrap: normal;
-          hyphens: none;
-
-          padding: ${theme.spacing.small};
-          padding-bottom: ${metastring ? 0 : theme.spacing.small};
-          margin: 0 -6vw ${theme.spacing.medium};
-
-          @media (min-width: 767px) {
-            margin: 0 0 ${theme.spacing.medium};
-            border-radius: 4px;
-          }
-        `}
-      >
-        {children}
-        {metastring ? (
-          <span
-            css={css`
-              width: 100%;
-              text-align: right;
-              display: inline-block;
-            `}
-          >
-            <EditOnCodeSandbox info={metastring} />
-          </span>
-        ) : null}
-      </pre>
-    ),
-    [metastring]
-  );
   return (
-    <>
+    <code
+      css={(theme: Theme) => css`
+        display: inline-block;
+        padding: ${theme.spacing.small};
+        padding-bottom: ${metastring ? 0 : theme.spacing.small};
+      `}
+    >
       <Global
         styles={(theme: Theme) => css`
           ${themeDefinition};
@@ -162,9 +137,18 @@ export const Code: React.FunctionComponent<{
           }
         `}
       />
-      <SyntaxHighlighter language={language} PreTag={PreTag} useInlineStyles={false}>
-        {children}
-      </SyntaxHighlighter>
-    </>
+      {children}
+      {metastring ? (
+        <span
+          css={css`
+            width: 100%;
+            text-align: right;
+            display: inline-block;
+          `}
+        >
+          <EditOnCodeSandbox info={metastring} />
+        </span>
+      ) : null}
+    </code>
   );
 };
