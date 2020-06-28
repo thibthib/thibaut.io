@@ -1,4 +1,5 @@
 import * as React from "react";
+import Head from "next/head";
 import kebabCase from "lodash/kebabCase";
 import { ThemeProvider as EmotionThemeProvider } from "emotion-theming";
 import { Global, css, SerializedStyles } from "@emotion/core";
@@ -120,9 +121,37 @@ export const theme: Theme = {
 };
 
 export const ThemeProvider: React.FunctionComponent = ({ children }) => {
+  const background = convertCSSColor(ColorTheme.background, ColorSpace.sRGB);
   return (
     <>
-      <Global styles={definition} />
+      <Head>{background ? <meta name="theme-color" content={background} /> : null}</Head>
+      <Global
+        styles={css`
+          ${definition};
+
+          @font-face {
+            font-family: Cartograph;
+            src: url("cartograph-regular.woff2") format("woff2"),
+              url("cartograph-regular.woff") format("woff");
+            font-display: swap;
+          }
+
+          @font-face {
+            font-family: Cartograph;
+            src: url("cartograph-regular-italic.woff2") format("woff2"),
+              url("cartograph-regular-italic.woff") format("woff");
+            font-style: italic;
+            font-display: swap;
+          }
+
+          @font-face {
+            font-family: Archia;
+            src: url("archia-regular.woff2") format("woff2"),
+              url("archia-regular.woff") format("woff");
+            font-display: swap;
+          }
+        `}
+      />
       <EmotionThemeProvider theme={theme}>{children}</EmotionThemeProvider>
     </>
   );
