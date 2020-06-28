@@ -10,6 +10,7 @@ import { ExposureLogo } from "components/icons/Exposure";
 import { useTheme } from "emotion-theming";
 import { Theme } from "components/Theme";
 import { GradientText } from "components/GradientText";
+import { ThemeProvider } from "components/Theme";
 
 const Dots = dynamic<any>(
   () => import(/* webpackChunkName: "dots" */ "components/Dots").then(({ Dots }) => Dots),
@@ -84,23 +85,18 @@ const PageLink = React.forwardRef<
 });
 
 export default () => {
-  const { spacing, background, sansSerifFont, text, fontSizes } = useTheme<Theme>();
-
   return (
-    <>
+    <ThemeProvider>
       <Head>
         <title>thibaut</title>
-        <link rel="icon" type="image/png" href="favicon.png" />
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <meta name="theme-color" content={background} />
         <meta name="description" content="thibaut's personal website" />
       </Head>
       <Global
-        styles={css`
+        styles={(theme: Theme) => css`
           body {
-            background-color: ${background};
-            color: ${text};
-            ${sansSerifFont}
+            background-color: ${theme.background};
+            color: ${theme.text};
+            ${theme.sansSerifFont}
             margin: 0 auto;
             word-break: break-word;
             text-rendering: optimizeLegibility;
@@ -144,32 +140,32 @@ export default () => {
         `}
       >
         <div
-          css={css`
+          css={(theme: Theme) => css`
             position: relative;
             display: inline-flex;
             flex-direction: column;
             width: 100vw;
-            padding: ${spacing.medium};
+            padding: ${theme.spacing.medium};
 
             @media (min-width: 660px) {
               width: 43vw;
-              padding: 0 ${spacing.large} 0 ${spacing.medium};
+              padding: 0 ${theme.spacing.large} 0 ${theme.spacing.medium};
               align-items: flex-end;
             }
           `}
         >
           <h1
-            css={css`
-              margin-bottom: ${spacing.large};
-              font-size: ${fontSizes.XXXLarge};
+            css={(theme: Theme) => css`
+              margin-bottom: ${theme.spacing.large};
+              font-size: ${theme.fontSizes.XXXLarge};
               white-space: nowrap;
             `}
           >
             <GradientText>thibaut</GradientText>
           </h1>
           <div
-            css={css`
-              margin-bottom: ${spacing.medium};
+            css={(theme: Theme) => css`
+              margin-bottom: ${theme.spacing.medium};
               display: flex;
               flex-direction: column;
               align-items: flex-start;
@@ -199,28 +195,28 @@ export default () => {
           </div>
         </div>
         <div
-          css={css`
+          css={(theme: Theme) => css`
             position: relative;
             display: inline-flex;
             flex-direction: column;
             width: 100vw;
-            padding: ${spacing.medium};
+            padding: ${theme.spacing.medium};
 
             @media (min-width: 660px) {
               width: 57vw;
-              padding: 0 ${spacing.medium} 0 ${spacing.large};
+              padding: 0 ${theme.spacing.medium} 0 ${theme.spacing.large};
             }
           `}
         >
           <h2
-            css={css`
-              font-size: ${fontSizes.XLarge};
-              margin: ${spacing.small} 0;
+            css={(theme: Theme) => css`
+              font-size: ${theme.fontSizes.XLarge};
+              margin: ${theme.spacing.small} 0;
               padding-left: 0;
 
               @media (min-width: 660px) {
-                margin: ${spacing.large} 0 ${spacing.small} ${spacing.medium};
-                padding-left: ${spacing.small};
+                margin: ${theme.spacing.large} 0 ${theme.spacing.small} ${theme.spacing.medium};
+                padding-left: ${theme.spacing.small};
               }
             `}
           >
@@ -245,6 +241,6 @@ export default () => {
           </Link>
         </div>
       </main>
-    </>
+    </ThemeProvider>
   );
 };

@@ -6,10 +6,8 @@ import { EditOnCodeSandbox } from "./EditOnCodeSandbox";
 export const Pre: React.FunctionComponent = ({ children }) => (
   <pre
     css={(theme: Theme) => css`
-      color: ${theme.text};
       background: ${theme.secondaryBackground};
 
-      ${theme.monospaceFont};
       line-height: 1.5em;
       font-size: 0.9rem;
 
@@ -66,77 +64,78 @@ const CodeColorTheme = {
 
 const [themeVariables, themeDefinition] = getTheme(CodeColorTheme);
 
+export const CodeTheme = () => {
+  return (
+    <Global
+      styles={css`
+        ${themeDefinition};
+        .script {
+          color: ${themeVariables.text};
+        }
+        .comment {
+          color: ${themeVariables.comment};
+          font-style: italic;
+        }
+        .punctuation,
+        .operator {
+          color: ${themeVariables.punctuation};
+        }
+        .property,
+        .property-access {
+          color: ${themeVariables.property};
+        }
+        .symbol,
+        .string {
+          color: ${themeVariables.string};
+        }
+        .tag {
+          color: ${themeVariables.tag};
+        }
+        .tag > .punctuation {
+          color: ${themeVariables.tagPunct};
+        }
+        .char,
+        .arrow,
+        .attr-name {
+          color: ${themeVariables.keyword};
+        }
+        .keyword {
+          color: ${themeVariables.keyword};
+          font-style: italic;
+        }
+        .parameter,
+        .attr-value {
+          color: ${themeVariables.parameters};
+        }
+        .boolean,
+        .number,
+        .null,
+        .constant {
+          color: ${themeVariables.constant};
+          font-style: normal;
+        }
+        .function {
+          color: ${themeVariables.function};
+        }
+      `}
+    />
+  );
+};
+
 export const Code: React.FunctionComponent<{
   className: string;
   metastring: string;
-}> = ({ children, className, metastring }) => {
-  const language = className.replace(/language-/, "");
-
+}> = ({ children, metastring }) => {
   return (
     <code
       css={(theme: Theme) => css`
-        display: inline-block;
+        ${theme.monospaceFont};
+        color: ${theme.text};
+        display: block;
         padding: ${theme.spacing.small};
         padding-bottom: ${metastring ? 0 : theme.spacing.small};
       `}
     >
-      <Global
-        styles={(theme: Theme) => css`
-          ${themeDefinition};
-          code {
-            ${theme.monospaceFont};
-            color: ${themeVariables.text};
-          }
-          .script {
-            color: ${themeVariables.text};
-          }
-          .comment {
-            color: ${themeVariables.comment};
-            font-style: italic;
-          }
-          .punctuation,
-          .operator {
-            color: ${themeVariables.punctuation};
-          }
-          .property,
-          .property-access {
-            color: ${themeVariables.property};
-          }
-          .symbol,
-          .string {
-            color: ${themeVariables.string};
-          }
-          .tag {
-            color: ${themeVariables.tag};
-          }
-          .tag > .punctuation {
-            color: ${themeVariables.tagPunct};
-          }
-          .char,
-          .arrow,
-          .attr-name {
-            color: ${themeVariables.keyword};
-          }
-          .keyword {
-            color: ${themeVariables.keyword};
-            font-style: italic;
-          }
-          .parameter,
-          .attr-value {
-            color: ${themeVariables.parameters};
-          }
-          .boolean,
-          .number,
-          .null,
-          .constant {
-            color: ${themeVariables.constant};
-            font-style: normal;
-          }
-          .function {
-            color: ${themeVariables.function};
-          }
-        `}
-      />
       {children}
       {metastring ? (
         <span
