@@ -26,7 +26,7 @@ const Page = () => {
               <br />
               {value}
               <br />
-              {convertCSSColor(value, ColorSpace.HSL)}
+              {convertCSSColor(value, ColorSpace.sRGB)}
             </span>
             <div
               css={css`
