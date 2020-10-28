@@ -84,7 +84,7 @@ const PageLink = React.forwardRef<
   );
 });
 
-export default () => {
+const Page = () => {
   return (
     <ThemeProvider>
       <Head>
@@ -244,3 +244,5 @@ export default () => {
     </ThemeProvider>
   );
 };
+
+export default Page;
