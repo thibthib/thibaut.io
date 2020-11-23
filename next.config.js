@@ -14,16 +14,14 @@ module.exports = withBundleAnalyzer(
   withMDX({
     reactStrictMode: true,
     pageExtensions: ["js", "jsx", "mdx", "ts", "tsx"],
-    experimental: {
-      redirects() {
-        return [
-          {
-            source: "/refs",
-            destination: "/react-refs-evolution",
-            permanent: true,
-          },
-        ];
-      },
+    redirects: async function () {
+      return [
+        {
+          source: "/refs",
+          destination: "/react-refs-evolution",
+          permanent: true,
+        },
+      ];
     },
     webpack: (config) => {
       config.optimization.concatenateModules = analyzing

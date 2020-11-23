@@ -1,20 +1,7 @@
 import Head from "next/head";
 import { Portrait } from "components/duple/Portrait";
-import portraits from "../public/portraits/portraits.json";
 
-const sizes = [480, 640, 800, 1080, 1280];
-
-const getSources = (name: string) =>
-  sizes.reduce(
-    (aggr, size) => ({
-      ...aggr,
-      [size]: {
-        back: `portraits/${name}-back-${size}w.jpg`,
-        front: `portraits/${name}-front-${size}w.jpg`,
-      },
-    }),
-    {}
-  );
+const portraits = ["Laurent", "Fanny", "Edern", "Ingrid", "Robin"];
 
 const Duple = () => (
   <div>
@@ -29,14 +16,8 @@ const Duple = () => (
       </h1>
     </header>
     <main>
-      {portraits.map((portrait) => (
-        <Portrait
-          key={portrait.id}
-          id={portrait.id}
-          name={portrait.name}
-          placeholder={portrait.placeholder}
-          sources={getSources(portrait.name)}
-        />
+      {portraits.map((name, index) => (
+        <Portrait key={name} id={portraits.length - index} name={name} />
       ))}
     </main>
     <style global jsx>{`
