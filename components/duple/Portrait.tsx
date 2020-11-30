@@ -24,6 +24,7 @@ export const Portrait: React.FunctionComponent<{ id: number; name: string }> = (
         />
       </div>
       <div
+        role="button"
         className="Portrait-mask"
         onMouseDown={() => setSide("front")}
         onMouseUp={() => setSide("back")}
