@@ -41,7 +41,7 @@ const Duple = () => (
         font-size: 26px;
         display: inline-block;
         vertical-align: top;
-        color: #ccc;
+        color: #949494;
         display: block;
       }
     `}</style>

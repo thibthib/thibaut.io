@@ -13,6 +13,7 @@ export const Portrait: React.FunctionComponent<{ id: number; name: string }> = (
           height={1280}
           width={1280}
           sizes="(min-width: 1024px) 33vw, (min-width: 768px) 50vw, 100vw"
+          alt={`Back portrait of ${name}`}
         />
       </div>
       <div className={"Portrait-front"}>
@@ -21,6 +22,7 @@ export const Portrait: React.FunctionComponent<{ id: number; name: string }> = (
           height={1280}
           width={1280}
           sizes="(min-width: 1024px) 33vw, (min-width: 768px) 50vw, 100vw"
+          alt={`Front portrait of ${name}`}
         />
       </div>
       <div
