@@ -1,13 +1,37 @@
 import * as React from "react";
 import Image from "next/image";
 
-export const Portrait: React.FunctionComponent<{ id: number; name: string }> = ({ name, id }) => {
+export const Portrait: React.FunctionComponent<{
+  id: number;
+  name: string;
+  placeholder: string;
+}> = ({ name, id, placeholder }) => {
   const [side, setSide] = React.useState("back");
   const valseTimer = React.useRef<number>();
 
   return (
     <div className={`Portrait Portrait-show-${side}`}>
       <div className={"Portrait-back"}>
+        <img
+          aria-hidden="true"
+          alt=""
+          src={placeholder}
+          style={{
+            position: "absolute",
+            top: 0,
+            left: 0,
+            right: 0,
+            bottom: 0,
+            width: "100%",
+            height: "100%",
+            /* Adjust the content to fit */
+            objectFit: "cover",
+            objectPosition: "center",
+            /* Blur the image and scale to avoid transparent corners */
+            filter: "blur(2rem)",
+            transform: "scale(1.2)",
+          }}
+        />
         <Image
           src={`/portraits/${name}-back-1280w.jpg`}
           height={1280}
@@ -57,6 +81,11 @@ export const Portrait: React.FunctionComponent<{ id: number; name: string }> = (
           left: 0;
           bottom: 0;
           right: 0;
+        }
+
+        .Portrait-back {
+          position: relative;
+          overflow: hidden;
         }
 
         .Portrait-show-front .Portrait-front {

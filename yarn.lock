@@ -551,6 +551,25 @@
   resolved "https://registry.yarnpkg.com/@next/react-refresh-utils/-/react-refresh-utils-10.0.2.tgz#a9a3daa55385749cd62fb57d4423ca27ae5f4e81"
   integrity sha512-ILc5/BipD7+GBLmtfnQDMG71KLx0fEpVI5kJw8jN9SoeygMrb4auZhCl7gA6QP3oynocYouJ8piLj1Ol80ZvVw==
 
+"@plaiceholder/base64@^1.0.0":
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/@plaiceholder/base64/-/base64-1.0.0.tgz#1cb7c2b0e8c768f91a292f4474096060ce0c5fab"
+  integrity sha512-btH50CSDLX/846CzGdnqB1ULzW6byWvEn0keHlPE5hbngyosn+/G/kh6cwRrnKRHcZ8fBcmTF9b8wbiEh4Lndw==
+  dependencies:
+    "@plaiceholder/core" "^1.0.0"
+
+"@plaiceholder/core@^1.0.0":
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/@plaiceholder/core/-/core-1.0.0.tgz#8ce30534a4b7f7ef467439139a116213a3814448"
+  integrity sha512-rlVzjBxtzbMIyfKRAElC3h+jcPpRviVSzd4faMG0sHdPErBR+Jc2vb3eWIZskNPly4BJn4KMoMr2kt/bEqLxaA==
+
+"@plaiceholder/next@^1.0.0":
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/@plaiceholder/next/-/next-1.0.0.tgz#b288d05a37245cfaa734e5bdcad401ed75d810fe"
+  integrity sha512-hIbne8jSh7ipU8tAxqCQIbDCaslQbe9O5/LyeSaaqM4/N4D6acJlTuhjYD5LslNADPMQtlil1QIVhAJoQWHd3Q==
+  dependencies:
+    "@plaiceholder/core" "^1.0.0"
+
 "@react-spring/animated@9.0.0-rc.3":
   version "9.0.0-rc.3"
   resolved "https://registry.yarnpkg.com/@react-spring/animated/-/animated-9.0.0-rc.3.tgz#e792cb76aacecfc78db2be6020ac11ce96503eb5"
