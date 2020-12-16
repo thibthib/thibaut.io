@@ -1,9 +1,25 @@
 import Head from "next/head";
 import { Portrait } from "components/duple/Portrait";
+import { getImage } from "@plaiceholder/next";
+import { getBase64 } from "@plaiceholder/base64";
 
 const portraits = ["Laurent", "Fanny", "Edern", "Ingrid", "Robin"];
 
-const Duple = () => (
+export const getStaticProps = async () => {
+  const imgBase64 = await Promise.all(
+    portraits.map((name) => getImage(`/portraits/${name}-back-1280w.jpg`).then(getBase64))
+  );
+
+  return {
+    props: {
+      portraits: portraits.map((name, index) => ({ name, placeholder: imgBase64[index] })),
+    },
+  };
+};
+
+const Duple: React.FunctionComponent<{
+  portraits: Array<{ name: string; placeholder: string }>;
+}> = ({ portraits }) => (
   <div>
     <Head>
       <title>Duple – by thibaut</title>
@@ -16,8 +32,8 @@ const Duple = () => (
       </h1>
     </header>
     <main>
-      {portraits.map((name, index) => (
-        <Portrait key={name} id={portraits.length - index} name={name} />
+      {portraits.map(({ name, placeholder }, index) => (
+        <Portrait key={name} id={portraits.length - index} name={name} placeholder={placeholder} />
       ))}
     </main>
     <style global jsx>{`
