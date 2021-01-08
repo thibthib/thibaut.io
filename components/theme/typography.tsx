@@ -30,3 +30,13 @@ export const CartographPreload: React.FunctionComponent = () => (
     crossOrigin="anonymous"
   />
 );
+
+export const QuincyPreload: React.FunctionComponent = () => (
+  <link
+    rel="preload"
+    href="/fonts/quincy.woff2"
+    as="font"
+    type="font/woff2"
+    crossOrigin="anonymous"
+  />
+);

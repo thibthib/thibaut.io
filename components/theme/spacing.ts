@@ -1,4 +1,4 @@
-const spacingBase = 1.5;
+export const spacingBase = 1.5;
 
 export const spacing = {
   XSmall: `${spacingBase / 4}rem`,

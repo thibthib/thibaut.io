@@ -20,6 +20,13 @@
   font-display: optional;
 }
 
+@font-face {
+  font-family: Quincy;
+  src: url("/fonts/quincy.woff2") format("woff2"), url("/fonts/quincy.woff") format("woff");
+  font-display: optional;
+  font-weight: 600;
+}
+
 body {
   margin: 0 auto;
   word-break: break-word;

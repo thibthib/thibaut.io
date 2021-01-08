@@ -3,15 +3,6 @@ import { ColorTheme, colorVariables } from "./colors";
 import { fontSizes } from "./typography";
 import { spacing } from "./spacing";
 
-export type Theme = typeof ColorTheme & {
-  gradientText: string;
-  monospaceFont: SerializedStyles;
-  sansSerifFont: SerializedStyles;
-  fontSizes: typeof fontSizes;
-  spacing: typeof spacing;
-  lineLength: number;
-};
-
 export const theme = {
   gradientText: `linear-gradient(120deg, ${colorVariables.highlight}, ${colorVariables.secondaryHighlight});`,
   monospaceFont: css`
@@ -23,8 +14,15 @@ export const theme = {
     font-family: Archia, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Oxygen-Sans",
       Ubuntu, Cantarell, "Helvetica Neue";
   `,
+  serifFont: css`
+    font-family: Quincy, serif;
+    font-weight: 600;
+    /* font-feature-settings: "salt"; */
+  `,
   fontSizes,
   spacing,
   lineLength: 60,
   ...colorVariables,
 };
+
+export type Theme = typeof ColorTheme & typeof theme;
