@@ -27,6 +27,10 @@ module.exports = withBundleAnalyzer(
       config.optimization.concatenateModules = analyzing
         ? false
         : config.optimization.concatenateModules;
+      config.module.rules.push({
+        test: /react-spring/,
+        sideEffects: true,
+      });
       return config;
     },
   })
