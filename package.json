@@ -12,7 +12,7 @@
     "@plaiceholder/base64": "^1.0.0",
     "@plaiceholder/next": "^1.0.0",
     "emotion-theming": "10.0.27",
-    "lodash": "4.17.15",
+    "lodash": "4.17.19",
     "mdx-prism": "0.3.1",
     "next": "10.0.5",
     "react": "16.13.0",
