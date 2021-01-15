@@ -1,11 +1,11 @@
 import * as React from "react";
-import { css } from "@emotion/core";
+import { css } from "@emotion/react";
 import { Theme } from "./Theme";
 
 export const Link: React.FunctionComponent<{ href: string }> = ({ href, children }) => (
   <a
     href={href}
-    css={(theme: Theme) => css`
+    css={(theme) => css`
       overflow: hidden;
 
       -webkit-background-clip: text;

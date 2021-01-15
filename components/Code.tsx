@@ -1,11 +1,11 @@
 import * as React from "react";
-import { css, Global } from "@emotion/core";
+import { css, Global } from "@emotion/react";
 import { Colors, getTheme, Theme } from "./Theme";
 import { EditOnCodeSandbox } from "./EditOnCodeSandbox";
 
 export const Pre: React.FunctionComponent = ({ children }) => (
   <pre
-    css={(theme: Theme) => css`
+    css={(theme) => css`
       background: ${theme.secondaryBackground};
 
       line-height: 1.5em;
@@ -35,7 +35,7 @@ export const Pre: React.FunctionComponent = ({ children }) => (
 export const InlineCode: React.FunctionComponent = ({ children }) => {
   return (
     <code
-      css={(theme: Theme) => css`
+      css={(theme) => css`
         ${theme.monospaceFont};
         background-color: ${theme.secondaryBackground};
         color: ${theme.highlight};
@@ -128,7 +128,7 @@ export const Code: React.FunctionComponent<{
 }> = ({ children, metastring }) => {
   return (
     <code
-      css={(theme: Theme) => css`
+      css={(theme) => css`
         ${theme.monospaceFont};
         color: ${theme.text};
         display: block;

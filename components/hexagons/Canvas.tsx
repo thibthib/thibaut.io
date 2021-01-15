@@ -1,5 +1,5 @@
 import * as React from "react";
-import { css } from "@emotion/core";
+import { css } from "@emotion/react";
 import random from "lodash/random";
 
 const CanvasContext = React.createContext<CanvasRenderingContext2D | null>(null);

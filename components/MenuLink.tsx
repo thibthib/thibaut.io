@@ -1,12 +1,12 @@
 import Link from "next/link";
-import { css } from "@emotion/core";
+import { css } from "@emotion/react";
 import { GradientText } from "./GradientText";
 import { Theme } from "./Theme";
 
 export const MenuLink = () => (
   <Link href={`/`}>
     <a
-      css={(theme: Theme) => css`
+      css={(theme) => css`
         font-weight: 600;
         position: relative;
         display: inline-block;
@@ -33,7 +33,7 @@ export const MenuLink = () => (
         `}
       >
         <div
-          css={(theme: Theme) => css`
+          css={(theme) => css`
             background-image: ${theme.gradientText};
             color: ${theme.background};
             position: absolute;
