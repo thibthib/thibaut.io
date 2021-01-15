@@ -1,4 +1,4 @@
-import { css } from "@emotion/core";
+import { css } from "@emotion/react";
 import { useAnchor } from "./Anchor";
 import { Theme } from "./Theme";
 
@@ -50,7 +50,7 @@ export const Title: React.FunctionComponent<{
   return (
     <Tag
       id={anchorId}
-      css={(theme: Theme) => css`
+      css={(theme) => css`
         position: relative;
         ${styles[Tag](theme)}
       `}

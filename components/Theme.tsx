@@ -1,8 +1,12 @@
 import * as React from "react";
 import Head from "next/head";
 import kebabCase from "lodash/kebabCase";
-import { ThemeProvider as EmotionThemeProvider } from "emotion-theming";
-import { Global, css, SerializedStyles } from "@emotion/core";
+import {
+  Global,
+  css,
+  SerializedStyles,
+  ThemeProvider as EmotionThemeProvider,
+} from "@emotion/react";
 import { ColorSpace, convertCSSColor, CSSSpace } from "@color-spaces/convert";
 
 const fontSizeRatio = 1.2;
@@ -103,7 +107,7 @@ export type Theme = typeof ColorTheme & {
   lineLength: number;
 };
 
-export const theme: Theme = {
+export const theme = {
   gradientText: `linear-gradient(120deg, ${variables.highlight}, ${variables.secondaryHighlight});`,
   monospaceFont: css`
     font-family: Cartograph, "SFMono-Regular", Consolas, "Liberation Mono", Menlo, Courier,

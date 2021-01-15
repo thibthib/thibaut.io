@@ -1,6 +1,6 @@
 import React from "react";
 import { MDXProvider } from "@mdx-js/react";
-import { Global, css } from "@emotion/core";
+import { Global, css } from "@emotion/react";
 import Head from "next/head";
 import { useRouter } from "next/router";
 import { Emphasis } from "components/Emphasis";
@@ -84,7 +84,7 @@ export const BlogPost: React.FunctionComponent<{ meta: MetaData }> = ({ meta, ch
             `}
           />
           <Global
-            styles={(theme: Theme) => css`
+            styles={(theme) => css`
               body {
                 background-color: ${theme.background};
                 color: ${theme.text};
@@ -128,7 +128,7 @@ export const BlogPost: React.FunctionComponent<{ meta: MetaData }> = ({ meta, ch
             <H1>
               {meta.title}
               <p
-                css={(theme: Theme) => css`
+                css={(theme) => css`
                   margin-top: 0;
                   color: ${theme.secondaryText};
                   font-size: ${theme.fontSizes.small};
@@ -140,14 +140,14 @@ export const BlogPost: React.FunctionComponent<{ meta: MetaData }> = ({ meta, ch
             </H1>
           </header>
           <article
-            css={(theme: Theme) => css`
+            css={(theme) => css`
               margin-bottom: ${theme.spacing.medium};
             `}
           >
             {children}
           </article>
           <footer
-            css={(theme: Theme) => css`
+            css={(theme) => css`
               padding-top: ${theme.spacing.medium};
               border-top: 1px solid ${theme.border};
             `}

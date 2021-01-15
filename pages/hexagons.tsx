@@ -1,5 +1,5 @@
 import * as React from "react";
-import { Global, css } from "@emotion/core";
+import { Global, css } from "@emotion/react";
 import { RandomHexagons } from "components/hexagons/RandomHexagons";
 
 const Page: React.FunctionComponent = () => (

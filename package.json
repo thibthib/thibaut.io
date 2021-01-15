@@ -5,18 +5,16 @@
   "license": "MIT",
   "dependencies": {
     "@color-spaces/convert": "1.0.1",
-    "@datadog/browser-rum": "1.12.1",
-    "@emotion/babel-preset-css-prop": "10.0.27",
-    "@emotion/core": "10.0.27",
+    "@datadog/browser-rum": "2.2.1",
+    "@emotion/react": "11.1.4",
     "@mdx-js/react": "1.6.22",
     "@plaiceholder/base64": "^1.0.0",
     "@plaiceholder/next": "^1.0.0",
-    "emotion-theming": "10.0.27",
-    "lodash": "4.17.15",
+    "lodash": "4.17.20",
     "mdx-prism": "0.3.1",
     "next": "10.0.5",
-    "react": "16.13.0",
-    "react-dom": "16.13.0",
+    "react": "17.0.1",
+    "react-dom": "17.0.1",
     "react-spring": "9.0.0-rc.3"
   },
   "scripts": {
@@ -28,13 +26,14 @@
     "analyze": "ANALYZE=true yarn build"
   },
   "devDependencies": {
+    "@emotion/babel-preset-css-prop": "11.0.0",
     "@mdx-js/loader": "1.6.22",
     "@next/bundle-analyzer": "10.0.5",
     "@next/mdx": "10.0.5",
-    "@types/lodash": "4.14.149",
+    "@types/lodash": "4.14.167",
     "@types/mdx-js__react": "1.5.3",
-    "@types/node": "14.0.5",
-    "@types/react": "16.9.54",
+    "@types/node": "14.14.21",
+    "@types/react": "17.0.0",
     "prettier": "2.2.1",
     "rehype": "11.0.0",
     "typescript": "4.1.3"

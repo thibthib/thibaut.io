@@ -1,9 +1,9 @@
-import { css } from "@emotion/core";
+import { css } from "@emotion/react";
 import { Theme } from "./Theme";
 
 export const GradientText: React.FunctionComponent = ({ children }) => (
   <span
-    css={(theme: Theme) => css`
+    css={(theme) => css`
       background-image: ${theme.gradientText};
       color: ${theme.background};
       -webkit-background-clip: text;

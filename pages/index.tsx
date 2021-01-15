@@ -2,13 +2,12 @@ import * as React from "react";
 import Head from "next/head";
 import Link from "next/link";
 import dynamic from "next/dynamic";
-import { Global, css } from "@emotion/core";
+import { Global, css, useTheme } from "@emotion/react";
 import { InstagramLogo } from "components/icons/Instagram";
 import { GithubLogo } from "components/icons/Github";
 import { TwitterLogo } from "components/icons/Twitter";
 import { ExposureLogo } from "components/icons/Exposure";
-import { useTheme } from "emotion-theming";
-import { Theme } from "components/Theme";
+
 import { GradientText } from "components/GradientText";
 import { ThemeProvider } from "components/Theme";
 
@@ -28,7 +27,7 @@ const PageLink = React.forwardRef<
     logo: React.ReactNode;
   }
 >(({ href, label, description, logo }: any, ref) => {
-  const { spacing, fontSizes, text, secondaryText } = useTheme<Theme>();
+  const { spacing, fontSizes, text, secondaryText } = useTheme();
   return (
     <a
       href={href}
@@ -92,7 +91,7 @@ const Page = () => {
         <meta name="description" content="thibaut's personal website" />
       </Head>
       <Global
-        styles={(theme: Theme) => css`
+        styles={(theme) => css`
           body {
             background-color: ${theme.background};
             color: ${theme.text};
@@ -140,7 +139,7 @@ const Page = () => {
         `}
       >
         <div
-          css={(theme: Theme) => css`
+          css={(theme) => css`
             position: relative;
             display: inline-flex;
             flex-direction: column;
@@ -155,7 +154,7 @@ const Page = () => {
           `}
         >
           <h1
-            css={(theme: Theme) => css`
+            css={(theme) => css`
               margin-bottom: ${theme.spacing.large};
               font-size: ${theme.fontSizes.XXXLarge};
               white-space: nowrap;
@@ -164,7 +163,7 @@ const Page = () => {
             <GradientText>thibaut</GradientText>
           </h1>
           <div
-            css={(theme: Theme) => css`
+            css={(theme) => css`
               margin-bottom: ${theme.spacing.medium};
               display: flex;
               flex-direction: column;
@@ -195,7 +194,7 @@ const Page = () => {
           </div>
         </div>
         <div
-          css={(theme: Theme) => css`
+          css={(theme) => css`
             position: relative;
             display: inline-flex;
             flex-direction: column;
@@ -209,7 +208,7 @@ const Page = () => {
           `}
         >
           <h2
-            css={(theme: Theme) => css`
+            css={(theme) => css`
               font-size: ${theme.fontSizes.XLarge};
               margin: ${theme.spacing.small} 0;
               padding-left: 0;

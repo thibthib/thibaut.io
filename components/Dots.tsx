@@ -2,7 +2,7 @@ import * as React from "react";
 import { useSpring, useSprings, animated } from "react-spring";
 import random from "lodash/random";
 import clamp from "lodash/clamp";
-import { useTheme } from "emotion-theming";
+import { useTheme } from "@emotion/react";
 
 import { Theme } from "components/Theme";
 
@@ -25,7 +25,7 @@ const getDots = (colors: string[]) => {
 };
 
 export const Dots: React.FunctionComponent = () => {
-  const theme = useTheme<Theme>();
+  const theme = useTheme();
 
   const dotColors = [
     theme.accent1,
