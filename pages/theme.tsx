@@ -1,5 +1,5 @@
 import * as React from "react";
-import { Colors } from "../components/Theme";
+import { Colors } from "../components/theme/colors";
 import { css } from "@emotion/react";
 import { ColorSpace, convertCSSColor } from "@color-spaces/convert";
 

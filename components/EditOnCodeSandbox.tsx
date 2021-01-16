@@ -1,6 +1,5 @@
 import { css } from "@emotion/react";
 import { GradientText } from "./GradientText";
-import { Theme } from "./Theme";
 
 export const EditOnCodeSandbox: React.FunctionComponent<{ info: string }> = ({ info }) => {
   const [sandboxName, fileName] = info.split(" ");

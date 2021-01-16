@@ -1,8 +1,8 @@
 import React from "react";
 import { AppProps } from "next/app";
 import Head from "next/head";
-
-import { ThemeProvider } from "components/Theme";
+import { ThemeProvider } from "components/theme/ThemeProvider";
+import "components/theme/global.css";
 
 if (process.env.NODE_ENV === "production") {
   import(/* webpackChunkName: "rum" */ "@datadog/browser-rum").then(({ datadogRum }) => {
@@ -23,7 +23,9 @@ const MyApp = ({ Component, pageProps }: AppProps) => {
         <link rel="apple-touch-icon" href="apple-touch-icon.png" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
       </Head>
-      <Component {...pageProps} />
+      <ThemeProvider>
+        <Component {...pageProps} />
+      </ThemeProvider>
     </>
   );
 };

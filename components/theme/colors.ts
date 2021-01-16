@@ -1,0 +1,37 @@
+import { getCSSVariableName, mapColorObject } from "./helpers";
+import mapValues from "lodash/mapValues";
+
+export const Colors = {
+  accent1: "lch(78% 48 230)", //    #3FD2FF
+  accent1alt: "lch(88% 42 230)", // #aae7ff
+  accent2: "lch(80% 70 170)", //    #00E1B1
+  accent2alt: "lch(80% 40 170)", // #6cdab8
+  accent3: "lch(74% 70 54)", //     #ff9c60
+  accent3alt: "lch(78% 44 54)", //  #fcae80
+  accent4: "lch(68% 68 14)", //     #ff7a91
+  accent4alt: "lch(55.5% 52 14)", //#d1576e
+  accent5: "lch(68% 52 304)", //    #bb95f4
+  accent6: "lch(68% 50 280)", //    #89a3ff
+  shade0: "lch(8% 9 290)", //       #171623
+  shade1: "lch(10% 12 289)", //     #1a1a2b
+  shade3: "lch(28% 28 287)", //     #3b3f6c
+  shade5: "lch(54.5% 26 284)", //   #787dab
+  shade8: "lch(80% 30 281)", //     #bac4fd
+  shade9: "lch(88% 16 280)", //     #dde1ff
+};
+
+export const ColorTheme = {
+  background: Colors.shade0,
+  secondaryBackground: Colors.shade1,
+  text: Colors.shade9,
+  secondaryText: Colors.shade8,
+  highlight: Colors.accent1,
+  secondaryHighlight: Colors.accent2,
+  border: Colors.shade3,
+  ...Colors,
+};
+
+export const colorVariables = mapValues(
+  ColorTheme,
+  (_, name) => `var(${getCSSVariableName(name)})`
+);

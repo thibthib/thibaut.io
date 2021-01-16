@@ -1,18 +1,7 @@
-import { css } from "@emotion/react";
-import { Theme } from "./Theme";
+import { useStyles } from "react-treat";
+import * as styleRefs from "./GradientText.treat";
 
-export const GradientText: React.FunctionComponent = ({ children }) => (
-  <span
-    css={(theme) => css`
-      background-image: ${theme.gradientText};
-      color: ${theme.background};
-      -webkit-background-clip: text;
-      background-clip: text;
-      -webkit-text-fill-color: transparent;
-      -webkit-box-decoration-break: clone;
-      box-decoration-break: clone;
-    `}
-  >
-    {children}
-  </span>
-);
+export const GradientText: React.FunctionComponent = ({ children }) => {
+  const styles = useStyles(styleRefs);
+  return <span className={styles.gradientText}>{children}</span>;
+};

@@ -1,6 +1,5 @@
 import * as React from "react";
 import { css } from "@emotion/react";
-import { Theme } from "./Theme";
 
 export const Link: React.FunctionComponent<{ href: string }> = ({ href, children }) => (
   <a
