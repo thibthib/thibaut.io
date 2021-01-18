@@ -1,0 +1,44 @@
+@font-face {
+  font-family: Cartograph;
+  src: url("/cartograph-regular.woff2") format("woff2"),
+    url("/cartograph-regular.woff") format("woff");
+  font-display: swap;
+}
+
+@font-face {
+  font-family: Cartograph;
+  src: url("/cartograph-regular-italic.woff2") format("woff2"),
+    url("/cartograph-regular-italic.woff") format("woff");
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: Archia;
+  src: url("/archia-regular.woff2") format("woff2"), url("/archia-regular.woff") format("woff");
+  font-display: swap;
+}
+
+body {
+  margin: 0 auto;
+  word-break: break-word;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+}
+
+p,
+pre,
+code,
+ul,
+ol {
+  margin: 0;
+}
+
+html {
+  font-size: 18px;
+  font-size: clamp(18px, 1.4vw, 21px);
+}
+
+* {
+  box-sizing: border-box;
+}

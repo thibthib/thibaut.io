@@ -1,6 +1,6 @@
 import * as React from "react";
 import { css, Global } from "@emotion/react";
-import { Colors, getTheme, Theme } from "./Theme";
+import { colorVariables } from "./theme/colors";
 import { EditOnCodeSandbox } from "./EditOnCodeSandbox";
 
 export const Pre: React.FunctionComponent = ({ children }) => (
@@ -48,74 +48,57 @@ export const InlineCode: React.FunctionComponent = ({ children }) => {
   );
 };
 
-const CodeColorTheme = {
-  text: Colors.shade9,
-  comment: Colors.shade5,
-  tag: Colors.accent4,
-  tagPunct: Colors.accent4alt,
-  constant: Colors.accent3,
-  parameters: Colors.accent3alt,
-  keyword: Colors.accent5,
-  function: Colors.accent6,
-  property: Colors.accent1,
-  string: Colors.accent2alt,
-  punctuation: Colors.accent1alt,
-};
-
-const [themeVariables, themeDefinition] = getTheme(CodeColorTheme);
-
 export const CodeTheme = () => {
   return (
     <Global
       styles={css`
-        ${themeDefinition};
         .script {
-          color: ${themeVariables.text};
+          color: ${colorVariables.text};
         }
         .comment {
-          color: ${themeVariables.comment};
+          color: ${colorVariables.shade5};
           font-style: italic;
         }
         .punctuation,
         .operator {
-          color: ${themeVariables.punctuation};
+          color: ${colorVariables.accent1alt};
         }
         .property,
         .property-access {
-          color: ${themeVariables.property};
+          color: ${colorVariables.accent1};
         }
         .symbol,
         .string {
-          color: ${themeVariables.string};
+          color: ${colorVariables.accent2alt};
         }
         .tag {
-          color: ${themeVariables.tag};
+          color: ${colorVariables.accent4};
         }
         .tag > .punctuation {
-          color: ${themeVariables.tagPunct};
+          color: ${colorVariables.accent4alt};
         }
         .char,
         .arrow,
         .attr-name {
-          color: ${themeVariables.keyword};
+          color: ${colorVariables.accent5};
         }
         .keyword {
-          color: ${themeVariables.keyword};
+          color: ${colorVariables.accent5};
           font-style: italic;
         }
         .parameter,
         .attr-value {
-          color: ${themeVariables.parameters};
+          color: ${colorVariables.accent3alt};
         }
         .boolean,
         .number,
         .null,
         .constant {
-          color: ${themeVariables.constant};
+          color: ${colorVariables.accent3};
           font-style: normal;
         }
         .function {
-          color: ${themeVariables.function};
+          color: ${colorVariables.accent6};
         }
       `}
     />

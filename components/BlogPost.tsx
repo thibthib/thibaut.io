@@ -7,9 +7,9 @@ import { Emphasis } from "components/Emphasis";
 import { Code, InlineCode, Pre, CodeTheme } from "components/Code";
 import { Link } from "components/Link";
 import { h1, h2, h3, h4, h5, h6 } from "components/Title";
+import { ArchiaPreload, CartographPreload } from "components/theme/typography";
 import { MenuLink } from "./MenuLink";
 import { h1 as H1 } from "./Title";
-import { Theme, ThemeProvider } from "./Theme";
 
 const components = {
   inlineCode: InlineCode,
@@ -37,125 +37,76 @@ export const BlogPost: React.FunctionComponent<{ meta: MetaData }> = ({ meta, ch
   const url = encodeURIComponent(`https://thibaut.io${router.pathname}`);
   return (
     <MDXProvider components={components}>
-      <ThemeProvider>
-        <main>
-          <Head>
-            <link
-              rel="preload"
-              href="archia-regular.woff2"
-              as="font"
-              type="font/woff2"
-              crossOrigin="true"
-            />
-            <title>{meta.title}</title>
-            <meta name="description" content={meta.description} />
-            <meta name="twitter:card" content={meta.image ? "summary_large_image" : "summary"} />
-            <meta name="twitter:site" content="@thib_thib" />
-            <meta name="twitter:title" content={meta.title} />
-            <meta name="twitter:description" content={meta.description} />
-            {meta.image ? <meta name="twitter:image" content={meta.image} /> : null}
-            <meta property="og:title" content={meta.title} />
-            <meta property="og:description" content={meta.description} />
-          </Head>
+      <main>
+        <Head>
+          <title>{meta.title}</title>
+          <meta name="description" content={meta.description} />
+          <meta name="twitter:card" content={meta.image ? "summary_large_image" : "summary"} />
+          <meta name="twitter:site" content="@thib_thib" />
+          <meta name="twitter:title" content={meta.title} />
+          <meta name="twitter:description" content={meta.description} />
+          {meta.image ? <meta name="twitter:image" content={meta.image} /> : null}
+          <meta property="og:title" content={meta.title} />
+          <meta property="og:description" content={meta.description} />
+          <ArchiaPreload />
+          <CartographPreload />
+        </Head>
+        <Global
+          styles={(theme) => css`
+            body {
+              background-color: ${theme.background};
+              color: ${theme.text};
+              ${theme.sansSerifFont}
+              padding: calc(0.5rem + 3vh) calc(0.5rem + 4vw);
+              box-sizing: unset;
+              max-width: ${theme.lineLength}ch;
+            }
 
-          <Global
-            styles={css`
-              @font-face {
-                font-family: Cartograph;
-                src: url("cartograph-regular.woff2") format("woff2"),
-                  url("cartograph-regular.woff") format("woff");
-                font-display: swap;
-              }
-
-              @font-face {
-                font-family: Cartograph;
-                src: url("cartograph-regular-italic.woff2") format("woff2"),
-                  url("cartograph-regular-italic.woff") format("woff");
-                font-style: italic;
-                font-display: swap;
-              }
-
-              @font-face {
-                font-family: Archia;
-                src: url("archia-regular.woff2") format("woff2"),
-                  url("archia-regular.woff") format("woff");
-                font-display: swap;
-              }
-            `}
-          />
-          <Global
-            styles={(theme) => css`
-              body {
-                background-color: ${theme.background};
-                color: ${theme.text};
-                ${theme.sansSerifFont}
-                margin: 0 auto;
-                padding: calc(0.5rem + 3vh) calc(0.5rem + 4vw);
-                word-break: break-word;
-                max-width: ${theme.lineLength}ch;
-                text-rendering: optimizeLegibility;
-                -webkit-font-smoothing: antialiased;
-              }
-
-              p,
-              pre,
-              code,
-              ul,
-              ol {
-                margin: 0;
-              }
-
-              html {
-                font-size: 18px;
-                font-size: clamp(18px, 1.4vw, 21px);
-              }
-
-              p {
-                font-size: ${theme.fontSizes.medium};
-                line-height: ${theme.spacing.medium};
-                margin-top: 0;
-                margin-bottom: ${theme.spacing.medium};
-              }
-
-              ul {
-                margin-bottom: ${theme.spacing.medium};
-              }
-            `}
-          />
-          <CodeTheme />
-          <MenuLink />
-          <header>
-            <H1>
-              {meta.title}
-              <p
-                css={(theme) => css`
-                  margin-top: 0;
-                  color: ${theme.secondaryText};
-                  font-size: ${theme.fontSizes.small};
-                  font-weight: 300;
-                `}
-              >
-                {meta.date}
-              </p>
-            </H1>
-          </header>
-          <article
-            css={(theme) => css`
+            p {
+              font-size: ${theme.fontSizes.medium};
+              line-height: ${theme.spacing.medium};
+              margin-top: 0;
               margin-bottom: ${theme.spacing.medium};
-            `}
-          >
-            {children}
-          </article>
-          <footer
-            css={(theme) => css`
-              padding-top: ${theme.spacing.medium};
-              border-top: 1px solid ${theme.border};
-            `}
-          >
-            💬 <Link href={`https://mobile.twitter.com/search?q=${url}`}>Discuss on twitter</Link>
-          </footer>
-        </main>
-      </ThemeProvider>
+            }
+
+            ul {
+              margin-bottom: ${theme.spacing.medium};
+            }
+          `}
+        />
+        <CodeTheme />
+        <MenuLink />
+        <header>
+          <H1>
+            {meta.title}
+            <p
+              css={(theme) => css`
+                margin-top: 0;
+                color: ${theme.secondaryText};
+                font-size: ${theme.fontSizes.small};
+                font-weight: 300;
+              `}
+            >
+              {meta.date}
+            </p>
+          </H1>
+        </header>
+        <article
+          css={(theme) => css`
+            margin-bottom: ${theme.spacing.medium};
+          `}
+        >
+          {children}
+        </article>
+        <footer
+          css={(theme) => css`
+            padding-top: ${theme.spacing.medium};
+            border-top: 1px solid ${theme.border};
+          `}
+        >
+          💬 <Link href={`https://mobile.twitter.com/search?q=${url}`}>Discuss on twitter</Link>
+        </footer>
+      </main>
     </MDXProvider>
   );
 };

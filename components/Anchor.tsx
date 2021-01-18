@@ -2,7 +2,6 @@ import * as React from "react";
 import isArray from "lodash/isArray";
 import kebabCase from "lodash/kebabCase";
 import { css, useTheme } from "@emotion/react";
-import { Theme } from "./Theme";
 
 const getAsString = (node: React.ReactNode): string => {
   if (typeof node === "string") {

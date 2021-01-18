@@ -1,7 +1,6 @@
 import Link from "next/link";
 import { css } from "@emotion/react";
 import { GradientText } from "./GradientText";
-import { Theme } from "./Theme";
 
 export const MenuLink = () => (
   <Link href={`/`}>
