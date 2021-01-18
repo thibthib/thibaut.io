@@ -1,5 +1,4 @@
 import { css } from "@emotion/react";
-import { Theme } from "./Theme";
 
 export const GradientText: React.FunctionComponent = ({ children }) => (
   <span

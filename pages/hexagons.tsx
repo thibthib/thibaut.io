@@ -7,7 +7,6 @@ const Page: React.FunctionComponent = () => (
     <Global
       styles={css`
         body {
-          margin: 0;
           overflow: hidden;
           background-color: hsl(250, 50%, 60%);
         }

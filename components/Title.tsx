@@ -1,6 +1,6 @@
 import { css } from "@emotion/react";
 import { useAnchor } from "./Anchor";
-import { Theme } from "./Theme";
+import { Theme } from "./theme/theme";
 
 enum titleTags {
   h1 = "h1",

@@ -2,14 +2,14 @@ import * as React from "react";
 import Head from "next/head";
 import Link from "next/link";
 import dynamic from "next/dynamic";
-import { Global, css, useTheme } from "@emotion/react";
+import styled from "@emotion/styled";
+import { css, useTheme } from "@emotion/react";
 import { InstagramLogo } from "components/icons/Instagram";
 import { GithubLogo } from "components/icons/Github";
 import { TwitterLogo } from "components/icons/Twitter";
 import { ExposureLogo } from "components/icons/Exposure";
-
 import { GradientText } from "components/GradientText";
-import { ThemeProvider } from "components/Theme";
+import { ArchiaPreload } from "components/theme/typography";
 
 const Dots = dynamic<any>(
   () => import(/* webpackChunkName: "dots" */ "components/Dots").then(({ Dots }) => Dots),
@@ -17,6 +17,18 @@ const Dots = dynamic<any>(
     ssr: false,
   }
 );
+
+const getColoredLogo = (logo: React.FunctionComponent) =>
+  styled(logo)(
+    ({ theme }) => css`
+      fill: ${theme.secondaryText};
+    `
+  );
+
+const Github = getColoredLogo(GithubLogo);
+const Instagram = getColoredLogo(InstagramLogo);
+const Twitter = getColoredLogo(TwitterLogo);
+const Exposure = getColoredLogo(ExposureLogo);
 
 const PageLink = React.forwardRef<
   HTMLAnchorElement,
@@ -47,9 +59,6 @@ const PageLink = React.forwardRef<
           width: ${spacing.medium};
           height: ${spacing.medium};
           font-size: ${fontSizes.XLarge};
-          > * {
-            fill: ${secondaryText};
-          }
         `}
       >
         {logo}
@@ -85,50 +94,24 @@ const PageLink = React.forwardRef<
 
 const Page = () => {
   return (
-    <ThemeProvider>
+    <>
       <Head>
         <title>thibaut</title>
         <meta name="description" content="thibaut's personal website" />
+        <ArchiaPreload />
       </Head>
-      <Global
-        styles={(theme) => css`
-          body {
-            background-color: ${theme.background};
-            color: ${theme.text};
-            ${theme.sansSerifFont}
-            margin: 0 auto;
-            word-break: break-word;
-            text-rendering: optimizeLegibility;
-            -webkit-font-smoothing: antialiased;
-          }
-
-          p,
-          pre,
-          code,
-          ul,
-          ol {
-            margin: 0;
-          }
-
-          html {
-            font-size: 18px;
-            font-size: clamp(18px, 1.4vw, 21px);
-          }
-
-          * {
-            box-sizing: border-box;
-          }
-        `}
-      />
       <Dots />
       <main
-        css={css`
+        css={(theme) => css`
           display: flex;
           align-items: center;
           justify-content: center;
           flex-direction: column;
           padding: 10vh 0;
           margin: 0 auto;
+          background-color: ${theme.background};
+          color: ${theme.text};
+          ${theme.sansSerifFont}
 
           @media (min-width: 660px) {
             flex-direction: row;
@@ -174,23 +157,15 @@ const Page = () => {
               }
             `}
           >
-            <PageLink href={"https://github.com/thibthib"} label={"GitHub"} logo={<GithubLogo />} />
+            <PageLink href={"https://github.com/thibthib"} label={"GitHub"} logo={<Github />} />
             <PageLink
               href={"https://www.instagram.com/thib_thib"}
               label={"Instagram"}
-              logo={<InstagramLogo />}
+              logo={<Instagram />}
             />
 
-            <PageLink
-              href={"https://twitter.com/thib_thib"}
-              label={"Twitter"}
-              logo={<TwitterLogo />}
-            />
-            <PageLink
-              href={"https://thib.exposure.co"}
-              label={"Exposure"}
-              logo={<ExposureLogo />}
-            />
+            <PageLink href={"https://twitter.com/thib_thib"} label={"Twitter"} logo={<Twitter />} />
+            <PageLink href={"https://thib.exposure.co"} label={"Exposure"} logo={<Exposure />} />
           </div>
         </div>
         <div
@@ -240,7 +215,7 @@ const Page = () => {
           </Link>
         </div>
       </main>
-    </ThemeProvider>
+    </>
   );
 };
 

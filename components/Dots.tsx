@@ -1,10 +1,8 @@
 import * as React from "react";
-import { useSpring, useSprings, animated } from "react-spring";
+import { useSprings, animated } from "react-spring";
 import random from "lodash/random";
 import clamp from "lodash/clamp";
 import { useTheme } from "@emotion/react";
-
-import { Theme } from "components/Theme";
 
 const stepDimension = 60;
 
