@@ -23,6 +23,19 @@ module.exports = withBundleAnalyzer(
         },
       ];
     },
+    async headers() {
+      return [
+        {
+          source: "/fonts/:font*",
+          headers: [
+            {
+              key: "Cache-Control",
+              value: "public, immutable, max-age=31536000",
+            },
+          ],
+        },
+      ];
+    },
     webpack: (config) => {
       config.optimization.concatenateModules = analyzing
         ? false
