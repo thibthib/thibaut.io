@@ -12,15 +12,21 @@ export const fontSizes = {
 };
 
 export const ArchiaPreload: React.FunctionComponent = () => (
-  <link rel="preload" href="archia-regular.woff2" as="font" type="font/woff2" crossOrigin="true" />
+  <link
+    rel="preload"
+    href="/fonts/archia-regular.woff2"
+    as="font"
+    type="font/woff2"
+    crossOrigin="anonymous"
+  />
 );
 
 export const CartographPreload: React.FunctionComponent = () => (
   <link
     rel="preload"
-    href="cartograph-regular.woff2"
+    href="/fonts/cartograph-regular.woff2"
     as="font"
     type="font/woff2"
-    crossOrigin="true"
+    crossOrigin="anonymous"
   />
 );
