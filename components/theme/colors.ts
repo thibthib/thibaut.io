@@ -1,3 +1,6 @@
+import { ColorSpace, convertCSSColor, CSSSpace } from "@color-spaces/convert";
+import { css } from "@emotion/react";
+
 export const Colors = {
   accent1: "lch(78% 48 230)", //    #3FD2FF
   accent1alt: "lch(88% 42 230)", // #aae7ff
@@ -44,3 +47,26 @@ export const colorVariables = mapColorObject(ColorTheme, (name) => [
   name,
   `var(${getCSSVariableName(name)})`,
 ]);
+
+const getColorCSSVariables = (colors: typeof ColorTheme, space: CSSSpace) =>
+  Object.entries(colors)
+    .map(([name, value]) => `${getCSSVariableName(name)}: ${convertCSSColor(value, space) ?? ""};`)
+    .join("\n");
+
+export const getColorsVariablesCSS = (colors: typeof ColorTheme) => css`
+  :root {
+    ${getColorCSSVariables(colors, ColorSpace.sRGB)}
+  }
+
+  @supports (color: color(display-p3 1 1 1)) {
+    :root {
+      ${getColorCSSVariables(colors, ColorSpace.P3)}
+    }
+  }
+
+  @supports (color: lch(1 1 1)) {
+    :root {
+      ${getColorCSSVariables(colors, ColorSpace.LCH)}
+    }
+  }
+`;

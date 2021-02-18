@@ -33,7 +33,7 @@ export const Portrait: React.FunctionComponent<{
           }}
         />
         <Image
-          src={`/portraits/${name}-back-1280w.jpg`}
+          src={`/portraits/${name}-back.jpg`}
           height={1280}
           width={1280}
           sizes="(min-width: 1024px) 33vw, (min-width: 768px) 50vw, 100vw"
@@ -42,7 +42,7 @@ export const Portrait: React.FunctionComponent<{
       </div>
       <div className={"Portrait-front"}>
         <Image
-          src={`/portraits/${name}-front-1280w.jpg`}
+          src={`/portraits/${name}-front.jpg`}
           height={1280}
           width={1280}
           sizes="(min-width: 1024px) 33vw, (min-width: 768px) 50vw, 100vw"

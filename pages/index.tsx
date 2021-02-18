@@ -10,6 +10,7 @@ import { TwitterLogo } from "components/icons/Twitter";
 import { ExposureLogo } from "components/icons/Exposure";
 import { GradientText } from "components/GradientText";
 import { ArchiaPreload } from "components/theme/typography";
+import { ThemeProvider } from "components/theme/ThemeProvider";
 
 const Dots = dynamic<any>(
   () => import(/* webpackChunkName: "dots" */ "components/Dots").then(({ Dots }) => Dots),
@@ -78,10 +79,11 @@ const PageLink = React.forwardRef<
         </p>
         {description ? (
           <p
-            css={css`
+            css={(theme) => css`
               margin-top: ${spacing.XSmall};
-              font-size: ${fontSizes.medium};
+              font-size: ${fontSizes.small};
               font-style: italic;
+              ${theme.monospaceFont}
             `}
           >
             {description}
@@ -94,7 +96,7 @@ const PageLink = React.forwardRef<
 
 const Page = () => {
   return (
-    <>
+    <ThemeProvider>
       <Head>
         <title>thibaut</title>
         <meta name="description" content="thibaut's personal website" />
@@ -215,7 +217,7 @@ const Page = () => {
           </Link>
         </div>
       </main>
-    </>
+    </ThemeProvider>
   );
 };
 
