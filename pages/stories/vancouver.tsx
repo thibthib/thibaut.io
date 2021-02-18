@@ -48,6 +48,7 @@ const Vancouver: React.FunctionComponent<{ imagesData: ImageDataMap }> = ({ imag
       <QuincyPreload />
       <ThemeProvider colors={VancouverColorTheme}>
         <Stories
+          title={`Vancouver Island`}
           header={
             <>
               <Title>Vancouver Island</Title>

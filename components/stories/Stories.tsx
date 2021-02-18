@@ -36,9 +36,10 @@ const TouchWrapper = styled.div`
 `;
 
 export const Stories: React.FunctionComponent<{
+  title: string;
   header: React.ReactNode;
   stories: React.ReactNode[];
-}> = ({ header, stories }) => {
+}> = ({ title, header, stories }) => {
   const [index, setIndex] = useQueryParamState("s", 0);
   const nextIndex = Math.min(index + 1, stories.length - 1);
   const prevIndex = Math.max(index - 1, 0);
@@ -68,10 +69,8 @@ export const Stories: React.FunctionComponent<{
   return (
     <>
       <Head>
-        <meta
-          name="viewport"
-          content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
-        />
+        <title>{`${title} | thibaut's stories`}</title>
+        <meta name="description" content={`${title}, a picture story by thibaut`} />
       </Head>
       <Global
         styles={css`

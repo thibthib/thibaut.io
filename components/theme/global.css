@@ -2,7 +2,7 @@
   font-family: Cartograph;
   src: url("/fonts/cartograph-regular.woff2") format("woff2"),
     url("/fonts/cartograph-regular.woff") format("woff");
-  font-display: optional;
+  font-display: swap;
 }
 
 @font-face {
@@ -10,20 +10,20 @@
   src: url("/fonts/cartograph-regular-italic.woff2") format("woff2"),
     url("/fonts/cartograph-regular-italic.woff") format("woff");
   font-style: italic;
-  font-display: optional;
+  font-display: swap;
 }
 
 @font-face {
   font-family: Archia;
   src: url("/fonts/archia-regular.woff2") format("woff2"),
     url("/fonts/archia-regular.woff") format("woff");
-  font-display: optional;
+  font-display: swap;
 }
 
 @font-face {
   font-family: Quincy;
   src: url("/fonts/quincy.woff2") format("woff2"), url("/fonts/quincy.woff") format("woff");
-  font-display: optional;
+  font-display: swap;
   font-weight: 600;
 }
 

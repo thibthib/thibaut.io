@@ -49,7 +49,7 @@ export const Story: React.FunctionComponent<{
       ) : (
         <Image
           name={image}
-          alt={imageAlt}
+          alt={imageAlt ?? image}
           layout={"fill"}
           objectFit="cover"
           onLoad={hasLoaded}
