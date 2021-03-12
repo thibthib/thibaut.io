@@ -6,32 +6,57 @@ import { theme } from "components/theme/theme";
 import styled from "@emotion/styled";
 import { ThemeProvider } from "components/theme/ThemeProvider";
 
+const ColorRow = styled.div<{ isSelected: boolean }>`
+  display: flex;
+  position: relative;
+  height: ${({ theme, isSelected }) => (isSelected ? "100vh" : theme.spacing.XLarge)};
+  width: 100%;
+`;
+
 const ColorTile = styled.div<{ background: string | null; isInverted: boolean }>`
-  background: ${(props) => props.background};
   flex-grow: 1;
-  font-size: ${theme.fontSizes.XSmall};
-  color: transparent;
+  width: 33%;
   height: 100%;
+  padding: ${({ theme }) => theme.spacing.XSmall};
+  background: ${(props) => props.background};
+  font-size: ${theme.fontSizes.XSmall};
   color: ${({ isInverted, theme }) =>
     isInverted ? theme.secondaryText : theme.secondaryBackground};
   text-align: center;
-  padding: ${({ theme }) => theme.spacing.XSmall};
   display: flex;
-  justify-content: center;
-  align-items: flex-end;
+  justify-content: flex-end;
+  align-items: center;
+  flex-direction: column;
 `;
 
-const ColorTitle = styled.div<{ isInverted: boolean }>`
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+const ColorTileSupports = styled(ColorTile)<{ supports: string }>`
+  background: ${({ theme }) => theme.background};
+  color: ${({ theme }) => theme.text};
+
+  &:before {
+    content: "❌";
+  }
+
+  @supports (color: ${(props) => props.supports}) {
+    background: ${(props) => props.background};
+    color: ${({ isInverted, theme }) =>
+      isInverted ? theme.secondaryText : theme.secondaryBackground};
+    &:before {
+      content: "";
+    }
+  }
+`;
+
+const ColorName = styled.div<{ isInverted: boolean }>`
+  margin-bottom: ${({ theme }) => theme.spacing.XSmall};
+  font-size: ${({ theme }) => theme.fontSizes.medium};
   text-align: center;
   color: ${({ isInverted, theme }) => (isInverted ? theme.text : theme.background)};
 `;
 
 const Page = () => {
   const [selected, setSelected] = React.useState<null | string>(null);
+
   return (
     <ThemeProvider>
       <div
@@ -48,29 +73,28 @@ const Page = () => {
           const isInverted = lum !== null && parseInt(lum[1]) < 30;
 
           return selected === null || selected === name ? (
-            <div
+            <ColorRow
               key={name}
-              css={css`
-                display: flex;
-                position: relative;
-                height: ${selected === name ? "100vh" : "100px"};
-                width: 100%;
-              `}
+              isSelected={name === selected}
               onClick={() => {
                 setSelected(selected === null ? name : null);
               }}
             >
-              <ColorTitle isInverted={isInverted}>{name}</ColorTitle>
-              <ColorTile background={LCH} isInverted={isInverted}>
-                {"lch"}
-              </ColorTile>
-              <ColorTile background={P3} isInverted={isInverted}>
-                {"p3"}
-              </ColorTile>
               <ColorTile background={RGB} isInverted={isInverted}>
+                <ColorName isInverted={isInverted}>{name}</ColorName>
                 {"rgb"}
               </ColorTile>
-            </div>
+              <ColorTileSupports
+                background={P3}
+                isInverted={isInverted}
+                supports={"color(display-p3 1 1 1)"}
+              >
+                {"p3"}
+              </ColorTileSupports>
+              <ColorTileSupports background={LCH} isInverted={isInverted} supports={"lch(1% 1 1)"}>
+                {"lch"}
+              </ColorTileSupports>
+            </ColorRow>
           ) : null;
         })}
       </div>
