@@ -64,7 +64,7 @@ export const getColorsVariablesCSS = (colors: typeof ColorTheme) => css`
     }
   }
 
-  @supports (color: lch(1 1 1)) {
+  @supports (color: lch(1% 1 1)) {
     :root {
       ${getColorCSSVariables(colors, ColorSpace.LCH)}
     }
