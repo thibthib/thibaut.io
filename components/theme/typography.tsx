@@ -3,6 +3,7 @@ import * as React from "react";
 const fontSizeRatio = 1.2;
 
 export const fontSizes = {
+  XSmall: `${Math.pow(fontSizeRatio, -2)}rem`,
   small: `${Math.pow(fontSizeRatio, -1)}rem`,
   medium: `1rem`,
   large: `${Math.pow(fontSizeRatio, 1)}rem`,
