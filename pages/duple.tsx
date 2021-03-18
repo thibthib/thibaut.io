@@ -1,6 +1,8 @@
 import Head from "next/head";
 import { Portrait } from "components/duple/Portrait";
 import { processImages } from "components/images/processImages";
+import * as React from "react";
+import { Favicon } from "components/Favicon";
 
 export const getStaticProps = async () => {
   const imagesData = await processImages("portraits");
@@ -24,6 +26,7 @@ const Duple: React.FunctionComponent<{
       <meta name="description" content="Photos by thib_thib" />
       <meta name="viewport" content="width=device-width, initial-scale=1" />
     </Head>
+    <Favicon emoji={"🦸"} />
     <header>
       <h1>
         Duple<span> Valse à deux temps</span>

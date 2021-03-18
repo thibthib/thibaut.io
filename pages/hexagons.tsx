@@ -1,6 +1,7 @@
 import * as React from "react";
 import { Global, css } from "@emotion/react";
 import { RandomHexagons } from "components/hexagons/RandomHexagons";
+import { Favicon } from "components/Favicon";
 
 const Page: React.FunctionComponent = () => (
   <>
@@ -12,6 +13,7 @@ const Page: React.FunctionComponent = () => (
         }
       `}
     />
+    <Favicon emoji={"⬢"} />
     <div
       css={css`
         height: 100vh;

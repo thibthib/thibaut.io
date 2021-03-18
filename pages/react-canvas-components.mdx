@@ -38,11 +38,12 @@ export const meta = {
   description: "An untold love story",
   date: "February 20, 2020",
   image: "https://files-idye8b3wm.now.sh/canvas.jpg",
+  emoji: "🖌",
 };
 
 The `<canvas/>` HTML element can be used to draw graphics with a finer control than the usual DOM or SVG. But with React, trying to draw on a canvas is not intuitive as their interfaces are quite different. With React, each component owns their node, as opposed to canvas where there is only one shared node that we can use for drawing. Let's see how we can make a canvas visualization with React components !
 
-## 🧑‍🏫 Canvas 101
+## emoji=🧑‍🏫 Canvas 101
 
 The `canvas` element is like a sheet of paper. To draw in real life you would take a pen, move your hand to a first position, and draw a line by moving your hand to another position. The browser API to draw on a canvas is actually very similar. We first need to make a blueprint of the shape we want to draw – like using a real pencil – that can later be colored in.
 
@@ -74,7 +75,7 @@ const Canvas = () => {
 
 But if we want to draw something a bit more complex, the `Canvas` component can become quite large. Usually, big components are split into several child components. Yet here this is not possible as there is only one `canvas` node.
 
-## 🎨 Hexagons
+## emoji=🎨 Hexagons
 
 To show how to make child components with canvas, let's draw something more fancy ✨
 
@@ -108,7 +109,7 @@ context.fill();
 
 How could we extract this logic into its own `Hexagon` component? The component would need the canvas's context in order to draw anything. This could be passed via a prop to all child components, but this approach can become tedious when children are deeply nested. Another way of doing this is by using a [React context](https://reactjs.org/docs/context.html) to share "global" values between components.
 
-## 📦 A context in a context
+## emoji=📦 A context in a context
 
 At this point the naming gets a bit tricky as we are trying to share a canvas' _context_ via a React _context_. Once we create a React context, we need to use the context's `Provider` to share a value. In the case of our `Canvas` component it would look like this:
 
@@ -167,11 +168,11 @@ const App = () => (
 
 The last thing we need is to animate the hexagons so that they rotate.
 
-## 🎬 Animations
+## emoji=🎬 Animations
 
 As we saw, the canvas is like a sheet of paper – once it's been drawn on, it can't be changed! However, a canvas can be cleared in order that something new can be draw on it. In that respect animating a canvas is somewhat like old-fashioned cartoon animation - we draw, clean, draw, clean and repeat until we achieve the desired effect. To make a shape move, you need to split the movement into small steps, draw them one by one, while clearing the canvas in-between. Those steps are called frames. Browsers come with an API `requestAnimationFrame` so that you can draw in each frame.
 
-### 🖼 Creating a frame loop
+### emoji=🖼 Creating a frame loop
 
 First things first - the canvas should be cleared at the beginning of each frame. The easiest way to do this is to have an internal state counting the frames. This way, the component re-renders at each frame:
 
@@ -244,7 +245,7 @@ const Hexagon = (props) => {
 };
 ```
 
-### 🔄 Making the hexagons move
+### emoji=🔄 Making the hexagons move
 
 If we want the hexagons to rotate, each hexagon should change its rotation angle at every frame - by incrementing it by 1, for example. To do this, the hexagons needs to _remember_ the rotation from the previous render. We will use a [React ref](/react-refs-evolution) to achieve this:
 
@@ -282,7 +283,7 @@ const Hexagon = (props) => {
 
 👏 Congratulations 👏 We now have animated canvas-based React components! We even created two custom hooks along the way to make our code nicer.
 
-## 👀 Going further
+## emoji=👀 Going further
 
 - At some point it can become quite CPU heavy to try to animate a lot of shapes in a canvas. At this point, there's another more performant way to draw things: WebGL. This is a huge subject on its own! If you want to write WebGL-based components, I would recommend using a library like [react-three-fiber](https://github.com/react-spring/react-three-fiber) _— spoiler alert, they made their own React reconciler_
 
