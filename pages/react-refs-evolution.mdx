@@ -3,15 +3,16 @@ import { BlogPost } from "components/BlogPost";
 export default BlogPost;
 
 export const meta = {
-  title: "Evolution of refs 🦖",
+  title: "Evolution of refs",
   description:
     "With great power comes great responsability",
   date: "July 27, 2019",
+  emoji: "🦖",
 };
 
 For React applications, DOM elements sometimes need to be handled directly. One example is focus management: to give an input element focus without a user clicking on it, you need to call [`input.focus()`](https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/focus). Getting a DOM element in a React app is possible with refs. But new ways to handle refs were released over time, and it became trickier to understand the differences between the various APIs. A couple of weeks ago, while trying to respond to a PR comment, I realized that some of my assumptions about refs were wrong. So let's stop a minute and analyze their evolution !
 
-## 🎈 String refs
+## emoji=🎈 String refs
 
 The first React refs API was straightforward: **String refs**. Adding a `ref` prop with a string name on any element made it available on your class component:
 
@@ -30,7 +31,7 @@ But this API design was not without some issues. For context, look at the [React
 
 _Note: String refs are now considered legacy, and will probably be removed in a future release._
 
-## 📞 Callback refs
+## emoji=📞 Callback refs
 
 This time, a function is passed in the `ref` prop, taking the DOM element as its argument, allowing storage and further usage.
 
@@ -53,7 +54,7 @@ With much finer control over how to handle refs, most issues from the Strings re
 
 But this API design has some flaws. It's a bit more complex than the String refs API, and it has some tricky subtleties. For example, when the `ref` prop is an inline function, [every render calls it twice](https://reactjs.org/docs/refs-and-the-dom.html#caveats-with-callback-refs): first with `null`, then with the element. This is not the case with class methods, but it's easy to forget that we need to check if the element is not `null` before consuming it.
 
-## 🐣 `createRef`
+## emoji=🐣 `createRef`
 
 Version 16.3 of React introduced a new `createRef` API. Our previous example has now become:
 
@@ -84,7 +85,7 @@ interface RefObject<T> {
 
 But a big piece was still missing: function component support.
 
-## 🎣 `useRef`
+## emoji=🎣 `useRef`
 
 Along with many other things, React 16.8 brought the new `useRef` hook:
 
@@ -113,7 +114,7 @@ interface MutableRefObject<T> {
 }
 ```
 
-## ⏩ `forwardRef`
+## emoji=⏩ `forwardRef`
 
 Until now, we've seen how to get refs on elements within a React component. The `forwardRef` API aims to solve another use-case: passing refs between components.
 
@@ -147,7 +148,7 @@ _Note: The [actual TypeScript definition](https://github.com/DefinitelyTyped/Def
 
 _Second note: In the future this API [could be simplified](https://github.com/reactjs/rfcs/pull/107), removing the need to use `React.forwardRef` altogether._
 
-## 🎁 `useImperativeHandle`
+## emoji=🎁 `useImperativeHandle`
 
 React refs can handle more than just DOM elements. We already saw they can store mutable values in function components with the `useRef` hook. But they were also designed to handle component instances since the beginning. When adding a `ref` prop to a custom component that doesn't implement `forwardRef`, its instance is returned instead of a DOM element.
 
@@ -173,7 +174,7 @@ const MyInput = React.forwardRef((props, forwardedRef) => {
 });
 ```
 
-## ⚠️ With great power comes great responsability
+## emoji=⚠️ With great power comes great responsability
 
 There are lots of different ways to use refs to get access to a DOM element. But their usage should be very limited to [some specific use-cases](https://reactjs.org/docs/refs-and-the-dom.html#when-to-use-refs). React refs can be seen as an escape hatch: for when the framework fails to provide a declarative API for a use-case. But as such they should only be used when there is no other way.
 

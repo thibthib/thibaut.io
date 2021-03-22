@@ -1,7 +1,7 @@
 import * as React from "react";
 import isArray from "lodash/isArray";
 import kebabCase from "lodash/kebabCase";
-import { css, useTheme } from "@emotion/react";
+import styled from "@emotion/styled";
 
 const getAsString = (node: React.ReactNode): string => {
   if (typeof node === "string") {
@@ -16,46 +16,78 @@ const getAsString = (node: React.ReactNode): string => {
   return "";
 };
 
-export const useAnchor = (children: React.ReactNode): [string, React.ReactElement] => {
-  const childString = getAsString(children);
-  const anchor = kebabCase(childString);
-  const theme = useTheme();
-  return [
-    anchor,
-    <a
-      href={`#${anchor}`}
-      aria-label={childString}
-      css={css`
-        text-decoration: none;
-        position: absolute;
-        right: 100%;
-        top: 50%;
-        transform: translate(-8px, -50%);
-        opacity: 0;
-        transition: opacity 150ms;
-        color: ${theme.secondaryText};
+const EmojiOverlay = styled.span`
+  position: absolute;
+`;
 
-        *:hover > & {
-          opacity: 1;
-        }
-      `}
-    >
-      <svg
-        viewBox="0 0 24 24"
-        width={theme.fontSizes.small}
-        height={theme.fontSizes.small}
-        stroke="currentColor"
-        strokeWidth="2"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        fill="none"
-        shapeRendering="geometricPrecision"
-        role="img"
-      >
-        <title>Link icon</title>
-        <path d="M10 13a5 5 0 007.54.54l3-3a5 5 0 00-7.07-7.07l-1.72 1.71"></path>
-        <path d="M14 11a5 5 0 00-7.54-.54l-3 3a5 5 0 007.07 7.07l1.71-1.71"></path>
-      </svg>
-    </a>,
+const EmojiWrapper = styled.span``;
+
+const AnchorLink = styled.a`
+  position: relative;
+  text-decoration: none;
+  color: ${({ theme }) => theme.secondaryText};
+  white-space: nowrap;
+
+  ::after {
+    content: " ";
+    display: inline-block;
+    padding-right: ${({ theme }) => theme.spacing.small};
+  }
+
+  @media (min-width: 750px) {
+    position: absolute;
+    right: 100%;
+  }
+
+  > * {
+    transition: opacity 150ms;
+  }
+
+  > svg {
+    opacity: 0;
+  }
+
+  *:hover > & svg {
+    opacity: 1;
+  }
+
+  *:hover > & ${EmojiOverlay} {
+    opacity: 0;
+  }
+`;
+
+const LinkIcon = styled.svg`
+  width: ${({ theme }) => theme.fontSizes.small.replace("rem", "em")};
+  height: ${({ theme }) => theme.fontSizes.small.replace("rem", "em")};
+  stroke: currentColor;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  fill: none;
+  shape-rendering: geometricPrecision;
+`;
+
+export const useAnchor = (
+  children: React.ReactNode,
+  emoji?: string,
+  isDisabled?: boolean
+): [string, React.ReactElement] => {
+  const childString = getAsString(children);
+  const anchorId = kebabCase(childString);
+
+  const Emoji = isDisabled ? EmojiWrapper : EmojiOverlay;
+
+  return [
+    anchorId,
+    <AnchorLink as={isDisabled ? "span" : "a"} href={`#${anchorId}`} aria-label={childString}>
+      <Emoji>{emoji}</Emoji>
+      {isDisabled ? null : (
+        <LinkIcon viewBox="0 0 24 24" role="img">
+          <title>Link icon</title>
+          <path d="M10 13a5 5 0 007.54.54l3-3a5 5 0 00-7.07-7.07l-1.72 1.71"></path>
+          <path d="M14 11a5 5 0 00-7.54-.54l-3 3a5 5 0 007.07 7.07l1.71-1.71"></path>
+        </LinkIcon>
+      )}
+    </AnchorLink>,
   ];
 };

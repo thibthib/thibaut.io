@@ -1,69 +1,82 @@
-import { css } from "@emotion/react";
+import styled from "@emotion/styled";
+import * as React from "react";
 import { useAnchor } from "./Anchor";
-import { Theme } from "./theme/theme";
 
-enum titleTags {
-  h1 = "h1",
-  h2 = "h2",
-  h3 = "h3",
-  h4 = "h4",
-  h5 = "h5",
-  h6 = "h6",
-}
+const parseEmoji = (title: React.ReactNode): { emoji: string; text: React.ReactNode } | null => {
+  const emojiString =
+    typeof title === "string"
+      ? title
+      : Array.isArray(title) && typeof title[0] === "string"
+      ? title[0]
+      : null;
 
-const styles = {
-  [titleTags.h1]: ({ fontSizes, spacing }: Theme) => css`
-    font-size: ${fontSizes.XLarge};
-    line-height: ${spacing.medium};
-    margin-top: ${spacing.XLarge};
-    margin-bottom: ${spacing.XLarge};
-  `,
-  [titleTags.h2]: ({ fontSizes, spacing }: Theme) => css`
-    font-size: ${fontSizes.large};
-    line-height: ${spacing.medium};
-    margin-top: ${spacing.medium};
-    margin-bottom: ${spacing.medium};
-  `,
-  [titleTags.h3]: ({ fontSizes, spacing, secondaryText }: Theme) => css`
-    font-size: ${fontSizes.medium};
-    line-height: ${spacing.medium};
-    margin-top: ${spacing.medium};
-    margin-bottom: ${spacing.small};
-    color: ${secondaryText};
-    font-weight: normal;
-  `,
-  [titleTags.h4]: ({ fontSizes, spacing }: Theme) => css`
-    font-size: ${fontSizes.small};
-    line-height: ${spacing.medium};
-    margin-top: ${spacing.medium};
-    margin-bottom: 0;
-    text-transform: uppercase;
-  `,
-  [titleTags.h5]: () => css``,
-  [titleTags.h6]: () => css``,
+  if (emojiString === null) {
+    return null;
+  }
+  const match = emojiString.match(/emoji=(\S*)\s(.*)/);
+  return match === null
+    ? null
+    : { emoji: match[1], text: Array.isArray(title) ? title.slice(1) : match[2] };
 };
 
-export const Title: React.FunctionComponent<{
-  Tag: titleTags;
-}> = ({ Tag, children }) => {
-  const [anchorId, anchor] = useAnchor(children);
-  return (
-    <Tag
-      id={anchorId}
-      css={(theme) => css`
-        position: relative;
-        ${styles[Tag](theme)}
-      `}
-    >
-      {Tag === "h1" ? null : anchor}
-      {children}
-    </Tag>
-  );
+const getTitleComponent = (
+  as: keyof JSX.IntrinsicElements
+): React.FunctionComponent<{
+  className?: string;
+}> => ({ className, children, ...props }) => {
+  let emoji;
+  let titleText = children;
+
+  const parsed = parseEmoji(children);
+  if (parsed !== null) {
+    emoji = parsed.emoji;
+    titleText = parsed.text;
+  }
+
+  const [anchorId, anchor] = useAnchor(titleText, emoji, as === "h1");
+
+  return React.createElement(as, { className, id: anchorId, ...props }, [anchor, titleText]);
 };
 
-export const h1: React.FunctionComponent = (props) => <Title Tag={titleTags.h1} {...props} />;
-export const h2: React.FunctionComponent = (props) => <Title Tag={titleTags.h2} {...props} />;
-export const h3: React.FunctionComponent = (props) => <Title Tag={titleTags.h3} {...props} />;
-export const h4: React.FunctionComponent = (props) => <Title Tag={titleTags.h4} {...props} />;
-export const h5: React.FunctionComponent = (props) => <Title Tag={titleTags.h5} {...props} />;
-export const h6: React.FunctionComponent = (props) => <Title Tag={titleTags.h6} {...props} />;
+export const h1 = styled(getTitleComponent("h1"))`
+  position: relative;
+  font-size: ${({ theme }) => theme.fontSizes.XLarge};
+  line-height: ${({ theme }) => theme.spacing.medium};
+  margin-top: ${({ theme }) => theme.spacing.XLarge};
+  margin-bottom: ${({ theme }) => theme.spacing.XLarge};
+`;
+
+export const h2 = styled(getTitleComponent("h2"))`
+  position: relative;
+  font-size: ${({ theme }) => theme.fontSizes.large};
+  line-height: ${({ theme }) => theme.spacing.medium};
+  margin-top: ${({ theme }) => theme.spacing.medium};
+  margin-bottom: ${({ theme }) => theme.spacing.medium};
+`;
+
+export const h3 = styled(getTitleComponent("h3"))`
+  position: relative;
+  font-size: ${({ theme }) => theme.fontSizes.medium};
+  line-height: ${({ theme }) => theme.spacing.medium};
+  margin-top: ${({ theme }) => theme.spacing.medium};
+  margin-bottom: ${({ theme }) => theme.spacing.small};
+  color: ${({ theme }) => theme.secondaryText};
+  font-weight: normal;
+`;
+
+export const h4 = styled(getTitleComponent("h4"))`
+  position: relative;
+  font-size: ${({ theme }) => theme.fontSizes.small};
+  line-height: ${({ theme }) => theme.spacing.medium};
+  margin-top: ${({ theme }) => theme.spacing.medium};
+  margin-bottom: 0;
+  text-transform: uppercase;
+`;
+
+export const h5 = styled(getTitleComponent("h5"))`
+  position: relative;
+`;
+
+export const h6 = styled(getTitleComponent("h6"))`
+  position: relative;
+`;

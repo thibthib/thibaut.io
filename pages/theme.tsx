@@ -5,6 +5,7 @@ import { Colors } from "components/theme/colors";
 import { theme } from "components/theme/theme";
 import styled from "@emotion/styled";
 import { ThemeProvider } from "components/theme/ThemeProvider";
+import { Favicon } from "components/Favicon";
 
 const ColorRow = styled.div<{ isSelected: boolean }>`
   display: flex;
@@ -59,6 +60,7 @@ const Page = () => {
 
   return (
     <ThemeProvider>
+      <Favicon emoji={"🎨"} />
       <div
         css={css`
           ${theme.monospaceFont}

@@ -11,6 +11,7 @@ import { ExposureLogo } from "components/icons/Exposure";
 import { GradientText } from "components/GradientText";
 import { ArchiaPreload } from "components/theme/typography";
 import { ThemeProvider } from "components/theme/ThemeProvider";
+import { Favicon } from "components/Favicon";
 
 const Dots = dynamic<any>(
   () => import(/* webpackChunkName: "dots" */ "components/Dots").then(({ Dots }) => Dots),
@@ -102,6 +103,7 @@ const Page = () => {
         <meta name="description" content="thibaut's personal website" />
         <ArchiaPreload />
       </Head>
+      <Favicon emoji={"🏡"} />
       <Dots />
       <main
         css={(theme) => css`

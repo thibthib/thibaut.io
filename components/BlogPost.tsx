@@ -11,6 +11,7 @@ import { ArchiaPreload, CartographPreload } from "components/theme/typography";
 import { ThemeProvider } from "components/theme/ThemeProvider";
 import { MenuLink } from "./MenuLink";
 import { h1 as H1 } from "./Title";
+import { Favicon } from "./Favicon";
 
 const components = {
   inlineCode: InlineCode,
@@ -31,6 +32,7 @@ type MetaData = {
   description: string;
   date: string;
   image?: string;
+  emoji?: string;
 };
 
 export const BlogPost: React.FunctionComponent<{ meta: MetaData }> = ({ meta, children }) => {
@@ -53,6 +55,7 @@ export const BlogPost: React.FunctionComponent<{ meta: MetaData }> = ({ meta, ch
             <ArchiaPreload />
             <CartographPreload />
           </Head>
+          {meta.emoji ? <Favicon emoji={meta.emoji} /> : null}
           <Global
             styles={(theme) => css`
               body {
@@ -80,6 +83,7 @@ export const BlogPost: React.FunctionComponent<{ meta: MetaData }> = ({ meta, ch
           <MenuLink />
           <header>
             <H1>
+              {`emoji=${meta.emoji} `}
               {meta.title}
               <p
                 css={(theme) => css`
