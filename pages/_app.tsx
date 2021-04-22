@@ -3,11 +3,18 @@ import { AppProps } from "next/app";
 import Head from "next/head";
 import "components/theme/global.css";
 
-if (process.env.NODE_ENV === "production") {
+const applicationId = process.env.NEXT_PUBLIC_DD_RUM_APPLICATION_ID;
+const clientToken = process.env.NEXT_PUBLIC_DD_RUM_CLIENT_TOKEN;
+
+if (
+  process.env.NODE_ENV === "production" &&
+  applicationId !== undefined &&
+  clientToken !== undefined
+) {
   import(/* webpackChunkName: "rum" */ "@datadog/browser-rum").then(({ datadogRum }) => {
     datadogRum.init({
-      applicationId: "9a14efdd-aeb9-4f66-ba0a-232b42032043",
-      clientToken: "puba9fe9045f841f0404364249bbd53f08e",
+      applicationId,
+      clientToken,
       datacenter: "us",
       sampleRate: 100,
     });
