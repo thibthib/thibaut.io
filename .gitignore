@@ -3,3 +3,5 @@ out
 .next
 .DS_Store
 .env
+.vercel
+.env.local
