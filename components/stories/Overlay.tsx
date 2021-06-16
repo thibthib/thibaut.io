@@ -51,12 +51,12 @@ export const Overlay: React.FunctionComponent<{
   isPaused: boolean;
   header: React.ReactNode;
 }> = ({ storyCount, currentStoryIndex, storyDuration, isManual, isPaused, header }) => {
-  const [scroll, setScroll] = useSpring(() => ({ percentage: 0 }));
+  const [scroll, scrollUpdater] = useSpring(() => ({ percentage: 0 }));
 
   React.useEffect(() => {
     const onScroll = () => {
       const scroll = window.scrollY / (document.body.clientHeight - window.innerHeight);
-      setScroll({ percentage: scroll });
+      scrollUpdater.start({ percentage: scroll });
     };
     document.addEventListener("scroll", onScroll);
     return () => {
