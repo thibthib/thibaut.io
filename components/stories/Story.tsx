@@ -1,5 +1,4 @@
 import styled from "@emotion/styled";
-import { ImageProps } from "components/images/Image";
 import { Image } from "components/images/Image";
 import { Placeholder } from "components/images/Placeholder";
 import { useImageData } from "components/images/useImageData";
@@ -17,8 +16,8 @@ const Background = styled.div<{ color: string }>`
 `;
 
 export const Story: React.FunctionComponent<{
-  image: ImageProps["name"];
-  imageAlt?: ImageProps["alt"];
+  image: string;
+  imageAlt?: string;
   format?: "square" | "portrait";
 }> = ({ image, imageAlt, format, children }) => {
   const data = useImageData(image);
@@ -37,6 +36,7 @@ export const Story: React.FunctionComponent<{
           <Sticker width={100}>
             <Image
               name={image}
+              src={data.src}
               alt={imageAlt ?? image}
               width={data.width}
               height={data.height}
@@ -49,6 +49,7 @@ export const Story: React.FunctionComponent<{
       ) : (
         <Image
           name={image}
+          src={data?.src ?? `/${image}`}
           alt={imageAlt ?? image}
           layout={"fill"}
           objectFit="cover"
