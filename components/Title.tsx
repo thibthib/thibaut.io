@@ -35,7 +35,14 @@ const getTitleComponent = (
 
   const [anchorId, anchor] = useAnchor(titleText, emoji, as === "h1");
 
-  return React.createElement(as, { className, id: anchorId, ...props }, [anchor, titleText]);
+  return React.createElement(
+    as,
+    { className, id: anchorId, ...props },
+    <>
+      {anchor}
+      {titleText}
+    </>
+  );
 };
 
 export const h1 = styled(getTitleComponent("h1"))`
