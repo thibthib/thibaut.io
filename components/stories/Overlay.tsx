@@ -67,6 +67,7 @@ export const Overlay: React.FunctionComponent<{
   const pausedStartState = React.useRef(isManual);
   React.useEffect(() => {
     pausedStartState.current = isManual;
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isPaused]);
 
   const duration = `${storyDuration}ms`;

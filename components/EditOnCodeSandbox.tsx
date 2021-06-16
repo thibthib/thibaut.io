@@ -14,7 +14,7 @@ export const EditOnCodeSandbox: React.FunctionComponent<{ info: string }> = ({ i
         height: ${theme.spacing.medium};
       `}
       target="_blank"
-      rel="noopener"
+      rel="noreferrer noopener"
     >
       <span
         css={css`
