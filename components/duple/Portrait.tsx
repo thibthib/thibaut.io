@@ -1,5 +1,22 @@
 import * as React from "react";
 import Image from "next/image";
+import styled from "@emotion/styled";
+
+const Placeholder = styled.img`
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: 100%;
+  height: 100%;
+  /* Adjust the content to fit */
+  object-fit: cover;
+  object-position: center;
+  /* Blur the image and scale to avoid transparent corners */
+  filter: blur(2rem);
+  transform: scale(1.2);
+`;
 
 export const Portrait: React.FunctionComponent<{
   id: number;
@@ -12,26 +29,7 @@ export const Portrait: React.FunctionComponent<{
   return (
     <div className={`Portrait Portrait-show-${side}`}>
       <div className={"Portrait-back"}>
-        <img
-          aria-hidden="true"
-          alt=""
-          src={placeholder}
-          style={{
-            position: "absolute",
-            top: 0,
-            left: 0,
-            right: 0,
-            bottom: 0,
-            width: "100%",
-            height: "100%",
-            /* Adjust the content to fit */
-            objectFit: "cover",
-            objectPosition: "center",
-            /* Blur the image and scale to avoid transparent corners */
-            filter: "blur(2rem)",
-            transform: "scale(1.2)",
-          }}
-        />
+        <Placeholder aria-hidden="true" alt="" src={placeholder} />
         <Image
           src={`/portraits/${name}-back.jpg`}
           height={1280}

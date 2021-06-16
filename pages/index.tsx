@@ -95,6 +95,8 @@ const PageLink = React.forwardRef<
   );
 });
 
+PageLink.displayName = "PageLink";
+
 const Page = () => {
   return (
     <ThemeProvider>

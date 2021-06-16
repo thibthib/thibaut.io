@@ -10,7 +10,7 @@ export const ThemeProvider: React.FunctionComponent<{ colors?: typeof ColorTheme
   children,
 }) => {
   const background = convertCSSColor(ColorTheme.background, ColorSpace.sRGB);
-  const colorVariables = React.useMemo(() => getColorsVariablesCSS(colors), []);
+  const colorVariables = React.useMemo(() => getColorsVariablesCSS(colors), [colors]);
   return (
     <>
       <Head>{background ? <meta name="theme-color" content={background} /> : null}</Head>

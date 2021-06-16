@@ -23,27 +23,28 @@ const getTitleComponent = (
   as: keyof JSX.IntrinsicElements
 ): React.FunctionComponent<{
   className?: string;
-}> => ({ className, children, ...props }) => {
-  let emoji;
-  let titleText = children;
+}> =>
+  function TitleComponent({ className, children, ...props }) {
+    let emoji;
+    let titleText = children;
 
-  const parsed = parseEmoji(children);
-  if (parsed !== null) {
-    emoji = parsed.emoji;
-    titleText = parsed.text;
-  }
+    const parsed = parseEmoji(children);
+    if (parsed !== null) {
+      emoji = parsed.emoji;
+      titleText = parsed.text;
+    }
 
-  const [anchorId, anchor] = useAnchor(titleText, emoji, as === "h1");
+    const [anchorId, anchor] = useAnchor(titleText, emoji, as === "h1");
 
-  return React.createElement(
-    as,
-    { className, id: anchorId, ...props },
-    <>
-      {anchor}
-      {titleText}
-    </>
-  );
-};
+    return React.createElement(
+      as,
+      { className, id: anchorId, ...props },
+      <>
+        {anchor}
+        {titleText}
+      </>
+    );
+  };
 
 export const h1 = styled(getTitleComponent("h1"))`
   position: relative;

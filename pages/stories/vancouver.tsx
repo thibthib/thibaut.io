@@ -103,7 +103,7 @@ const Vancouver: React.FunctionComponent<{ imagesData: ImageDataMap }> = ({ imag
             <Story image={`marie on the sea`} />,
             <Story image={`red car`}>
               <Text top={20} width={75} background={"blur"} style={{ fontSize: "30px" }}>
-                On s'enfonce dans l'île, vers Tofino 🚗
+                {"On s'enfonce dans l'île, vers Tofino 🚗"}
               </Text>
             </Story>,
             <Story image={`lodge in the forest`}>
@@ -158,7 +158,7 @@ const Vancouver: React.FunctionComponent<{ imagesData: ImageDataMap }> = ({ imag
                 😭
               </Text>
               <Text width={50} background={"blur"} rotation={"-10deg"} style={{ fontSize: "30px" }}>
-                on a pas fait d'hydravion
+                {"on a pas fait d'hydravion"}
               </Text>
               <Text top={65} left={65} rotation={"10deg"} style={{ fontSize: "52px" }}>
                 😭

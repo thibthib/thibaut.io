@@ -34,7 +34,7 @@ export const Canvas: React.FunctionComponent<CanvasProps> = ({
         setContext(canvasContext);
       }
     }
-  }, []);
+  }, [dpr]);
 
   // making the component and the context re-render at every frame
   const [frameCount, setFrameCount] = React.useState(0);
