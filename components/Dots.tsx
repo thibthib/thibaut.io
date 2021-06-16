@@ -82,18 +82,18 @@ export const Dots: React.FunctionComponent = () => {
     [dots]
   );
 
-  const [springs, setSprings] = useSprings(dots.length, getTransform());
+  const [springs, springsUpdater] = useSprings(dots.length, getTransform());
 
   React.useEffect(() => {
     const callback = (event: MouseEvent) => {
-      setSprings(getTransform(event.clientX, event.clientY));
+      springsUpdater.start(getTransform(event.clientX, event.clientY));
     };
     document.addEventListener("mousemove", callback);
 
     return () => {
       document.removeEventListener("mousemove", callback);
     };
-  }, [getTransform, setSprings]);
+  }, [getTransform, springsUpdater]);
 
   return (
     <div
