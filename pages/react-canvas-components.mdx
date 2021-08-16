@@ -119,10 +119,8 @@ const SharingContext = React.createContext(null);
 
 const Canvas = (props) => {
   const canvasRef = React.useRef(null);
-  const [
-    renderingContext,
-    setRenderingContext,
-  ] = React.useState(null);
+  const [renderingContext, setRenderingContext] =
+    React.useState(null);
 
   // the canvas rendering context is not immediately avalaible
   // the canvas node first needs to be added to the DOM by react

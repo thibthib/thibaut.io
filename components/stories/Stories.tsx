@@ -1,6 +1,5 @@
 import { css, Global } from "@emotion/react";
 import styled from "@emotion/styled";
-import { getColorsVariablesCSS } from "components/theme/colors";
 import { useQueryParamState } from "components/use-query-param-state";
 import Head from "next/head";
 import Link from "next/link";

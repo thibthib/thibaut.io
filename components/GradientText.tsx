@@ -3,7 +3,7 @@ import { css } from "@emotion/react";
 export const GradientText: React.FunctionComponent = ({ children }) => (
   <span
     css={(theme) => css`
-      background-image: ${theme.gradientText};
+      background-image: ${theme.gradient};
       color: ${theme.background};
       -webkit-background-clip: text;
       background-clip: text;

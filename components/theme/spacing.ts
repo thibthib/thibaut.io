@@ -6,4 +6,5 @@ export const spacing = {
   medium: `${spacingBase}rem`,
   large: `${spacingBase * 2}rem`,
   XLarge: `${spacingBase * 3}rem`,
+  XXLarge: `${spacingBase * 6}rem`,
 };

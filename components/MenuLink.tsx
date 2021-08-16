@@ -33,7 +33,7 @@ export const MenuLink = () => (
       >
         <div
           css={(theme) => css`
-            background-image: ${theme.gradientText};
+            background-image: ${theme.gradient};
             color: ${theme.background};
             position: absolute;
             bottom: 0;

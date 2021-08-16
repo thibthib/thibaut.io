@@ -1,10 +1,9 @@
-import { css, SerializedStyles } from "@emotion/react";
+import { css } from "@emotion/react";
 import { ColorTheme, colorVariables } from "./colors";
 import { fontSizes } from "./typography";
 import { spacing } from "./spacing";
 
 export const theme = {
-  gradientText: `linear-gradient(120deg, ${colorVariables.highlight}, ${colorVariables.secondaryHighlight});`,
   monospaceFont: css`
     font-family: Cartograph, "SFMono-Regular", Consolas, "Liberation Mono", Menlo, Courier,
       monospace;

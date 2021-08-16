@@ -106,8 +106,7 @@ export const CodeTheme = () => {
 };
 
 export const Code: React.FunctionComponent<{
-  className: string;
-  metastring: string;
+  metastring?: string;
 }> = ({ children, metastring }) => {
   return (
     <code

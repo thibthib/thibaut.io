@@ -1,5 +1,49 @@
-import { ColorSpace, convertCSSColor, CSSSpace } from "@color-spaces/convert";
+import { ColorSpace, convertCSSColor, CSSSpace, interpolateGradient } from "@color-spaces/convert";
+
+import Color from "components/color/color.esm";
 import { css } from "@emotion/react";
+
+export const getCSSVariableName = (colorName: string) =>
+  `--${colorName
+    .replace(/([A-Z])([A-Z])/g, "$1-$2")
+    .replace(/([a-z])([A-Z])/g, "$1-$2")
+    .replace(/[\s_]+/g, "-")
+    .toLowerCase()}`;
+
+export const mapColorObject = (
+  colors: typeof Colors,
+  mapper: (colorKey: string, colorValue: string) => [string, string]
+) => Object.fromEntries(Object.entries(colors).map(([key, value]) => mapper(key, value)));
+
+const getColorCSSVariables = (colors: typeof ColorTheme, space: CSSSpace) =>
+  Object.entries(colors)
+    .map(
+      ([name, value]) =>
+        `${getCSSVariableName(name)}: ${
+          value.startsWith("linear-gradient")
+            ? interpolateGradient(value, { outputSpace: space })
+            : new Color(value).to(space).toString() ?? ""
+        };`
+    )
+    .join("\n");
+
+export const getColorsVariablesCSS = (colors: typeof ColorTheme) => css`
+  :root {
+    ${getColorCSSVariables(colors, ColorSpace.sRGB)}
+  }
+
+  @supports (color: color(display-p3 1 1 1)) {
+    :root {
+      ${getColorCSSVariables(colors, ColorSpace.P3)}
+    }
+  }
+
+  @supports (color: lch(1% 1 1)) {
+    :root {
+      ${getColorCSSVariables(colors, ColorSpace.LCH)}
+    }
+  }
+`;
 
 export const Colors = {
   accent1: "lch(78% 48 230)", //    #3FD2FF
@@ -29,44 +73,10 @@ export const ColorTheme = {
   secondaryHighlight: Colors.accent2,
   border: Colors.shade3,
   ...Colors,
+  gradient: `linear-gradient(120deg, ${Colors.accent1}, ${Colors.accent2})`,
 };
-
-export const mapColorObject = (
-  colors: typeof Colors,
-  mapper: (colorKey: string, colorValue: string) => [string, string]
-) => Object.fromEntries(Object.entries(colors).map(([key, value]) => mapper(key, value)));
-
-export const getCSSVariableName = (colorName: string) =>
-  `--${colorName
-    .replace(/([A-Z])([A-Z])/g, "$1-$2")
-    .replace(/([a-z])([A-Z])/g, "$1-$2")
-    .replace(/[\s_]+/g, "-")
-    .toLowerCase()}`;
 
 export const colorVariables = mapColorObject(ColorTheme, (name) => [
   name,
   `var(${getCSSVariableName(name)})`,
 ]);
-
-const getColorCSSVariables = (colors: typeof ColorTheme, space: CSSSpace) =>
-  Object.entries(colors)
-    .map(([name, value]) => `${getCSSVariableName(name)}: ${convertCSSColor(value, space) ?? ""};`)
-    .join("\n");
-
-export const getColorsVariablesCSS = (colors: typeof ColorTheme) => css`
-  :root {
-    ${getColorCSSVariables(colors, ColorSpace.sRGB)}
-  }
-
-  @supports (color: color(display-p3 1 1 1)) {
-    :root {
-      ${getColorCSSVariables(colors, ColorSpace.P3)}
-    }
-  }
-
-  @supports (color: lch(1% 1 1)) {
-    :root {
-      ${getColorCSSVariables(colors, ColorSpace.LCH)}
-    }
-  }
-`;
