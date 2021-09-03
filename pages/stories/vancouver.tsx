@@ -7,7 +7,6 @@ import { Story } from "components/stories/Story";
 import styled from "@emotion/styled";
 import { ThemeProvider } from "components/theme/ThemeProvider";
 import { ColorTheme } from "components/theme/colors";
-import { ArchiaPreload, QuincyPreload } from "components/theme/typography";
 
 export const getStaticProps = async () => {
   const imagesData = await processImages("stories/vancouver");
@@ -44,8 +43,6 @@ const VancouverColorTheme = {
 const Vancouver: React.FunctionComponent<{ imagesData: ImageDataMap }> = ({ imagesData }) => {
   return (
     <ImagesContext.Provider value={imagesData}>
-      <ArchiaPreload />
-      <QuincyPreload />
       <ThemeProvider colors={VancouverColorTheme}>
         <Stories
           title={`Vancouver Island`}
