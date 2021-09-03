@@ -57,6 +57,7 @@ export const Stories: React.FunctionComponent<{
 
   const [isHolding, setIsHolding] = React.useState(false);
   const [isManual, setIsManual] = React.useState(false);
+  const [loadedIndexes, setLoadedIndexes] = React.useState(() => new Set());
 
   const [canInteract, setCanInteract] = React.useState(false);
   React.useEffect(() => {
@@ -69,7 +70,7 @@ export const Stories: React.FunctionComponent<{
     };
   });
 
-  const isPaused = isHolding || !canInteract;
+  const isPaused = isHolding || !canInteract || !loadedIndexes.has(index);
   useInterval(index, storyDuration, isPaused || isManual, () => {
     setIndex(nextIndex);
   });
@@ -147,8 +148,19 @@ export const Stories: React.FunctionComponent<{
         onTouchEnd={onInteractionEnd}
         onMouseUp={onInteractionEnd}
       >
-        {stories.slice(prevIndex, nextIndex + 1).map((story) => (
-          <StoryWrapper key={stories.indexOf(story)} isCurrent={story === stories[index]}>
+        {stories.slice(prevIndex, nextIndex + 1).map((story, currentIndex) => (
+          <StoryWrapper
+            key={stories.indexOf(story)}
+            isCurrent={story === stories[index]}
+            onLoad={(event: React.SyntheticEvent<HTMLImageElement>) => {
+              if (
+                event.target instanceof HTMLImageElement &&
+                !event.target.src.startsWith("data")
+              ) {
+                setLoadedIndexes((state) => new Set(state).add(prevIndex + currentIndex));
+              }
+            }}
+          >
             {story}
           </StoryWrapper>
         ))}
