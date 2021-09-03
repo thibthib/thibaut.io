@@ -15,6 +15,15 @@ const Background = styled.div<{ color: string }>`
   filter: opacity(0.5) brightness(0.9);
 `;
 
+const ChildWrapper = styled.div`
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+`;
+
 export const Story: React.FunctionComponent<{
   image: string;
   imageAlt?: string;
@@ -57,7 +66,7 @@ export const Story: React.FunctionComponent<{
           showLoader={!loaded}
         />
       )}
-      {loaded ? children : null}
+      <ChildWrapper>{loaded ? children : null}</ChildWrapper>
     </>
   );
 };

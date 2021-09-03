@@ -10,8 +10,9 @@ const HeaderWrapper = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
-  height: calc(100vh - ${({ theme }) => theme.spacing.XLarge});
-  width: 100vw;
+  height: calc(100% - ${({ theme }) => theme.spacing.XLarge});
+  width: 100%;
+  padding: ${({ theme }) => theme.spacing.medium};
   text-align: center;
   background: ${({ theme }) =>
     `linear-gradient(${theme.background},${theme.background} ${theme.spacing.XLarge}, transparent)`};
@@ -50,7 +51,8 @@ export const Overlay: React.FunctionComponent<{
   isManual: boolean;
   isPaused: boolean;
   header: React.ReactNode;
-}> = ({ storyCount, currentStoryIndex, storyDuration, isManual, isPaused, header }) => {
+  isHidden: boolean;
+}> = ({ storyCount, currentStoryIndex, storyDuration, isManual, isPaused, header, isHidden }) => {
   const [scroll, scrollUpdater] = useSpring(() => ({ percentage: 0 }));
 
   React.useEffect(() => {
@@ -63,6 +65,14 @@ export const Overlay: React.FunctionComponent<{
       document.removeEventListener("scroll", onScroll);
     };
   });
+
+  React.useEffect(() => {
+    if (isHidden) {
+      scrollUpdater.start({ percentage: 1 });
+    } else {
+      scrollUpdater.start({ percentage: 0 });
+    }
+  }, [isHidden, scrollUpdater]);
 
   const pausedStartState = React.useRef(isManual);
   React.useEffect(() => {
@@ -78,8 +88,8 @@ export const Overlay: React.FunctionComponent<{
       <animated.div
         style={{
           position: "absolute",
-          height: "100vh",
-          width: "100vw",
+          height: "100%",
+          width: "100%",
           WebkitBackdropFilter: scroll.percentage
             .to([0, 1], [1, 0])
             .to((value) => `blur(${value}rem)`) as any,
@@ -94,6 +104,8 @@ export const Overlay: React.FunctionComponent<{
           transform: scroll.percentage
             .to([0, 1], [0, spacingBase * 3])
             .to((value) => `translateY(${-value}rem)`),
+          height: "100%",
+          width: "100%",
         }}
       >
         <HeaderWrapper>{header}</HeaderWrapper>
