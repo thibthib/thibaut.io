@@ -7,7 +7,7 @@ export function useDimensions<RefType extends HTMLElement>(): [
 ] {
   const [dimensions, setDimensions] = useState({});
   const [node, setNode] = useState<RefType>();
-  const ref = useCallback((node) => {
+  const ref = useCallback((node: RefType) => {
     setNode(node);
   }, []);
 

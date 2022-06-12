@@ -3,7 +3,11 @@ import { css, Global } from "@emotion/react";
 import { colorVariables } from "./theme/colors";
 import { EditOnCodeSandbox } from "./EditOnCodeSandbox";
 
-export const Pre: React.FunctionComponent = ({ children }) => (
+export const Pre: React.FunctionComponent<{
+  children?: React.ReactNode;
+  editLink?: string;
+  fileName?: string;
+}> = ({ children, editLink, fileName }) => (
   <pre
     css={(theme) => css`
       background: ${theme.secondaryBackground};
@@ -26,13 +30,34 @@ export const Pre: React.FunctionComponent = ({ children }) => (
         margin: 0 0 ${theme.spacing.medium};
         border-radius: 4px;
       }
+
+      > code {
+        ${theme.monospaceFont};
+        color: ${theme.text};
+        display: block;
+        padding: ${theme.spacing.small};
+        padding-bottom: ${editLink && fileName ? 0 : theme.spacing.small};
+      }
     `}
   >
     {children}
+    {editLink && fileName ? (
+      <span
+        css={css`
+          width: 100%;
+          text-align: right;
+          display: inline-block;
+        `}
+      >
+        <EditOnCodeSandbox sandbox={editLink} fileName={fileName} />
+      </span>
+    ) : null}
   </pre>
 );
 
-export const InlineCode: React.FunctionComponent = ({ children }) => {
+export const InlineCode: React.FunctionComponent<{
+  children?: React.ReactNode;
+}> = ({ children }) => {
   return (
     <code
       css={(theme) => css`
@@ -102,35 +127,5 @@ export const CodeTheme = () => {
         }
       `}
     />
-  );
-};
-
-export const Code: React.FunctionComponent<{
-  className: string;
-  metastring: string;
-}> = ({ children, metastring }) => {
-  return (
-    <code
-      css={(theme) => css`
-        ${theme.monospaceFont};
-        color: ${theme.text};
-        display: block;
-        padding: ${theme.spacing.small};
-        padding-bottom: ${metastring ? 0 : theme.spacing.small};
-      `}
-    >
-      {children}
-      {metastring ? (
-        <span
-          css={css`
-            width: 100%;
-            text-align: right;
-            display: inline-block;
-          `}
-        >
-          <EditOnCodeSandbox info={metastring} />
-        </span>
-      ) : null}
-    </code>
   );
 };

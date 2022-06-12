@@ -2,6 +2,7 @@ const mdxPrism = require("mdx-prism");
 const withMDX = require("@next/mdx")({
   options: {
     rehypePlugins: [mdxPrism],
+    providerImportSource: '@mdx-js/react',
   },
 });
 const withTM = require("next-transpile-modules")(["@color-spaces/convert"]);
@@ -44,6 +45,9 @@ module.exports = withTM(
           : config.optimization.concatenateModules;
 
         return config;
+      },
+      experimental: {
+        emotion: true,
       },
     })
   )

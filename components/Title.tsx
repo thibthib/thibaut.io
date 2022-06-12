@@ -23,6 +23,7 @@ const getTitleComponent = (
   as: keyof JSX.IntrinsicElements
 ): React.FunctionComponent<{
   className?: string;
+  children?: React.ReactNode;
 }> =>
   function TitleComponent({ className, children, ...props }) {
     let emoji;

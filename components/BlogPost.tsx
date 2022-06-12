@@ -4,7 +4,7 @@ import { Global, css } from "@emotion/react";
 import Head from "next/head";
 import { useRouter } from "next/router";
 import { Emphasis } from "components/Emphasis";
-import { Code, InlineCode, Pre, CodeTheme } from "components/Code";
+import { InlineCode, Pre, CodeTheme } from "components/Code";
 import { Link } from "components/Link";
 import { h1, h2, h3, h4, h5, h6 } from "components/Title";
 import { ArchiaPreload, CartographPreload } from "components/theme/typography";
@@ -14,8 +14,7 @@ import { h1 as H1 } from "./Title";
 import { Favicon } from "./Favicon";
 
 const components = {
-  inlineCode: InlineCode,
-  code: Code,
+  code: InlineCode,
   pre: Pre,
   a: Link,
   em: Emphasis,
@@ -35,7 +34,10 @@ type MetaData = {
   emoji?: string;
 };
 
-export const BlogPost: React.FunctionComponent<{ meta: MetaData }> = ({ meta, children }) => {
+export const BlogPost: React.FunctionComponent<{ meta: MetaData; children: React.ReactNode }> = ({
+  meta,
+  children,
+}) => {
   const router = useRouter();
   const url = encodeURIComponent(`https://thibaut.io${router.pathname}`);
   return (
