@@ -23,6 +23,7 @@ export const Text: React.FunctionComponent<
   {
     style?: CSSProperties | undefined;
     background?: string;
+    children?: React.ReactNode;
   } & StickerProps
 > = ({ children, style, background, top, left, width, rotation }) => {
   const isBlurred = background === "blur" || background === "inverted-blur";

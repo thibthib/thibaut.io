@@ -28,10 +28,11 @@ export const Story: React.FunctionComponent<{
   image: string;
   imageAlt?: string;
   format?: "square" | "portrait";
+  children?: React.ReactNode;
 }> = ({ image, imageAlt, format, children }) => {
   const data = useImageData(image);
   const [loaded, setIsLoaded] = React.useState(false);
-  const hasLoaded = React.useCallback((event) => {
+  const hasLoaded = React.useCallback((event: React.SyntheticEvent<HTMLImageElement, Event>) => {
     if (!event.currentTarget.src.startsWith("data")) {
       setIsLoaded(true);
     }

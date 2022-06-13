@@ -1,7 +1,10 @@
 import * as React from "react";
 import { css } from "@emotion/react";
 
-export const Link: React.FunctionComponent<{ href: string }> = ({ href, children }) => (
+export const Link: React.FunctionComponent<{ href?: string; children?: React.ReactNode }> = ({
+  href,
+  children,
+}) => (
   <a
     href={href}
     css={(theme) => css`

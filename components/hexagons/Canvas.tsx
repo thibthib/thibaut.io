@@ -10,6 +10,7 @@ interface CanvasProps {
   width: number;
   dpr: number;
   isAnimating?: boolean;
+  children?: React.ReactNode;
 }
 
 export const Canvas: React.FunctionComponent<CanvasProps> = ({

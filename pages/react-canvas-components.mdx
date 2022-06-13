@@ -3,7 +3,19 @@ import { EditOnCodeSandbox } from "components/EditOnCodeSandbox";
 import { ClassNames, useTheme } from "@emotion/react";
 import { BlogPost } from "components/BlogPost";
 
-export default BlogPost;
+export default ({ children }) => (
+  <BlogPost
+    meta={{
+      title: "React + Canvas = 💜",
+      description: "An untold love story",
+      date: "February 20, 2020",
+      image: "https://files-idye8b3wm.now.sh/canvas.jpg",
+      emoji: "🖌",
+    }}
+  >
+    {children}
+  </BlogPost>
+);
 
 export const RandomHexagons = dynamic(
   () =>
@@ -33,14 +45,6 @@ export const InlineRandomHexagons = () => {
   );
 };
 
-export const meta = {
-  title: "React + Canvas = 💜",
-  description: "An untold love story",
-  date: "February 20, 2020",
-  image: "https://files-idye8b3wm.now.sh/canvas.jpg",
-  emoji: "🖌",
-};
-
 The `<canvas/>` HTML element can be used to draw graphics with a finer control than the usual DOM or SVG. But with React, trying to draw on a canvas is not intuitive as their interfaces are quite different. With React, each component owns their node, as opposed to canvas where there is only one shared node that we can use for drawing. Let's see how we can make a canvas visualization with React components !
 
 ## emoji=🧑‍🏫 Canvas 101
@@ -59,7 +63,7 @@ canvasContext.stroke();
 
 Having imperative code like this in a component-oriented codebase can be tricky! We would need to create a component that renders a `<canvas/>` on the page and then call the `moveTo` and `lineTo` methods on it to draw a line. In practice, it's a bit more complicated to bridge those two. We need to use a [React reference](https://thibaut.io/react-refs-evolution) to access the canvas DOM node, and to retrieve a 2D context from it; we are then able to call our drawing methods. The code would look like this:
 
-```jsx basic-canvas-hs3cy src/App.js
+```jsx
 const Canvas = () => {
   // we use a ref to access the canvas' DOM node
   const canvasRef = React.useRef(null);
@@ -72,6 +76,11 @@ const Canvas = () => {
   return <canvas ref={canvasRef} />;
 };
 ```
+
+<EditOnCodeSandbox
+  sandbox={"basic-canvas-hs3cy"}
+  fileName={"src/App.js"}
+/>
 
 But if we want to draw something a bit more complex, the `Canvas` component can become quite large. Usually, big components are split into several child components. Yet here this is not possible as there is only one `canvas` node.
 
@@ -113,16 +122,14 @@ How could we extract this logic into its own `Hexagon` component? The component 
 
 At this point the naming gets a bit tricky as we are trying to share a canvas' _context_ via a React _context_. Once we create a React context, we need to use the context's `Provider` to share a value. In the case of our `Canvas` component it would look like this:
 
-```jsx hexagons-30dkf src/Canvas.js
+```jsx
 // we create a React context with a _null_ default value
 const SharingContext = React.createContext(null);
 
 const Canvas = (props) => {
   const canvasRef = React.useRef(null);
-  const [
-    renderingContext,
-    setRenderingContext,
-  ] = React.useState(null);
+  const [renderingContext, setRenderingContext] =
+    React.useState(null);
 
   // the canvas rendering context is not immediately avalaible
   // the canvas node first needs to be added to the DOM by react
@@ -141,9 +148,14 @@ const Canvas = (props) => {
 };
 ```
 
+<EditOnCodeSandbox
+  sandbox={"hexagons-30dkf"}
+  fileName={"src/Canvas.js"}
+/>
+
 The `Hexagon` component needs to consume this React context to read its value – here with the `useContext` hook.
 
-```jsx hexagons-30dkf src/Hexagon.js
+```jsx
 const Hexagon = (props) => {
   // we get the rendering context by comsuming the React context
   const renderingContext = React.useContext(SharingContext);
@@ -154,9 +166,14 @@ const Hexagon = (props) => {
 };
 ```
 
+<EditOnCodeSandbox
+  sandbox={"hexagons-30dkf"}
+  fileName={"src/Hexagon.js"}
+/>
+
 Now that both our `Canvas` and `Hexagon` components are ready we are able to display randomly-generated hexagons:
 
-```jsx hexagons-30dkf src/App.js
+```jsx
 const App = () => (
   <Canvas>
     {getRandomHexagons().map((hexagon) => (
@@ -165,6 +182,11 @@ const App = () => (
   </Canvas>
 );
 ```
+
+<EditOnCodeSandbox
+  sandbox={"hexagons-30dkf"}
+  fileName={"src/App.js"}
+/>
 
 The last thing we need is to animate the hexagons so that they rotate.
 
@@ -176,7 +198,7 @@ As we saw, the canvas is like a sheet of paper – once it's been drawn on, it c
 
 First things first - the canvas should be cleared at the beginning of each frame. The easiest way to do this is to have an internal state counting the frames. This way, the component re-renders at each frame:
 
-```jsx animated-hexagons-v9j2q src/Canvas.js
+```jsx
 const [frameCount, setFrameCount] = React.useState(0);
 // this effect increments frameCount by one at the next frame
 // as it's called every time frameCount changes
@@ -195,6 +217,11 @@ if (context !== null) {
   context.clearRect(0, 0, actualWidth, actualHeight);
 }
 ```
+
+<EditOnCodeSandbox
+  sandbox={"animated-hexagons-v9j2q"}
+  fileName={"src/Canvas.js"}
+/>
 
 But... the canvas is now white! This is because the hexagons are only rendered once - when `<RandomHexagons/>` is first rendered. But, as the canvas is cleared on each frame, the hexagons are erased once the next render occurs. Child components must be forced to re-render and draw in the canvas on every frame. One solution is to share the `frameCount` from the canvas with the `Hexagon` component. This is achieved via a React context, like we did with `SharingContext`:
 
@@ -258,7 +285,7 @@ As the `Hexagon` component re-renders at every frame, this code makes its rotati
 
 Like we did with `useCanvas`, we can also improve the readability of this code by hiding the implementation details – here, using a React ref – in a hook:
 
-```jsx animated-hexagons-v9j2q src/Canvas.js
+```jsx
 const useAnimation = (initialValue, valueUpdater) => {
   const animatedValue = React.useRef(initialValue);
   animatedValue.current = valueUpdater(
@@ -268,9 +295,14 @@ const useAnimation = (initialValue, valueUpdater) => {
 };
 ```
 
+<EditOnCodeSandbox
+  sandbox={"animated-hexagons-v9j2q"}
+  fileName={"src/Canvas.js"}
+/>
+
 The `Hexagon` code now looks a bit better:
 
-```jsx animated-hexagons-v9j2q src/Hexagon.js
+```jsx
 const Hexagon = (props) => {
   // [...]
   const animatedRotation = useAnimation(
@@ -280,6 +312,11 @@ const Hexagon = (props) => {
   // drawing logic
 };
 ```
+
+<EditOnCodeSandbox
+  sandbox={"animated-hexagons-v9j2q"}
+  fileName={"src/Hexagon.js"}
+/>
 
 👏 Congratulations 👏 We now have animated canvas-based React components! We even created two custom hooks along the way to make our code nicer.
 
