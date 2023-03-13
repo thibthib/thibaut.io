@@ -202,17 +202,17 @@ const Page = () => {
           >
             projects
           </h2>
-          <Link href={"/duple"} passHref>
+          <Link href={"/duple"} passHref legacyBehavior>
             <PageLink label={"Duple"} description={"Recto-verso photography"} logo={"📷"} />
           </Link>
-          <Link href={"/react-refs-evolution"} passHref>
+          <Link href={"/react-refs-evolution"} passHref legacyBehavior>
             <PageLink
               label={"Evolution of refs"}
               description={"With great power comes great responsability"}
               logo={"🦖"}
             />
           </Link>
-          <Link href={"/react-canvas-components"} passHref>
+          <Link href={"/react-canvas-components"} passHref legacyBehavior>
             <PageLink
               label={"React + Canvas = 💜"}
               description={"An untold love story"}

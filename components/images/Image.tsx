@@ -2,6 +2,7 @@ import * as React from "react";
 import NextImage, { ImageProps as NextImageProps } from "next/image";
 import { Placeholder } from "./Placeholder";
 import styled from "@emotion/styled";
+import { useImageData } from "./useImageData";
 
 const ImageWrapper = styled.div`
   position: relative;
@@ -13,10 +14,11 @@ const ImageWrapper = styled.div`
 export const Image: React.FunctionComponent<
   NextImageProps & { name: string; showLoader: boolean }
 > = ({ name, showLoader = false, ...imageProps }) => {
+  const data = useImageData(name);
   return (
     <ImageWrapper>
       <Placeholder image={name} showLoader={showLoader} />
-      <NextImage {...imageProps} />
+      <NextImage {...imageProps} placeholder="blur" blurDataURL={data?.placeholder} />
     </ImageWrapper>
   );
 };

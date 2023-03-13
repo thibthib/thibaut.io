@@ -113,9 +113,6 @@ export const Placeholder: React.FunctionComponent<{ image: string; showLoader?: 
 }) => {
   const data = useImageData(image);
   return data === null ? null : (
-    <Background color={data.dominant}>
-      <Image aria-hidden="true" alt="" src={data.placeholder} />
-      {showLoader ? <Loader /> : null}
-    </Background>
+    <Background color={data.dominant}>{showLoader ? <Loader /> : null}</Background>
   );
 };

@@ -3,18 +3,19 @@ import { css } from "@emotion/react";
 import { GradientText } from "./GradientText";
 
 export const MenuLink = () => (
-  <Link href={`/`}>
-    <a
-      css={(theme) => css`
-        font-weight: 600;
-        position: relative;
-        display: inline-block;
-        text-decoration: none;
-        font-size: ${theme.fontSizes.large};
-        line-height: 1.2em;
-        cursor: pointer;
-      `}
-    >
+  <Link
+    href={`/`}
+    css={(theme) => css`
+      font-weight: 600;
+      position: relative;
+      display: inline-block;
+      text-decoration: none;
+      font-size: ${theme.fontSizes.large};
+      line-height: 1.2em;
+      cursor: pointer;
+    `}
+  >
+    <>
       <GradientText>thibaut</GradientText>
       <div
         css={css`
@@ -43,6 +44,6 @@ export const MenuLink = () => (
           thibaut
         </div>
       </div>
-    </a>
+    </>
   </Link>
 );

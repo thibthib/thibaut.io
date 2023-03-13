@@ -1,5 +1,5 @@
 import * as React from "react";
-import Image from "next/image";
+import Image from "next/legacy/image";
 import styled from "@emotion/styled";
 
 const Placeholder = styled.img`
