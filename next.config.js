@@ -46,7 +46,7 @@ module.exports = withTM(
 
         return config;
       },
-      experimental: {
+      compiler: {
         emotion: true,
       },
     })
